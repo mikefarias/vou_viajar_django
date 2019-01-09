@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Login</h2>
+    <a href="{% url 'social:begin' 'google-oauth2' %}">Login com o Google</a><br />
+    <a href="{% url 'social:begin' 'twitter' %}">Login com o Twitter</a><br>
+    <a href="{% url 'social:begin' 'facebook' %}">Login com o Facebook</a><br>
+    <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+
+{% endblock %}
