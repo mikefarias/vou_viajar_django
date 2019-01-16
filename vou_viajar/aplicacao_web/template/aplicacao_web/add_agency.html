@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>Adicionar Agência</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-condensed">
+            <tbody>
+                {{ form.as_table }}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <button type="submit" class="btn btn-success">Salvar Agência</button>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
+
+{% endblock  %}

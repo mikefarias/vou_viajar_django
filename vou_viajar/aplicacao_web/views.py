@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
-from core.forms import EventoForm
-from core.models import Evento
 
+from core.models import Evento
+from core.models import Agencia
+from core.forms import EventoForm
+from core.forms import AgenciaForm
 
 def home(request):
     return render(request, 'aplicacao_web/home.html')
@@ -20,16 +22,17 @@ def index(request):
 def login(request):
     return render(request, 'autenticacao/login.html')
 
-def add_event(request):
+
+def add_agency(request):
     if request.method == 'POST':
-        evento = Evento()
-        form = EventoForm(request.POST, instance=evento)
+        agencia = Agencia()
+        form = AgenciaForm(request.POST, instance=agencia)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Evento cadastrado com sucesso!')
-            return redirect('home')
+            messages.success(request, 'Agência cadastrada com sucesso!')
+            return redirect('index')
         else:
-            return render(request, 'evento.html', {'form': form})
+            return render(request, 'aplicacao_web/add_agency.html', {'form': form})
     else:
-        form = EventoForm()
-        return render(request, 'evento.html', {'form': form})
+        form = AgenciaForm()
+        return render(request, 'aplicacao_web/add_agency.html', {'form': form})

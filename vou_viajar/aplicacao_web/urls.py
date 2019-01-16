@@ -5,8 +5,7 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', web_views.home, name='home'),
-    path('post/event', web_views.add_event, name='add_event'),
+    path('post/agency', web_views.add_agency, name='add_agency'),
     path('base/', web_views.base, name='base'),
     path('index/', web_views.index, name='index'),
     path('login/', web_views.login, name='login'),
