@@ -15,32 +15,45 @@
 
 <body>
 
-  <ul class="nav justify-content-end">
-    <li class="nav-item">
-        <a class="nav-link active" href="#">Quem Somos</a>
-    </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Experiências</a>
-            <a class="dropdown-item" href="#">Destinos</a>
+    <nav class="navbar navbar-expanded-lg navbar-light bg-light">
+
+        <!-- Logo com redirecionamento para tela inicial-->
+        <a class="navbar-bran  h1 mb-0" href="#login.html">Vou Viajar </a>
+        <!-- Botão e ícone para menu expansivo-->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSite">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Conteúdo -->
+        <div class="collapse navbar-collapse" id="navbarSite">
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Quem Somos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Experiências</a>
+                        <a class="dropdown-item" href="#">Destinos</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Entrar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Cadastre-se</a>
+                </li>
+            </ul>
         </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'login' %}">Entrar</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#">Cadastre-se</a>
-    </li>
-  </ul>
 
-  <!-- Primeiro o jQuery, depois o Popper.js, e depois o Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+    </nav>
 
-  {% block content %}
-  {% endblock %}
+    <!-- Primeiro o jQuery, depois o Popper.js, e depois o Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
+
+    {% block content %}
+    {% endblock %}
 
 </body>
 </html>
