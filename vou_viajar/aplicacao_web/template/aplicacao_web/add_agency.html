@@ -2,19 +2,23 @@
 
 {% block content %}
 
-    <h2>Adicionar Agência</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <table class="table table-condensed">
-            <tbody>
-                {{ form.as_table }}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <button type="submit" class="btn btn-success">Salvar Agência</button>
-                </tr>
-            </tfoot>
-        </table>
-    </form>
+    <div>
+        <h2>Adicionar Agência</h2>
+        <form method="POST">
+            <div class="container" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <tbody>
+                        {{ form.as_p }}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <button type="submit" class="btn btn-success">Salvar Agência</button>
+                        </tr>
+                    </tfoot>
+                </div>
+            </div>
+        </form>
+    </div>
 
 {% endblock  %}
