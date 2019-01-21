@@ -1,17 +1,17 @@
 from django import forms
 
-from core.models import Evento
+from core.models import Excursao
 from core.models import Agencia
 
 
-class EventoForm(forms.ModelForm):
+class ExcursaoForm(forms.ModelForm):
     inicio_evento = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(date_attrs={'type': 'date'}, time_attrs={'type': 'time'}))
     fim_evento = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(date_attrs={'type': 'date'}, time_attrs={'type': 'time'}))
 
     class Meta:
-        model = Evento
+        model = Excursao
         fields = [
             'titulo',
             'descricao',

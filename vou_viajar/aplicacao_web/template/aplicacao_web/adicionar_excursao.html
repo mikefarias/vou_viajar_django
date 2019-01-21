@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div>
+        <h2>Adicionar Excursão</h2>
+        <form method="POST">
+            <div class="container" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <tbody>
+                        {{ form }}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <button type="submit" class="btn btn-success">Salvar Excursao</button>
+                        </tr>
+                    </tfoot>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock  %}

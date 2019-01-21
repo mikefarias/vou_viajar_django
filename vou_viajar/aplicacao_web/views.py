@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
 
-from core.models import Evento
+from core.models import Excursao
 from core.models import Agencia
-from core.forms import EventoForm
+from core.forms import ExcursaoForm
 from core.forms import AgenciaForm
 
 def home(request):
@@ -36,3 +36,19 @@ def add_agency(request):
     else:
         form = AgenciaForm()
         return render(request, 'aplicacao_web/add_agency.html', {'form': form})
+
+
+def adicionar_excursao(request):
+    if request.method == 'POST':
+        excursao = Excursao()
+        form = ExcursaoForm(request.POST, instance=excursao)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Excursão cadastrada com sucesso!')
+            return redirect('index')
+        else:
+            return render(request, 'aplicacao_web/adicionar_excursao.html', {'form': form})
+    else:
+        form = ExcursaoForm()
+        return render(request, 'aplicacao_web/adicionar_excursao.html', {'form': form})
+

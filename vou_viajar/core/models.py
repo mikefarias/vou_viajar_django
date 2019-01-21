@@ -2,7 +2,7 @@ from django.db import models
 from model_utils import Choices
 
 
-class Evento(models.Model):
+class Excursao(models.Model):
 
     SITUACOES = Choices(
         (1, 'ATIVO', 'Ativo'),
