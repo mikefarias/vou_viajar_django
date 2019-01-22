@@ -2,23 +2,16 @@
 
 {% block content %}
 
-    <div>
-        <h2>Adicionar Excursão</h2>
-        <form method="POST">
-            <div class="container" >
-                {% csrf_token %}
-                <div class="form-group">
-                    <tbody>
-                        {{ form }}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <button type="submit" class="btn btn-success">Salvar Excursao</button>
-                        </tr>
-                    </tfoot>
-                </div>
-            </div>
-        </form>
+     {% load bootstrap4 %}
+
+    <br class="container" >
+        <h2>Cadastrar Excursão</h2><br>
+        <form method="post" class="form" >
+            {% csrf_token %} {% bootstrap_form form layout='horizontal' size='small' %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            {% endbuttons %}
+         </form>
     </div>
 
 {% endblock  %}

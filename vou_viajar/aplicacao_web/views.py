@@ -23,7 +23,7 @@ def login(request):
     return render(request, 'autenticacao/login.html')
 
 
-def add_agency(request):
+def adicionar_agencia(request):
     if request.method == 'POST':
         agencia = Agencia()
         form = AgenciaForm(request.POST, instance=agencia)
@@ -32,10 +32,10 @@ def add_agency(request):
             messages.success(request, 'Agência cadastrada com sucesso!')
             return redirect('index')
         else:
-            return render(request, 'aplicacao_web/add_agency.html', {'form': form})
+            return render(request, 'aplicacao_web/adicionar_agencia.html', {'form': form})
     else:
         form = AgenciaForm()
-        return render(request, 'aplicacao_web/add_agency.html', {'form': form})
+        return render(request, 'aplicacao_web/adicionar_agencia.html', {'form': form})
 
 
 def adicionar_excursao(request):

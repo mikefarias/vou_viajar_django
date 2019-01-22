@@ -5,9 +5,9 @@ from core.models import Agencia
 
 
 class ExcursaoForm(forms.ModelForm):
-    inicio_evento = forms.SplitDateTimeField(
+    horario_inicio = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(date_attrs={'type': 'date'}, time_attrs={'type': 'time'}))
-    fim_evento = forms.SplitDateTimeField(
+    horario_fim = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(date_attrs={'type': 'date'}, time_attrs={'type': 'time'}))
 
     class Meta:
@@ -17,8 +17,8 @@ class ExcursaoForm(forms.ModelForm):
             'descricao',
             'origem',
             'destino',
-            'inicio_evento',
-            'fim_evento'
+            'horario_inicio',
+            'horario_fim'
         ]
 
 

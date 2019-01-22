@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% load bootstrap4 %}
+
+    {# Display a form #}
+
+    <div class="container">
+        <h2>Atualizar Agência</h2>
+        <form action="/url/to/submit/" method="post" class="form">
+            {% csrf_token %}
+            {% bootstrap_form form layout='horizontal' size='small' %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            {% endbuttons %}
+        </form>
+    </div>
+
+{% endblock  %}
