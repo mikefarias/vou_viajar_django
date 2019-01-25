@@ -1,1 +1,1 @@
-web: gunicorn config.wsgi
+web: gunicorn vou_viajar.wsgi
