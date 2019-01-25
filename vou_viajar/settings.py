@@ -56,6 +56,11 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')
+
 ROOT_URLCONF = 'vou_viajar.urls'
 
 TEMPLATES = [
