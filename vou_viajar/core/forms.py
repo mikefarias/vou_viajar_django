@@ -1,7 +1,7 @@
 from django import forms
 
-from core.models import Excursao
-from core.models import Agencia
+from .models import Excursao
+from .models import Agencia
 
 
 class ExcursaoForm(forms.ModelForm):

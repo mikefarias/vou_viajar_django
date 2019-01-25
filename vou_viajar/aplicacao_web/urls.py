@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from aplicacao_web import views as web_views
 from django.conf.urls import include
+
+from . import views as web_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),

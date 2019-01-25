@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
 
-from core.models import Excursao
-from core.models import Agencia
-from core.forms import ExcursaoForm
-from core.forms import AgenciaForm
+from vou_viajar.core.models import Excursao
+from vou_viajar.core.models import Agencia
+from vou_viajar.core.forms import ExcursaoForm
+from vou_viajar.core.forms import AgenciaForm
 
 def home(request):
     return render(request, 'aplicacao_web/home.html')

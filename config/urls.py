@@ -22,7 +22,7 @@ from django.contrib import admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api/', include('api.urls', namespace='api')),
-    path('', include('aplicacao_web.urls')),
+    path('', include('vou_viajar.aplicacao_web.urls')),
 ]
 
 # ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

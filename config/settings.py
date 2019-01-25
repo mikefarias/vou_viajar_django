@@ -38,11 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    'aplicacao_web',
     'bootstrap4',
     'social_django',
-
+    'vou_viajar.core',
+    'vou_viajar.aplicacao_web',
 ]
 
 MIDDLEWARE = [
@@ -61,12 +60,12 @@ MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')
 
-ROOT_URLCONF = 'vou_viajar.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'aplicacao_web/template/')],
+        'DIRS': [os.path.join(BASE_DIR, 'vou_viajar/aplicacao_web/template/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,7 +92,7 @@ SOCIAL_AUTH_TWITTER_SECRET = config('SOCIAL_AUTH_TWITTER_SECRET')  # Twitter App
 SOCIAL_AUTH_FACEBOOK_KEY = config('SOCIAL_AUTH_FACEBOOK_KEY')  # Facebook App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = config('SOCIAL_AUTH_FACEBOOK_SECRET')  # Facebook App Secret
 
-WSGI_APPLICATION = 'vou_viajar.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
@@ -142,4 +141,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
-STATIC_URL = '/aplicacao_web/static/'
+STATIC_URL = '/static/'
