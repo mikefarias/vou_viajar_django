@@ -53,7 +53,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'vou_viajar/aplicacao_web/template/')],
+        'DIRS': [os.path.join(BASE_DIR, 'vou_viajar', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
