@@ -11,3 +11,12 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+# Security
+# https://docs.djangoproject.com/en/2.1/topics/security/
+
+SECURE_SSL_REDIRECT = True
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
