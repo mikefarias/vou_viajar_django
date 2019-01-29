@@ -20,6 +20,7 @@ from django.contrib import admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('oauth/', include('social_django.urls', namespace='social')),
-    # path('api/', include('api.urls', namespace='api')),
-    path('', include('vou_viajar.aplicacao_web.urls')),
+    path('conta/', include('vou_viajar.conta.urls')),
+    path('excursao/', include('vou_viajar.excursao.urls')),
+    path('', include('vou_viajar.core.urls')),
 ]

@@ -34,7 +34,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'social_django',
     'vou_viajar.core',
-    'vou_viajar.aplicacao_web',
+    'vou_viajar.conta',
+    'vou_viajar.excursao',
 ]
 
 MIDDLEWARE = [
