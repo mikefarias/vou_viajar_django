@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .forms import AgenciaForm
@@ -16,7 +18,7 @@ def adicionar_agencia(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Agência cadastrada com sucesso!')
-            return redirect('index')
+            return redirect('home')
     else:
         form = AgenciaForm()
     return render(

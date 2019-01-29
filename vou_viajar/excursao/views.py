@@ -13,7 +13,7 @@ def adicionar_excursao(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Excursão cadastrada com sucesso!')
-            return redirect('index')
+            return redirect('home')
     else:
         form = ExcursaoForm()
     return render(
