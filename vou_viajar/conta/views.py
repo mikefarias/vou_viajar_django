@@ -8,7 +8,6 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .forms import AgenciaForm
-from .models import Agencia
 
 # Create your views here.
 
@@ -28,10 +27,11 @@ def adicionar_agencia(request):
 
     form = None
     if request.method == 'POST':
-        agencia = Agencia()
-        form = AgenciaForm(request.POST, instance=agencia)
+        form = AgenciaForm(request.POST)
         if form.is_valid():
-            form.save()
+            agencia = form.save(commit=False)
+            agencia.usuario_cadastro = request.user
+            agencia.save()
             messages.success(request, 'Agência cadastrada com sucesso!')
             return redirect('home')
     else:
