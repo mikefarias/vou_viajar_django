@@ -1,11 +1,22 @@
-from django.shortcuts import render
+"""
+Views da aplicação 'excursao'.
+"""
+
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.contrib import messages
 
-from .models import Excursao
 from .forms import ExcursaoForm
+from .models import Excursao
 
+@login_required
 def adicionar_excursao(request):
+    """
+    View para mostrar a tela de cadastro de uma excursão e receber a requisição
+    de cadastro.
+    """
+
     form = None
     if request.method == 'POST':
         excursao = Excursao()
@@ -21,4 +32,3 @@ def adicionar_excursao(request):
         'excursao/adicionar_excursao.html',
         {'form': form},
     )
-
