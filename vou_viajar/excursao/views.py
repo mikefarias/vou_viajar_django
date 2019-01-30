@@ -8,7 +8,6 @@ from django.shortcuts import render
 from django.contrib import messages
 
 from .forms import ExcursaoForm
-from .models import Excursao
 
 @login_required
 def adicionar_excursao(request):
@@ -19,10 +18,11 @@ def adicionar_excursao(request):
 
     form = None
     if request.method == 'POST':
-        excursao = Excursao()
-        form = ExcursaoForm(request.POST, instance=excursao)
+        form = ExcursaoForm(request.POST)
         if form.is_valid():
-            form.save()
+            excursao = form.save(commit=False)
+            excursao.usuario_cadastro = request.user
+            excursao.save()
             messages.success(request, 'Excursão cadastrada com sucesso!')
             return redirect('home')
     else:

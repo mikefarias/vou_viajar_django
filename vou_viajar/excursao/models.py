@@ -1,8 +1,17 @@
+"""
+Models da aplicação 'excursao'.
+"""
+
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
 class Excursao(models.Model):
+    """
+    A class Excursao representa uma excursão turística.
+    """
+
     SITUACAO_ATIVO = 1
     SITUACAO_REALIZADA = 2
     SITUACAO_CANCELADO = 3
@@ -35,7 +44,8 @@ class Excursao(models.Model):
     horario_fim = models.DateTimeField()
     origem = models.CharField(max_length=100, null=False)
     destino = models.CharField(max_length=100, null=False)
+    usuario_cadastro = models.ForeignKey(User, on_delete=models.PROTECT)
+    data_cadastro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.titulo
-
