@@ -53,7 +53,8 @@ docs/_build/
 /env/
 /venv/
 \venv\
-
+/VENV/
+\VENV\
 # Python decouple enviroment file
 .env
 
