@@ -5,9 +5,9 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'public/index.html')
 
-def about(request):
-    return render(request, 'public/about.html')
-
 def login(request):
     return render(request, 'conta/login.html')
+
+def destinos(request):
+    return render(request, 'public/places.html')
 
