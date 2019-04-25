@@ -11,3 +11,8 @@ def login(request):
 def destinos(request):
     return render(request, 'public/places.html')
 
+def blog(request):
+    return render(request, 'public/blog.html')
+
+
+
