@@ -18,6 +18,13 @@ def login(request):
 
     return render(request, 'conta/login.html')
 
+def login_modal(request):
+    """
+    View para mostrar a tela de login do sistema.
+    """
+
+    return render(request, 'conta/login-modal.html')
+
 @login_required
 def adicionar_agencia(request):
     """

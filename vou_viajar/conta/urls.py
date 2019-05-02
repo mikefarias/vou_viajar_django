@@ -9,5 +9,6 @@ urlpatterns = [
         name='adicionar_agencia',
     ),
     path('login/', views.login, name='login'),
+    path('login-modal/', views.login_modal, name='login-modal'),
     # path('logout/', views.logout_view, name='logout'),
 ]

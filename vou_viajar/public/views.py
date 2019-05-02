@@ -8,6 +8,9 @@ def index(request):
 def login(request):
     return render(request, 'conta/login.html')
 
+def logout(request):
+    index(request)
+
 def destinos(request):
     return render(request, 'public/places.html')
 
