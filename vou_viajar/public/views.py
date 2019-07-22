@@ -9,7 +9,7 @@ def login(request):
     return render(request, 'conta/login.html')
 
 def logout(request):
-    index(request)
+    return render(request, 'public/index.html')
 
 def destinos(request):
     return render(request, 'public/places.html')

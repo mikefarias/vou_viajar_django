@@ -1,8 +1,46 @@
-{% extends 'public/base.html' %}
-
-{% block content %}
-    <h2>Login</h2>
-    <a href="{% url 'social:begin' 'facebook' %}">Login com o Facebook</a><br>
-    <a class="loginBtn loginBtn--google" href="{% url 'social:begin' 'google-oauth2' %}">Login com Google</a>
-
-{% endblock %}
+<link rel="stylesheet" href="../../static/css/login.css">
+ 
+<div class="container">
+    <form action="/action_page.php">
+      <div class="row">
+        <h2 style="text-align:center">Login com Rede Social ou Manual</h2>
+        <div class="vl">
+          <span class="inner">ou</span>
+        </div>
+  
+        <div class="col">
+          <a href="{% url 'social:begin' 'facebook' %}" class="fb btn">
+            <i class="fa fa-facebook fa-fw"></i> Login com Facebook
+          </a>
+          <a href="#" class="twitter btn">
+            <i class="fa fa-twitter fa-fw"></i> Login com Twitter
+          </a>
+          <a href="{% url 'social:begin' 'google-oauth2' %}" class="google btn">
+            <i class="fa fa-google fa-fw"></i> Login com Gmail
+          </a>
+        </div>
+  
+        <div class="col">
+          <div class="hide-md-lg">
+            <p>Login manual:</p>
+          </div>
+  
+          <input type="text" name="usuário" placeholder="Usuário" required>
+          <input type="password" name="senha" placeholder="Senha" required>
+          <input type="submit" value="Login">
+        </div>
+  
+      </div>
+    </form>
+  </div>
+  
+  <div class="bottom-container">
+    <div class="row">
+      <div class="col">
+        <a href="#" style="color:white" class="btn">Criar Conta</a>
+      </div>
+      <div class="col">
+        <a href="#" style="color:white" class="btn">Esqueceu a senha?</a>
+      </div>
+    </div>
+  </div>
