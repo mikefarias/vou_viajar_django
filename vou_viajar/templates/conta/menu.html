@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Menu Principal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+          <h2 class="mb-4">Módulos do Sistema</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-2" >
+          <div class="card">
+            <img class="card-img-top img-thumbnail" src="../../static/images/config-perfil.png" alt="Card image" >
+              <div class="card-body">
+                <h4 class="card-title text text-center">Gestão de Viagens</h4>
+                <a href="#" class="stretched-link"></a>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card">
+            <img class="card-img-top img-thumbnail" src="../../static/images/config-perfil.png" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title text text-center">Gestão Finaceira</h4>
+                <a href="#" class="stretched-link"></a>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card">
+            <img class="card-img-top img-thumbnail" src="../../static/images/config-perfil.png" alt="Card image">
+            <div class="card-body">
+              <h4 class="card-title text text-center">Gestão de Perfil</h4>
+              <a href="{% url 'adicionar_agencia' %}" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-2" >
+          <div class="card">
+            <img class="card-img-top img-thumbnail" src="../../static/images/config-perfil.png" alt="Card image" >
+            <div class="card-body">
+              <h4 class="card-title text text-center">Gestão de Marketing</h4>
+              <a href="#" class="stretched-link"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card">
+            <img class="card-img-top img-thumbnail" src="../../static/images/config-perfil.png" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title text text-center">Gestão Site</h4>
+                <a href="#" class="stretched-link"></a>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="card">
+            <img class="card-img-top img-thumbnail" src="../../static/images/config-perfil.png" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title text text-center">Gestão de Vendas</h4>
+                  <a href="{% url 'adicionar_agencia' %}" class="stretched-link"></a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>

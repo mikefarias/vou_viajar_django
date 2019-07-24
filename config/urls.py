@@ -19,7 +19,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('oauth/', include('social_django.urls', namespace='social')),
+    path('oauth/i', include('social_django.urls', namespace='social')),
     path('conta/', include('vou_viajar.conta.urls')),
     path('excursao/', include('vou_viajar.excursao.urls')),
     path('home/', include('vou_viajar.core.urls')),

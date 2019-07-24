@@ -10,5 +10,6 @@ urlpatterns = [
     ),
     path('login/', views.login, name='login'),
     path('login-modal/', views.login_modal, name='login-modal'),
+    path('menu/', views.menu, name='menu'),
     # path('logout/', views.logout_view, name='logout'),
 ]
