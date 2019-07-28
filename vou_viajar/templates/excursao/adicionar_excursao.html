@@ -1,17 +1,11 @@
 {% extends 'base.html' %}
 
-{% block content %}
-
-     {% load bootstrap4 %}
-
-    <br class="container" >
-        <h2>Cadastrar Excursão</h2><br>
-        <form method="post" class="form" >
-            {% csrf_token %} {% bootstrap_form form layout='horizontal' size='small' %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            {% endbuttons %}
-         </form>
-    </div>
-
-{% endblock  %}
+            {% block content %}
+                {% load crispy_forms_tags %}
+                <form method="post" novalidate >
+                    <h2>Cadastrar Excursão</h2><br>
+                    {% csrf_token %} 
+                    {{form|crispy}}
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                </form>
+            {% endblock %}

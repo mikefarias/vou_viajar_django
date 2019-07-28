@@ -32,12 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap4',
+    'crispy_forms',
     'social_django',
     'vou_viajar.core',
     'vou_viajar.conta',
     'vou_viajar.excursao',
     'vou_viajar.public',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -117,7 +120,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'conta/menu'
+LOGIN_REDIRECT_URL = 'home'
 
 
 # Password validation
