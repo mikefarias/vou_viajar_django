@@ -10,6 +10,10 @@ from django.contrib import messages
 from .forms import ExcursaoForm
 
 @login_required
+def menu_excursao(request):
+    return render(request, 'excursao/menu_excursao.html')
+
+@login_required
 def adicionar_excursao(request):
     """
     View para mostrar a tela de cadastro de uma excursão e receber a requisição

@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'bootstrap4',
     'crispy_forms',
     'social_django',
-    'vou_viajar.core',
     'vou_viajar.conta',
     'vou_viajar.excursao',
     'vou_viajar.public',
@@ -120,7 +119,7 @@ AUTHENTICATION_BACKENDS = (
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'menu'
 
 
 # Password validation
