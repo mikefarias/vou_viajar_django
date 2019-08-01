@@ -34,7 +34,7 @@ def adicionar_excursao(request):
             excursao.usuario_cadastro = request.user
             excursao.save()
             messages.success(request, 'Excursão cadastrada com sucesso!')
-            return redirect('home')
+            return redirect('listar_excursao.html')
     else:
         form = ExcursaoForm()
     return render(
