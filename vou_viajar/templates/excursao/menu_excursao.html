@@ -1,13 +1,13 @@
 <head>
-    <title>Bootstrap Example</title>
+    <title>Excursão</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
 </head>
+
 <div class="container bootstrap snippet">
-    
     <br>
     <div class="row">
     	<div class="col-sm-9">
@@ -25,7 +25,7 @@
                         <div class="panel-body">
                             <div class="list-group"> 
                                 <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
-                                <a href="#" class="list-group-item"> Listar/Alterar Excursão </a>
+                                <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Alterar Excursão </a>
                                 <a href="#" class="list-group-item"> Associar Cliente </a>
                                 <a href="#" class="list-group-item"> Registrar Andamento </a>
                                 <a href="#" class="list-group-item"> Finalizar Excursão</a>

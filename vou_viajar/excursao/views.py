@@ -7,11 +7,17 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.contrib import messages
 
+from .models import Excursao
 from .forms import ExcursaoForm
 
 @login_required
 def menu_excursao(request):
     return render(request, 'excursao/menu_excursao.html')
+
+@login_required
+def listar_excursao(request):
+    excursoes = Excursao.objects.all()
+    return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
 
 @login_required
 def adicionar_excursao(request):
