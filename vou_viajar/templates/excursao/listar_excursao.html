@@ -35,11 +35,12 @@
                                             <td>{{ excursao.origem }}</td>
                                             <td>{{ excursao.destino }}</td>
                                             <td>
-                                                <a href="{% url 'adicionar_excursao' %}" class="btn btn-info"> Atualizar </a>
-                                                <a href="{% url 'adicionar_excursao' %}" class="btn btn-outline-danger"> Excluir </a>
+                                                <a href="{% url 'atualizar' pk=excursao.id %}" class="btn btn-info"> Atualizar </a>
+                                                <a href="{% url 'deletar' pk=excursao.id %}" class="btn btn-outline-danger"> Deletar </a>
                                             </td>
                                         </tr>
                                     {% endfor %}
+
                                 </tbody>
                             </table>
                         {% else %}
@@ -49,7 +50,8 @@
                         {% endif %}
                             <hr />
                             <div class="text-right">
-                                <a href="{% url 'adicionar_excursao' %}" class="btn btn-primary"> Cadastrar Excursão </a>
+                                <a href="{% url 'adicionar' %}" class="btn btn-primary"> Cadastrar Excursão </a>
+                                <a href="{% url 'menu' %}" class="btn btn-primary"> Menu </a>
                             </div>
                     </div> <!--/card-body -->
                 </div> <!--/card -->
@@ -61,6 +63,4 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.js"></script>
   </body>
-  
-
 </html>

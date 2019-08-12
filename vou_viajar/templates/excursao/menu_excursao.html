@@ -26,8 +26,8 @@
                                 <div class="panel-heading">Gestão de Excursões <i class="fa fa-link fa-1x"></i></div>
                                 <div class="panel-body">
                                     <div class="list-group">
-                                        <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
-                                        <a href="#" class="list-group-item"> Listar/Alterar Excursão </a>
+                                        <a href="{% url 'adicionar' %}" class="list-group-item"> Nova Excursão </a>
+                                        <a href="{% url 'listar' %}" class="list-group-item"> Listar/Alterar Excursão </a>
                                         <a href="#" class="list-group-item"> Análise de Custo </a>
                                         <a href="#" class="list-group-item"> Montar Roteiro </a>
                                         <a href="#" class="list-group-item"> Associar Cliente </a>
@@ -37,16 +37,23 @@
                                 </div>
                             </div>
                             <div class="col-sm-6">
+                                <div class="panel-heading">Mapear Destino <i class="fa fa-link fa-1x"></i></div>
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="{% url 'adicionar' %}" class="list-group-item"> Nova Excursão </a>
+                                        <a href="{% url 'listar' %}" class="list-group-item"> Listar/Alterar Excursão </a>
+                                        <a href="#" class="list-group-item"> Análise de Custo </a>
+                                        <a href="#" class="list-group-item"> Montar Roteiro </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
                                 <div class="panel-heading">Comunicação com Cliente <i class="fa fa-link fa-1x"></i></div>
                                 <div class="panel-body">
                                     <div class="list-group">
-                                        <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
-                                        <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Alterar Excursão </a>
-                                        <a href="#" class="list-group-item"> Análise de Custo </a>
-                                        <a href="#" class="list-group-item"> Montar Roteiro </a>
-                                        <a href="#" class="list-group-item"> Associar Cliente </a>
-                                        <a href="#" class="list-group-item"> Registrar Andamento </a>
-                                        <a href="#" class="list-group-item"> Finalizar Excursão</a>
+                                        <a href="{% url 'adicionar' %}" class="list-group-item"> Mapear Destino </a>
+                                        <a href="{% url 'listar' %}" class="list-group-item"> Atualizar Destino </a>
+                                        <a href="#" class="list-group-item"> Listar Destinos </a>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +80,7 @@
                     <div class="panel-heading">Destinos <i class="fa fa-link fa-1x"></i></div>
                     <div class="panel-body">
                         <div class="list-group">
-                            <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Novo Destino </a>
+                            <a href="{% url 'adicionar' %}" class="list-group-item"> Novo Destino </a>
                             <a href="#" class="list-group-item"> Listar/Alterar Destino </a>
                         </div>
                     </div>
