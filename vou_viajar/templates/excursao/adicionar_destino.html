@@ -1,5 +1,5 @@
 <head>
-    <title>Atualizar Excursão</title>
+    <title>Novo Destinos</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,12 +13,14 @@
             {% block content %}
                 {% load crispy_forms_tags %}
                 <form method="post" novalidate >
-                    <h2>Atualizar Excursão</h2><br>
+                    <h2>Mapear Destino</h2><br>
                     {% csrf_token %} 
                     {{form|crispy}}
-                    <button type="submit" class="btn btn-primary">Atualizar</button>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <a href="{% url 'menu' %}" class="btn btn-primary"> Voltar </a>
                 </form>
             {% endblock %}
-        </div>
+        </div> <!--/row -->
     </div>
 </div>
+

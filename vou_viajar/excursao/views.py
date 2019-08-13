@@ -11,6 +11,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from .models import Excursao
 from .forms import ExcursaoForm
+from .models import Destino
+from .forms import DestinoForm
 
 @login_required
 def menu_excursao(request):
@@ -50,7 +52,7 @@ def deletar_excursao(request, pk):
     if excursao.delete():
         return redirect('../listar_excursao')
     else:
-        return server_errror(reqest, 'ops_500.html')
+        return server_errror(request, 'ops_500.html')
 
     return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
 
@@ -77,3 +79,64 @@ def adicionar_excursao(request):
         'excursao/adicionar_excursao.html',
         {'form': form},
     )
+
+@login_required
+def adicionar_destino(request):
+    """
+    View para mostrar a tela de mapeamento de um excursão e receber a requisição
+    de cadastro.
+    """
+
+    form = None
+    if request.method == 'POST':
+        form = DestinoForm(request.POST)
+        if form.is_valid():
+            destino = form.save(commit=False)
+            destino.save()
+            messages.success(request, 'Destino mapeado com sucesso!')
+            return redirect('listar_destino')
+    else:
+        form = DestinoForm()
+    return render(
+        request,
+        'excursao/adicionar_destino.html',
+        {'form': form},
+    )
+
+@login_required
+def listar_destino(request):
+    destinos = Destino.objects.all()
+    return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
+
+@login_required 
+def atualizar_destino(request, pk):
+    destino = get_object_or_404(Destino, pk=pk)
+    form = DestinoForm(instance=destino)
+    if(request.method == 'POST'):
+        form = DestinoForm(request.POST, instance=destino)    
+        if(form.is_valid()):
+            destino = form.save(commit=False)
+            destino.nome_turistico = form.cleaned_data['nome_turistico']
+            destino.pais = form.cleaned_data['pais']
+            destino.estado = form.cleaned_data['estado']
+            destino.cidade_fim = form.cleaned_data['cidade']
+            destino.cep = form.cleaned_data['cep']
+            destino.save()
+            messages.success(request,('Sucesso'))
+            return redirect('../listar')
+        else:
+            return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
+    
+    elif(request.method == 'GET'):
+        return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
+
+@login_required
+def deletar_destino(request, pk):
+    destino = get_object_or_404(Destino, pk=pk)
+    if destino.delete():
+        return redirect('../listar')
+    else:
+        return server_errror(request, 'ops_500.html')
+
+    return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
+

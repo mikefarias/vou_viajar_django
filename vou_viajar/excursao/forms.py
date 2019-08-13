@@ -1,6 +1,8 @@
 from django import forms
 
 from .models import Excursao
+from .models import Destino
+
 
 class ExcursaoForm(forms.ModelForm):
     horario_inicio = forms.SplitDateTimeField(
@@ -27,3 +29,15 @@ class ExcursaoForm(forms.ModelForm):
             'horario_fim',
         ]
 
+class DestinoForm(forms.ModelForm):
+    
+    class Meta:
+        model = Destino
+        fields = [
+            'nome_turistico',
+            'pais',
+            'estado',
+            'cidade',
+            'bairro',
+            'cep',
+        ]
