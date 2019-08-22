@@ -7,6 +7,19 @@ from django.db import models
 
 # Create your models here.
 
+
+class Destino(models.Model):
+    
+    nome_turistico = models.CharField(max_length=100)
+    pais = models.CharField(max_length=100)
+    estado = models.CharField(max_length=100)
+    cidade = models.CharField(max_length=100)
+    bairro = models.CharField(max_length=100)
+    cep = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.nome_turistico
+
 class Excursao(models.Model):
     """
     A class Excursao representa uma excursão turística.
@@ -38,28 +51,14 @@ class Excursao(models.Model):
         default=SITUACAO_ATIVO,
         choices=SITUACAO_EXCLUIDO,
     )
-    titulo = models.CharField(max_length=100)
-    descricao = models.TextField(default='')
+    titulo = models.CharField(max_length=50)
+    descricao = models.CharField(max_length=100)
     horario_inicio = models.DateTimeField()
     horario_fim = models.DateTimeField()
-    origem = models.CharField(max_length=100, null=False)
-    destino = models.CharField(max_length=100, null=False)
+    origem = models.CharField(max_length=20, null=False)
+    destino = models.ManyToManyField(Destino)
     usuario_cadastro = models.ForeignKey(User, on_delete=models.PROTECT)
     data_cadastro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.titulo
-
-
-
-class Destino(models.Model):
-
-    nome_turistico = models.CharField(max_length=100)
-    pais = models.CharField(max_length=100)
-    estado = models.CharField(max_length=100)
-    cidade = models.CharField(max_length=100)
-    bairro = models.CharField(max_length=100)
-    cep = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.titulo
+        return '%s %s' % (self.titulo, self.nome_turistico)

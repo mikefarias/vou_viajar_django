@@ -36,9 +36,8 @@ def atualizar_excursao(request, pk):
             excursao.horario_inicio = form.cleaned_data['horario_inicio']
             excursao.horario_fim = form.cleaned_data['horario_fim']
             excursao.origem = form.cleaned_data['origem']
-            excursao.destino = form.cleaned_data['destino']
             excursao.save()
-            messages.success(request, _("Sucesso"))
+            form.save_m2m()
             return redirect('../listar')
         else:
             return render(request, 'excursao/atualizar_excursao.html', {'form': form, 'excursao' : excursao})
@@ -50,11 +49,11 @@ def atualizar_excursao(request, pk):
 def deletar_excursao(request, pk):
     excursao = get_object_or_404(Excursao, pk=pk)
     if excursao.delete():
-        return redirect('../listar_excursao')
+        return redirect('../listar')
     else:
         return server_errror(request, 'ops_500.html')
 
-    return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
+    return render(request, 'excursao/listar.html', {'excursoes': excursoes})
 
 @login_required
 def adicionar_excursao(request):
@@ -70,6 +69,7 @@ def adicionar_excursao(request):
             excursao = form.save(commit=False)
             excursao.usuario_cadastro = request.user
             excursao.save()
+            form.save_m2m()
             messages.success(request, 'Excursão cadastrada com sucesso!')
             return redirect('listar')
     else:

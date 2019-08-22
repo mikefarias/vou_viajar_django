@@ -33,7 +33,11 @@
                                             <td>{{ excursao.id }}</td>
                                             <td>{{ excursao.titulo }}</td>
                                             <td>{{ excursao.origem }}</td>
-                                            <td>{{ excursao.destino }}</td>
+                                            <td>
+                                                {% for destino in excursao.destino.all %}
+                                                    {{ destino.nome_turistico }}
+                                                {% endfor %}
+                                            </td>
                                             <td>
                                                 <a href="{% url 'atualizar' pk=excursao.id %}" class="btn btn-info"> Atualizar </a>
                                                 <a href="{% url 'deletar' pk=excursao.id %}" class="btn btn-outline-danger"> Deletar </a>
