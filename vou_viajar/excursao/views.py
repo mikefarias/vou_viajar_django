@@ -14,16 +14,14 @@ from .forms import ExcursaoForm
 from .models import Destino
 from .forms import DestinoForm
 
-@login_required
 def menu_excursao(request):
     return render(request, 'excursao/menu_excursao.html')
 
-@login_required
 def listar_excursao(request):
     excursoes = Excursao.objects.all()
     return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
 
-@login_required 
+
 def atualizar_excursao(request, pk):
     excursao = get_object_or_404(Excursao, pk=pk)
     form = ExcursaoForm(instance=excursao)
@@ -45,7 +43,6 @@ def atualizar_excursao(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'excursao/atualizar_excursao.html', {'form': form, 'excursao' : excursao})
 
-@login_required
 def deletar_excursao(request, pk):
     excursao = get_object_or_404(Excursao, pk=pk)
     if excursao.delete():
@@ -55,7 +52,6 @@ def deletar_excursao(request, pk):
 
     return render(request, 'excursao/listar.html', {'excursoes': excursoes})
 
-@login_required
 def adicionar_excursao(request):
     """
     View para mostrar a tela de cadastro de uma excursão e receber a requisição
@@ -80,7 +76,6 @@ def adicionar_excursao(request):
         {'form': form},
     )
 
-@login_required
 def adicionar_destino(request):
     """
     View para mostrar a tela de mapeamento de um excursão e receber a requisição
@@ -103,12 +98,10 @@ def adicionar_destino(request):
         {'form': form},
     )
 
-@login_required
 def listar_destino(request):
     destinos = Destino.objects.all()
     return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
 
-@login_required 
 def atualizar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     form = DestinoForm(instance=destino)
@@ -130,7 +123,6 @@ def atualizar_destino(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
 
-@login_required
 def deletar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     if destino.delete():

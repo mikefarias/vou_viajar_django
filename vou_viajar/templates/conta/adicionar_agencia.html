@@ -1,20 +1,32 @@
-{% extends 'base.html' %}
+<head>
+    <title>Nova Excursão</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<div class="container bootstrap snippet">
+    <br>
+    <div class="row">
+    	<div class="col-sm-9">
+            {% block content %}
+                {% load crispy_forms_tags %}
+                <form method="post" novalidate >
+                    <h2>Dados da Agência</h2><br>
+                    {% csrf_token %}
+                    {{form_agencia|crispy}}
 
-{% block content %}
+                    <br>
 
-    {% load bootstrap4 %}
+                    <h2>Dados do Responsável</h2><br>
+                    {{form_pessoa|crispy}}
 
-    {# Display a form #}
-
-    <div class="container">
-        <h2>Atualizar Agência</h2>
-        <form action="" method="POST" class="form">
-            {% csrf_token %}
-            {% bootstrap_form form layout='horizontal' size='small' %}
-            {% buttons %}
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            {% endbuttons %}
-        </form>
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <a href="{% url 'menu' %}" class="btn btn-primary"> Voltar </a>
+                </form>
+            {% endblock %}
+        </div> <!--/row -->
     </div>
+</div>
 
-{% endblock  %}

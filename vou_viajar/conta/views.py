@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .forms import AgenciaForm
+from .forms import PessoaForm
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ def login_modal(request):
 
     return render(request, 'conta/login-modal.html')
 
-@login_required
+
 def menu(request):
     """
     View para mostrar a tela de login do sistema.
@@ -36,14 +37,15 @@ def menu(request):
     """
     return render(request, 'conta/menu.html')
 
-@login_required
+
 def adicionar_agencia(request):
     """
     View para mostrar a tela de cadastro de uma agência e receber a requisição
     de cadastro.
     """
 
-    form = None
+    form_agencia = None
+    form_pessoa = None
     if request.method == 'POST':
         form = AgenciaForm(request.POST)
         if form.is_valid():
@@ -53,14 +55,14 @@ def adicionar_agencia(request):
             messages.success(request, 'Agência cadastrada com sucesso!')
             return redirect('home')
     else:
-        form = AgenciaForm()
+        form_agencia = AgenciaForm()
+        form_pessoa = PessoaForm()
     return render(
         request,
         'conta/adicionar_agencia.html',
-        {'form': form},
-    )
+        {'form_agencia': form_agencia,'form_pessoa' : form_pessoa })
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('')
     template_name = 'registration/register.html'
