@@ -37,7 +37,7 @@ def menu(request):
     """
     return render(request, 'conta/menu.html')
 
-
+@login_required
 def adicionar_agencia(request):
     """
     View para mostrar a tela de cadastro de uma agência e receber a requisição
@@ -47,13 +47,21 @@ def adicionar_agencia(request):
     form_agencia = None
     form_pessoa = None
     if request.method == 'POST':
-        form = AgenciaForm(request.POST)
-        if form.is_valid():
-            agencia = form.save(commit=False)
+        form_agencia= AgenciaForm(request.POST)
+        form_pessoa = PessoaForm(request.POST)
+        if form_agencia.is_valid() and form_pessoa.is_valid():
+            agencia = form_agencia.save(commit=False)
             agencia.usuario_cadastro = request.user
             agencia.save()
+
+            pessoa = form_pessoa.save(commit=False)
+            pessoa.usuario = request.user
+
+            pessoa.agencia = agencia
+            form_pessoa.save()
+
             messages.success(request, 'Agência cadastrada com sucesso!')
-            return redirect('home')
+            return redirect('conta_menu')
     else:
         form_agencia = AgenciaForm()
         form_pessoa = PessoaForm()
@@ -64,5 +72,5 @@ def adicionar_agencia(request):
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('')
+    success_url = reverse_lazy('conta_menu')
     template_name = 'registration/register.html'
