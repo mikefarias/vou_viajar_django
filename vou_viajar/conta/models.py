@@ -22,7 +22,6 @@ class Agencia(models.Model):
     agencia_fisica = models.BooleanField(null=False, blank=False)
     foto_perfil = models.ImageField(null=True, blank=True)
     endereco = models.CharField(max_length=200)
-
     usuario_cadastro = models.ForeignKey(User, on_delete=models.PROTECT)
     data_cadastro = models.DateTimeField(auto_now_add=True)
 
@@ -42,7 +41,7 @@ class Pessoa(models.Model):
         null=False,
         blank=False, )
     cpf = models.CharField(max_length=14)
-    usuario = models.ForeignKey(User, on_delete=models.PROTECT)
+    usuario = models.OneToOneField(User, on_delete=models.PROTECT)
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
 
 

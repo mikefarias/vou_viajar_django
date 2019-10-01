@@ -19,16 +19,7 @@ def login(request):
     """
     View para mostrar a tela de login do sistema.
     """
-
-    return render(request, 'conta/login.html')
-
-def login_modal(request):
-    """
-    View para mostrar a tela de login do sistema.
-    """
-
-    return render(request, 'conta/login-modal.html')
-
+    return render(request, 'registration/login.html')
 
 def menu(request):
     """
@@ -43,7 +34,7 @@ def adicionar_agencia(request):
     View para mostrar a tela de cadastro de uma agência e receber a requisição
     de cadastro.
     """
-
+    
     form_agencia = None
     form_pessoa = None
     if request.method == 'POST':
@@ -56,7 +47,6 @@ def adicionar_agencia(request):
 
             pessoa = form_pessoa.save(commit=False)
             pessoa.usuario = request.user
-
             pessoa.agencia = agencia
             form_pessoa.save()
 

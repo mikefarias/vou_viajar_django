@@ -4,9 +4,8 @@ Models da aplicação 'excursao'.
 
 from django.contrib.auth.models import User
 from django.db import models
-
+from vou_viajar.conta.models import Agencia
 # Create your models here.
-
 
 class Destino(models.Model):
     
@@ -16,6 +15,7 @@ class Destino(models.Model):
     cidade = models.CharField(max_length=100)
     bairro = models.CharField(max_length=100)
     cep = models.CharField(max_length=100)
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
     
     def __str__(self):
         return self.nome_turistico
@@ -59,6 +59,7 @@ class Excursao(models.Model):
     destino = models.ManyToManyField(Destino)
     usuario_cadastro = models.ForeignKey(User, on_delete=models.PROTECT)
     data_cadastro = models.DateTimeField(auto_now_add=True)
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
 
     def __str__(self):
         return '%s %s' % (self.titulo, self.nome_turistico)

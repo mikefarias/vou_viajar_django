@@ -13,15 +13,18 @@ from .models import Excursao
 from .forms import ExcursaoForm
 from .models import Destino
 from .forms import DestinoForm
-
+from vou_viajar.conta.models import Pessoa
+from vou_viajar.conta.models import Agencia
+@login_required
 def menu_excursao(request):
     return render(request, 'excursao/menu_excursao.html')
 
+@login_required
 def listar_excursao(request):
     excursoes = Excursao.objects.all()
     return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
 
-
+@login_required
 def atualizar_excursao(request, pk):
     excursao = get_object_or_404(Excursao, pk=pk)
     form = ExcursaoForm(instance=excursao)
@@ -43,6 +46,7 @@ def atualizar_excursao(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'excursao/atualizar_excursao.html', {'form': form, 'excursao' : excursao})
 
+@login_required
 def deletar_excursao(request, pk):
     excursao = get_object_or_404(Excursao, pk=pk)
     if excursao.delete():
@@ -52,6 +56,7 @@ def deletar_excursao(request, pk):
 
     return render(request, 'excursao/listar.html', {'excursoes': excursoes})
 
+@login_required
 def adicionar_excursao(request):
     """
     View para mostrar a tela de cadastro de uma excursão e receber a requisição
@@ -64,6 +69,7 @@ def adicionar_excursao(request):
         if form.is_valid():
             excursao = form.save(commit=False)
             excursao.usuario_cadastro = request.user
+            excursao.agencia = get_agencia_usuario(request.user)
             excursao.save()
             form.save_m2m()
             messages.success(request, 'Excursão cadastrada com sucesso!')
@@ -76,6 +82,7 @@ def adicionar_excursao(request):
         {'form': form},
     )
 
+@login_required
 def adicionar_destino(request):
     """
     View para mostrar a tela de mapeamento de um excursão e receber a requisição
@@ -87,6 +94,7 @@ def adicionar_destino(request):
         form = DestinoForm(request.POST)
         if form.is_valid():
             destino = form.save(commit=False)
+            destino.agencia = get_agencia_usuario(request.user)
             destino.save()
             messages.success(request, 'Destino mapeado com sucesso!')
             return redirect('listar_destino')
@@ -98,10 +106,12 @@ def adicionar_destino(request):
         {'form': form},
     )
 
+@login_required
 def listar_destino(request):
     destinos = Destino.objects.all()
     return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
 
+@login_required
 def atualizar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     form = DestinoForm(instance=destino)
@@ -123,6 +133,7 @@ def atualizar_destino(request, pk):
     elif(request.method == 'GET'):
         return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
 
+@login_required
 def deletar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     if destino.delete():
@@ -132,3 +143,7 @@ def deletar_destino(request, pk):
 
     return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
 
+def get_agencia_usuario(usuario):
+    pessoa = Pessoa.objects.get(usuario=usuario)
+    agencia = Agencia.objects.get(pessoa=pessoa)
+    return agencia
