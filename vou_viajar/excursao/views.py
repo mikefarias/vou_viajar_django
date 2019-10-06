@@ -21,7 +21,7 @@ def menu_excursao(request):
 
 @login_required
 def listar_excursao(request):
-    excursoes = Excursao.objects.all()
+    excursoes = Excursao.objects.filter(agencia=get_agencia_usuario(request.user).pk)
     return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
 
 @login_required
@@ -108,7 +108,7 @@ def adicionar_destino(request):
 
 @login_required
 def listar_destino(request):
-    destinos = Destino.objects.all()
+    destinos = Destino.objects.filter(agencia=get_agencia_usuario(request.user).pk)
     return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
 
 @login_required

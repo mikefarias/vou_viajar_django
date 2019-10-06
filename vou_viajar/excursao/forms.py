@@ -6,9 +6,15 @@ from .models import Destino
 
 class ExcursaoForm(forms.ModelForm):
 
+    def get_agencia_usuario(usuario):
+        pessoa = Pessoa.objects.get(usuario=usuario)
+        agencia = Agencia.objects.get(pessoa=pessoa)
+        return agencia
+
     titulo = forms.CharField(label='Título', help_text='Em até 50 caracteres')
     descricao = forms.CharField(label='Descrição',  help_text='Em até 100 caracteres')
-    destino = forms.ModelMultipleChoiceField(queryset=Destino.objects.all())
+    destino = forms.ModelMultipleChoiceField(
+        queryset=Destino.objects.filter(agencia=get_agencia_usuario(request.user).pk))
     horario_inicio = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(
             date_attrs={'type': 'date'},
@@ -21,6 +27,7 @@ class ExcursaoForm(forms.ModelForm):
             time_attrs={'type': 'time'},
         )
     )
+
 
     class Meta:
         model = Excursao
