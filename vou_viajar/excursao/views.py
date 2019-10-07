@@ -73,7 +73,7 @@ def adicionar_excursao(request):
             excursao.save()
             form.save_m2m()
             messages.success(request, 'Excursão cadastrada com sucesso!')
-            return redirect('listar')
+            return redirect('listar_excursao')
     else:
         form = ExcursaoForm()
     return render(
@@ -126,7 +126,7 @@ def atualizar_destino(request, pk):
             destino.cep = form.cleaned_data['cep']
             destino.save()
             messages.success(request,('Sucesso'))
-            return redirect('../listar')
+            return redirect('../listar_excursao')
         else:
             return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
     
@@ -137,7 +137,7 @@ def atualizar_destino(request, pk):
 def deletar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     if destino.delete():
-        return redirect('../listar')
+        return redirect('../listar_excursao')
     else:
         return server_errror(request, 'ops_500.html')
 

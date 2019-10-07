@@ -14,7 +14,7 @@ class ExcursaoForm(forms.ModelForm):
     titulo = forms.CharField(label='Título', help_text='Em até 50 caracteres')
     descricao = forms.CharField(label='Descrição',  help_text='Em até 100 caracteres')
     destino = forms.ModelMultipleChoiceField(
-        queryset=Destino.objects.filter(agencia=get_agencia_usuario(request.user).pk))
+        queryset=Destino.objects.all()),
     horario_inicio = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(
             date_attrs={'type': 'date'},
