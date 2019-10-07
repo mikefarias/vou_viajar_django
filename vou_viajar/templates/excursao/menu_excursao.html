@@ -1,38 +1,35 @@
-<head>
-    <title>Módulo Excursão/Receptivo</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<div class="container bootstrap snippet">
-    <br>
-    <div class="row">
-    	<div class="col-sm-9">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#excursao">Excursão</a></li>
-                <li><a data-toggle="tab" href="#receptivo">Receptivo</a></li>
-                <li><a data-toggle="tab" href="#cliente">Cliente</a></li>
-                <li><a data-toggle="tab" href="#cadastro">Cadastro</a></li>
-                <li><a data-toggle="tab" href="#relatorio">Relatório</a></li>
-            </ul>
-            <div class="tab-content">
-                <div class="tab-pane active" id="excursao">
-                    <br>
-                    <div class="panel panel-default">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="panel-heading">Gestão de Excursões <i class="fa fa-link fa-1x"></i></div>
-                                <div class="panel-body">
-                                    <div class="list-group">
-                                        <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
-                                        <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Atualizar Excursão </a>
-                                        <a href="#" class="list-group-item"> Análise de Custo </a>
-                                        <a href="#" class="list-group-item"> Montar Roteiro </a>
-                                        <a href="#" class="list-group-item"> Associar Cliente </a>
-                                        <a href="#" class="list-group-item"> Registrar Andamento </a>
-                                        <a href="#" class="list-group-item"> Finalizar Excursão</a>
+{% extends 'public/base_interno.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="container bootstrap snippet">
+         <br>
+            <div class="col-sm-9">
+                <ul class="nav nav-tabs">
+
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#excursao">Excursão</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cliente"> Cliente </a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#receptivo"> Receptivo </a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cadastro"> Cadastro </a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#relatorio"> Relatório </a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="excursao">
+                        <br>
+                        <div class="panel panel-default">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="panel-heading">Gestão de Excursões <i class="fa fa-link fa-1x"></i></div>
+                                        <div class="panel-body">
+                                            <div class="list-group">
+                                                <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
+                                                <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Atualizar Excursão </a>
+                                                <a href="#" class="list-group-item"> Análise de Custo </a>
+                                                <a href="#" class="list-group-item"> Montar Roteiro </a>
+                                                <a href="#" class="list-group-item"> Associar Cliente </a>
+                                                <a href="#" class="list-group-item"> Registrar Andamento </a>
+                                                <a href="#" class="list-group-item"> Finalizar Excursão</a>
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +91,6 @@
             </div>
         </div> <!--/col-->
     </div> <!--/row-->
- </div>
+</div>
 
-                                                      
+{% endblock %}
