@@ -2,39 +2,42 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="container bootstrap snippet">
-         <br>
-            <div class="col-sm-9">
-                <ul class="nav nav-tabs">
+<div class="container-fluid">
+        <br>
+        <div class="col-sm-9">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#excursao">Excursão</a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cliente"> Cliente </a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#receptivo"> Receptivo </a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cadastro"> Cadastro </a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#relatorio"> Relatório </a></li>
+            </ul>
 
-                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#excursao">Excursão</a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cliente"> Cliente </a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#receptivo"> Receptivo </a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cadastro"> Cadastro </a></li>
-                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#relatorio"> Relatório </a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="excursao">
-                        <br>
-                        <div class="panel panel-default">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="panel-heading">Gestão de Excursões <i class="fa fa-link fa-1x"></i></div>
-                                        <div class="panel-body">
-                                            <div class="list-group">
-                                                <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
-                                                <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Atualizar Excursão </a>
-                                                <a href="#" class="list-group-item"> Análise de Custo </a>
-                                                <a href="#" class="list-group-item"> Montar Roteiro </a>
-                                                <a href="#" class="list-group-item"> Associar Cliente </a>
-                                                <a href="#" class="list-group-item"> Registrar Andamento </a>
-                                                <a href="#" class="list-group-item"> Finalizar Excursão</a>
+            <div class="tab-content">
+                <div class="tab-pane active" id="excursao">
+                    <div class="panel panel-default">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <br>
+                                <div class="panel-heading">Gestão de Excursões <i class="fa fa-link fa-1x"></i></div>
+                                <br>
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
+                                        <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Atualizar Excursão </a>
+                                        <a href="#" class="list-group-item"> Análise de Custo </a>
+                                        <a href="#" class="list-group-item"> Montar Roteiro </a>
+                                        <a href="#" class="list-group-item"> Associar Cliente </a>
+                                        <a href="#" class="list-group-item"> Registrar Andamento </a>
+                                        <a href="#" class="list-group-item"> Finalizar Excursão</a>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
+                                <br>
                                 <div class="panel-heading">Mapear Destino <i class="fa fa-link fa-1x"></i></div>
+                                <br>
                                 <div class="panel-body">
                                     <div class="list-group">
                                         <a href="{% url 'adicionar_destino' %}" class="list-group-item"> Mapear Destino </a>
@@ -42,8 +45,11 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-sm-6">
+                                <br>
                                 <div class="panel-heading">Comunicação com Cliente <i class="fa fa-link fa-1x"></i></div>
+                                <br>
                                 <div class="panel-body">
                                     <div class="list-group">
                                         <a href="#" class="list-group-item"> 1 </a>
@@ -52,45 +58,49 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> <!--/row-->
+                    </div><!--/panel default-->
+                </div><!--/tab-pane excursao-->
+                <div class="tab-pane" id="receptivo">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="panel-heading">Gestão de Receptivos <i class="fa fa-link fa-1x"></i></div>
+                                <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+                            </div>
                         </div>
                     </div>
-                </div><!--/tab-pane-->
-            <div class="tab-pane" id="receptivo">
-                <br>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Gestão de Receptivos <i class="fa fa-link fa-1x"></i></div>
-                    <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-                </div>
-            </div><!--/tab-pane-->
-            <div class="tab-pane" id="cliente">
-                <br>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Gestão de Clientes <i class="fa fa-link fa-1x"></i></div>
-                    <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-                </div>
-            </div><!--/tab-pane-->
-            <div class="tab-pane" id="cadastro">
-                <br>
-                <div class="panel panel-default">
-                    <div class="panel-heading">XXX <i class="fa fa-link fa-1x"></i></div>
-                    <div class="panel-body">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item"> Novo Destino </a>
-                            <a href="#" class="list-group-item"> Listar/Alterar Destino </a>
+                </div><!--/tab-pane receptivo-->
+                <div class="tab-pane" id="cliente">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Gestão de Clientes <i class="fa fa-link fa-1x"></i></div>
+                        <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+                    </div>
+                </div><!--/tab-pane cliente-->
+                <div class="tab-pane" id="cadastro">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">XXX <i class="fa fa-link fa-1x"></i></div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item"> Novo Destino </a>
+                                <a href="#" class="list-group-item"> Listar/Alterar Destino </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div><!--/tab-pane-->
-            <div class="tab-pane" id="relatorio">
-                <br>
-                <div class="panel panel-default">
-                    <div class="panel-heading">Relatórios <i class="fa fa-link fa-1x"></i></div>
-                    <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-                </div>
-            </div><!--/tab-pane-->
-            </div>
-        </div> <!--/col-->
-    </div> <!--/row-->
-</div>
+                </div><!--/tab-pane cadastro-->
+                <div class="tab-pane" id="relatorio">
+                    <br>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Relatórios <i class="fa fa-link fa-1x"></i></div>
+                        <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
+                    </div>
+                </div><!--/tab-pane relatório-->
+            </div> <!--/tab-content-->
+    </div> <!--/col-->
+</div> <!--/container bootstrap -->
+
 
 {% endblock %}
