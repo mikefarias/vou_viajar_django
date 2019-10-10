@@ -1,10 +1,10 @@
 """
 Views da aplicação 'conta'.
 """
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import logout
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import redirect
@@ -21,11 +21,13 @@ def login(request):
     """
     return render(request, 'registration/login.html')
 
+@login_required
 def menu(request):
     """
     View para mostrar a tela de login do sistema.
 
     """
+    messages.add_message(request, messages.INFO, 'Menu de Excursões')
     return render(request, 'conta/menu.html')
 
 @login_required
@@ -49,7 +51,6 @@ def adicionar_agencia(request):
             pessoa.usuario = request.user
             pessoa.agencia = agencia
             form_pessoa.save()
-
             messages.success(request, 'Agência cadastrada com sucesso!')
             return redirect('conta_menu')
     else:
@@ -62,5 +63,7 @@ def adicionar_agencia(request):
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('conta_menu')
+    success_url = reverse_lazy('login')
     template_name = 'registration/register.html'
+
+    

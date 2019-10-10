@@ -9,6 +9,18 @@
   </head>
 
   <div class="container-fluid">
+        {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
     <div class="row">
         <div class="col-sm-9">
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -27,7 +39,7 @@
                                 <a class="nav-link" href="{% url 'adicionar_agencia' %}">Usuário: {{user.username}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                                <a class="nav-link" href="{% url '/conta/logout' %}">Sair</a>
                             </li>
                             {% else %}
                             <li class="nav-item">

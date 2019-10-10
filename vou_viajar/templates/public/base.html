@@ -41,9 +41,21 @@
 	          <li class="nav-item active"><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
 	          <li class="nav-item"><a href="{% url 'destinos' %}" class="nav-link">Destinos</a></li>
 	          <li class="nav-item"><a href="#about" class="nav-link">Quem Somos</a></li>
-              <li class="nav-item"><a href="{% url 'blog'%}" class="nav-link">Timeline</a></li>
-	          <li class="nav-item"><a href="/conta/login" class="nav-link">Entrar</a></li>
-	        </ul>
+            <li class="nav-item"><a href="{% url 'blog'%}" class="nav-link">Timeline</a></li>
+            {% if user and user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'adicionar_agencia' %}">Usuário: {{user.username}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/account/logout">Sair</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="/account/login">Entrar</a>
+            </li>
+            {% endif %}
+
+          </ul>
 	      </div>
 	    </div>
 	  </nav>

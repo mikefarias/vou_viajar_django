@@ -117,9 +117,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = 'menu'
+LOGIN_REDIRECT_URL = 'conta/menu                                                                                                                                                                                                                                                                                                                                                                                                                                                '
+LOGOUT_REDIRECT_URL = 'account/login'
 
 
 # Password validation
