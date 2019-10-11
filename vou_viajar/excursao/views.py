@@ -15,22 +15,26 @@ from .models import Destino
 from .forms import DestinoForm
 from vou_viajar.conta.models import Pessoa
 from vou_viajar.conta.models import Agencia
+
+
 @login_required
 def menu_excursao(request):
     return render(request, 'excursao/menu_excursao.html')
+
 
 @login_required
 def listar_excursao(request):
     excursoes = Excursao.objects.filter(agencia=get_agencia_usuario(request.user).pk)
     return render(request, 'excursao/listar_excursao.html', {'excursoes': excursoes})
 
+
 @login_required
 def atualizar_excursao(request, pk):
     excursao = get_object_or_404(Excursao, pk=pk)
     form = ExcursaoForm(instance=excursao)
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         form = ExcursaoForm(request.POST, instance=excursao)    
-        if(form.is_valid()):
+        if form.is_valid():
             excursao = form.save(commit=False)
             excursao.titulo = form.cleaned_data['titulo']
             excursao.descricao = form.cleaned_data['descricao']
@@ -43,8 +47,9 @@ def atualizar_excursao(request, pk):
         else:
             return render(request, 'excursao/atualizar_excursao.html', {'form': form, 'excursao' : excursao})
     
-    elif(request.method == 'GET'):
+    elif request.method == 'GET':
         return render(request, 'excursao/atualizar_excursao.html', {'form': form, 'excursao' : excursao})
+
 
 @login_required
 def deletar_excursao(request, pk):
@@ -53,8 +58,8 @@ def deletar_excursao(request, pk):
         return redirect('../listar')
     else:
         return server_errror(request, 'ops_500.html')
+    return render(request, '/../listar.html', {'excursoes': excursoes})
 
-    return render(request, 'excursao/listar.html', {'excursoes': excursoes})
 
 @login_required
 def adicionar_excursao(request):
@@ -82,6 +87,7 @@ def adicionar_excursao(request):
         {'form': form},
     )
 
+
 @login_required
 def adicionar_destino(request):
     """
@@ -106,18 +112,20 @@ def adicionar_destino(request):
         {'form': form},
     )
 
+
 @login_required
 def listar_destino(request):
     destinos = Destino.objects.filter(agencia=get_agencia_usuario(request.user).pk)
     return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
 
+
 @login_required
 def atualizar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     form = DestinoForm(instance=destino)
-    if(request.method == 'POST'):
+    if request.method == 'POST':
         form = DestinoForm(request.POST, instance=destino)    
-        if(form.is_valid()):
+        if form.is_valid():
             destino = form.save(commit=False)
             destino.nome_turistico = form.cleaned_data['nome_turistico']
             destino.pais = form.cleaned_data['pais']
@@ -125,23 +133,23 @@ def atualizar_destino(request, pk):
             destino.cidade_fim = form.cleaned_data['cidade']
             destino.cep = form.cleaned_data['cep']
             destino.save()
-            messages.success(request,('Sucesso'))
-            return redirect('../listar_excursao')
+            messages.success(request, 'Sucesso')
+            return redirect('listar_destino')
         else:
-            return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
+            return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino': destino})
     
-    elif(request.method == 'GET'):
-        return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino' : destino})
+    elif request.method == 'GET':
+        return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino': destino})
+
 
 @login_required
 def deletar_destino(request, pk):
     destino = get_object_or_404(Destino, pk=pk)
     if destino.delete():
-        return redirect('../listar_excursao')
+        return redirect('listar_destino')
     else:
         return server_errror(request, 'ops_500.html')
 
-    return render(request, 'excursao/listar_destino.html', {'destinos': destinos})
 
 def get_agencia_usuario(usuario):
     pessoa = Pessoa.objects.get(usuario=usuario)
