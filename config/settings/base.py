@@ -116,10 +116,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-
-LOGIN_REDIRECT_URL = 'conta/menu                                                                                                                                                                                                                                                                                                                                                                                                                                                '
-LOGOUT_REDIRECT_URL = 'account/login'
-
+LOGIN_REDIRECT_URL = '/conta/menu'
+LOGOUT_REDIRECT_URL = '/account/login'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

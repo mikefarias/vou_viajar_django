@@ -4,7 +4,7 @@ Views da aplicação 'conta'.
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import redirect
@@ -13,15 +13,21 @@ from django.shortcuts import render
 from .forms import AgenciaForm
 from .forms import PessoaForm
 
-# Create your views here.
 
-def login(request):
+def login_teste(request):
     """
     View para mostrar a tela de login do sistema.
     """
     return render(request, 'registration/login.html')
 
-@login_required
+
+def logout_view(request):
+    logout(request)
+    messages.add_message(request, messages.INFO, 'Logout realizado com sucesso!')
+    return redirect('/')
+
+
+
 def menu(request):
     """
     View para mostrar a tela de login do sistema.
@@ -65,5 +71,3 @@ class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'registration/register.html'
-
-    
