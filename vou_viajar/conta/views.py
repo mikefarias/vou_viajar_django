@@ -14,20 +14,13 @@ from .forms import AgenciaForm
 from .forms import PessoaForm
 
 
-def login_teste(request):
-    """
-    View para mostrar a tela de login do sistema.
-    """
-    return render(request, 'registration/login.html')
-
-
 def logout_view(request):
     logout(request)
     messages.add_message(request, messages.INFO, 'Logout realizado com sucesso!')
     return redirect('/')
 
 
-
+@login_required
 def menu(request):
     """
     View para mostrar a tela de login do sistema.
@@ -35,6 +28,7 @@ def menu(request):
     """
     messages.add_message(request, messages.INFO, 'Menu de Excursões')
     return render(request, 'conta/menu.html')
+
 
 @login_required
 def adicionar_agencia(request):
@@ -66,6 +60,7 @@ def adicionar_agencia(request):
         request,
         'conta/adicionar_agencia.html',
         {'form_agencia': form_agencia,'form_pessoa' : form_pessoa })
+
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm

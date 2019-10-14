@@ -63,3 +63,34 @@ class Excursao(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.titulo, self.nome_turistico)
+
+
+class PrestadorServico(models.Model):
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)    
+    cnpj_cpf = models.CharField(max_length=50)
+    pessoa_juridica = models.BooleanField(null=True, blank=False)
+    cadastur = models.CharField(max_length=50)
+    email = models.EmailField(null=True, blank=False)
+    telefone = models.CharField(max_length=50)
+    endereco = models.CharField(max_length=50)
+    horario_funcionamento = models.CharField(max_length=50)
+
+
+class Transporte(models.Model):
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    prestador_servico = models.ForeignKey(PrestadorServico, on_delete=models.PROTECT)
+    modelo = models.CharField(max_length=50)
+    marca = models.CharField(max_length=50)    
+    ano = models.IntegerField(null=True, blank=False)
+    poltronas = models.IntegerField(null=True, blank=False)
+    banheiro = models.BooleanField(null=True, blank=False)
+    frigobar = models.BooleanField(null=True, blank=False)
+    ar_condicionado = models.BooleanField(null=True, blank=False)
+    som = models.BooleanField(null=True, blank=False)
+    tv = models.BooleanField(null=True, blank=False)
+
+class Orcamento(models.Model):
+    pass
+
+class Roteiro(models.Model):
+    pass

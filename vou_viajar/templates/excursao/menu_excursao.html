@@ -27,8 +27,10 @@
                                     <div class="list-group">
                                         <a href="{% url 'adicionar_excursao' %}" class="list-group-item"> Nova Excursão </a>
                                         <a href="{% url 'listar_excursao' %}" class="list-group-item"> Listar/Atualizar Excursão </a>
-                                        <a href="#" class="list-group-item"> Análise de Custo </a>
-                                        <a href="#" class="list-group-item"> Montar Roteiro </a>
+                                        <a href="{% url 'adicionar_orcamento' %}" class="list-group-item"> Adicionar Orçamento </a>
+                                        <a href="{% url 'listar_orcamento' %}" class="list-group-item"> Listar/Alterar Orçamento </a>
+                                        <a href="#" class="list-group-item"> Adicionar Roteiro </a>
+                                        <a href="#" class="list-group-item"> Listar/Alterar Roteiro </a>
                                         <a href="#" class="list-group-item"> Associar Cliente </a>
                                         <a href="#" class="list-group-item"> Registrar Andamento </a>
                                         <a href="#" class="list-group-item"> Finalizar Excursão</a>

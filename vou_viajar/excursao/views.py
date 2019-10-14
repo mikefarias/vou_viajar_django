@@ -13,6 +13,8 @@ from .models import Excursao
 from .forms import ExcursaoForm
 from .models import Destino
 from .forms import DestinoForm
+from .models import PrestadorServico
+from .forms import PrestadorForm
 from vou_viajar.conta.models import Pessoa
 from vou_viajar.conta.models import Agencia
 
@@ -155,3 +157,39 @@ def get_agencia_usuario(usuario):
     pessoa = Pessoa.objects.get(usuario=usuario)
     agencia = Agencia.objects.get(pessoa=pessoa)
     return agencia
+
+
+@login_required
+def adicionar_orcamento(request): 
+    
+    form = None
+    if request.method == 'POST':
+        form = PrestadorForm(request.POST)
+        if form.is_valid():
+            prestador = form.save(commit=False)
+            prestador.agencia = get_agencia_usuario(request.user)
+            prestador.save()
+            messages.success(request, 'Prestador de Serviço cadastrado com sucesso!')
+            return redirect('listar_orcamento')
+    else:
+        form = PrestadorForm()
+    return render(
+        request,
+        'excursao/adicionar_orcamento.html',
+        {'form': form},
+    )
+
+@login_required
+def atualizar_orcamento(request, pk):
+    pass
+
+
+@login_required
+def listar_orcamento(request):
+    orcamentos = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    return render(request, 'excursao/listar_orcamento.html', {'orcamentos': orcamentos})
+
+
+@login_required
+def deletar_orcamento(request, pk):
+    pass 

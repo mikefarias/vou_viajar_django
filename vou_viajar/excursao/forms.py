@@ -2,14 +2,10 @@ from django import forms
 
 from .models import Excursao
 from .models import Destino
+from .models import PrestadorServico
 
 
 class ExcursaoForm(forms.ModelForm):
-
-    def get_agencia_usuario(usuario):
-        pessoa = Pessoa.objects.get(usuario=usuario)
-        agencia = Agencia.objects.get(pessoa=pessoa)
-        return agencia
 
     titulo = forms.CharField(label='Título', help_text='Em até 50 caracteres')
     descricao = forms.CharField(label='Descrição',  help_text='Em até 100 caracteres')
@@ -28,7 +24,6 @@ class ExcursaoForm(forms.ModelForm):
         )
     )
 
-
     class Meta:
         model = Excursao
         fields = [
@@ -39,6 +34,7 @@ class ExcursaoForm(forms.ModelForm):
             'horario_inicio',
             'horario_fim',
         ]
+
 
 class DestinoForm(forms.ModelForm):
     
@@ -52,3 +48,29 @@ class DestinoForm(forms.ModelForm):
             'bairro',
             'cep',
         ]
+
+
+class PrestadorForm(forms.ModelForm):
+
+    cnpj_cpf = forms.CharField(label='CPNJ/CPF')
+    pessoa_juridica = forms.BooleanField(label='Pessoa Jurídica')
+    cadastur = forms.CharField(label='Cadastur')
+    email = forms.EmailField(label='E-mail')
+    telefone = forms.CharField(label='Telefone')
+    endereco = forms.CharField(label='Endereço')
+    horario_funcionamento = forms.CharField(label='Horário de Funcionamento')
+
+    class Meta: 
+        model = PrestadorServico
+        fields = [
+            'cnpj_cpf',
+            'pessoa_juridica',
+            'cadastur',
+            'email',
+            'telefone',
+            'endereco',
+            'horario_funcionamento',
+        ]
+
+
+
