@@ -3,6 +3,7 @@ from django import forms
 from .models import Excursao
 from .models import Destino
 from .models import PrestadorServico
+from .models import TipoPrestadorServico
 
 
 class ExcursaoForm(forms.ModelForm):
@@ -49,9 +50,10 @@ class DestinoForm(forms.ModelForm):
             'cep',
         ]
 
-
 class PrestadorForm(forms.ModelForm):
 
+    categoria = forms.ModelMultipleChoiceField(queryset=TipoPrestadorServico.objects.all()),
+    nome = forms.CharField(label='Nome do Prestador de Serviço')
     cnpj_cpf = forms.CharField(label='CPNJ/CPF')
     pessoa_juridica = forms.BooleanField(label='Pessoa Jurídica')
     cadastur = forms.CharField(label='Cadastur')
@@ -63,6 +65,8 @@ class PrestadorForm(forms.ModelForm):
     class Meta: 
         model = PrestadorServico
         fields = [
+            'categoria',
+            'nome',
             'cnpj_cpf',
             'pessoa_juridica',
             'cadastur',
@@ -71,6 +75,4 @@ class PrestadorForm(forms.ModelForm):
             'endereco',
             'horario_funcionamento',
         ]
-
-
 

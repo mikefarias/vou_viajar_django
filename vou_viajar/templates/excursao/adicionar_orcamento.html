@@ -2,19 +2,75 @@
 
 {% block content %}
     <div class="container-fluid">
+
         <br>
         <div class="row">
     	    <div class="col-sm-9">
-                {% block contentform %}
-                {% load crispy_forms_tags %}
-                    <form method="post" novalidate >
-                        <h2>Registrar Orçamento</h2><br>
-                        {% csrf_token %}
-                        {{form|crispy}}
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        <a href="{% url 'menu' %}" class="btn btn-primary"> Voltar </a>
-                    </form>
-                {% endblock %}
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">Orçamento Transporte</h5>
+                                <p class="card-text">Cadastre os orçamentos para transportes coletados para realizar a excursão.</p>
+                              </div>
+                              <div class="card-body">
+                                <a href="{% url 'adicionar_orcamento' %}" class="card-link">Cadastrar</a>
+                                <a href="{% url 'listar_orcamento' %}" class="card-link">Listar/Alterar</a>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">Orçamento Hospedagem</h5>
+                                <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                              </div>
+                              <div class="card-body">
+                                <a href="{% url 'adicionar_orcamento' %}" class="card-link">Cadastrar</a>
+                                <a href="{% url 'listar_orcamento' %}" class="card-link">Listar/Alterar</a>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card" >
+                              <div class="card-body">
+                                <h5 class="card-title">Orçamento Atrativos</h5>
+                                <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                              </div>
+                              <div class="card-body">
+                                <a href="#" class="card-link">Cadastrar</a>
+                                <a href="#" class="card-link">Listar/Alterar</a>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">Orçamento Guia</h5>
+                                <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                              </div>
+                              <div class="card-body">
+                                <a href="#" class="card-link">Cadastrar</a>
+                                <a href="#" class="card-link">Listar/Alterar</a>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                              <div class="card-body">
+                                <h5 class="card-title">Orçamento Custos</h5>
+                                <p class="card-text">Um exemplo de texto rápido para construir o título do card e fazer preencher o conteúdo do card.</p>
+                              </div>
+                              <div class="card-body">
+                                <a href="#" class="card-link">Cadastrar</a>
+                                <a href="#" class="card-link">Listar/Alterar</a>
+                              </div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div> 
         </div>
     </div>

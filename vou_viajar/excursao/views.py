@@ -173,11 +173,7 @@ def adicionar_orcamento(request):
             return redirect('listar_orcamento')
     else:
         form = PrestadorForm()
-    return render(
-        request,
-        'excursao/adicionar_orcamento.html',
-        {'form': form},
-    )
+    return render(request, 'excursao/adicionar_orcamento.html', {'form': form})
 
 @login_required
 def atualizar_orcamento(request, pk):
@@ -192,4 +188,61 @@ def listar_orcamento(request):
 
 @login_required
 def deletar_orcamento(request, pk):
-    pass 
+    pass
+
+
+@login_required
+def adicionar_prestador_servico(request):
+    form = None
+    if request.method == 'POST':
+        form = PrestadorForm(request.POST)
+        if form.is_valid():
+            prestador = form.save(commit=False)
+            prestador.agencia = get_agencia_usuario(request.user)
+            prestador.save()
+            messages.success(request, 'Prestador de Serviço cadastrado com sucesso!')
+            return redirect('listar_prestador_servico')
+    else:
+        form = PrestadorForm()
+    return render(request, 'excursao/adicionar_prestador_servico.html', {'form': form})
+
+
+@login_required
+def atualizar_prestador_servico(request, pk):
+    prestador= get_object_or_404(PrestadorServico, pk=pk)
+    form = PrestadorForm(instance=prestador)
+    if request.method == 'POST':
+        form = PrestadorForm(request.POST, instance=prestador)
+        if form.is_valid():
+            prestador = form.save(commit=False)
+            prestador.nome = form.cleaned_data['nome']
+            prestador.cnpj_cpf = form.cleaned_data['cnpj_cpf']
+            prestador.pessoa_juridica = form.cleaned_data['pessoa_juridica']
+            prestador.cadastur = form.cleaned_data['cadastur']
+            prestador.email = form.cleaned_data['email']
+            prestador.telefone = form.cleaned_data['telefone']
+            prestador.endereco = form.cleaned_data['endereco']
+            prestador.horario_funcionamento = form.cleaned_data['horario_funcionamento']
+            prestador.save()
+            messages.success(request, 'Sucesso')
+            return redirect('listar_prestador_servico')
+        else:
+            return render(request, 'excursao/atualizar_prestador_servico.html', {'form': form, 'prestador': prestador})
+
+    elif request.method == 'GET':
+        return render(request, 'excursao/atualizar_prestador_servico.html', {'form': form, 'prestador': prestador})
+
+
+@login_required
+def listar_prestador_servico(request):
+    prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    return render(request, 'excursao/listar_prestador_servico.html', {'prestadores': prestadores})
+
+
+@login_required
+def deletar_prestador_servico(request, pk):
+    prestador = get_object_or_404(PrestadorServico, pk=pk)
+    if prestador.delete():
+        return redirect('listar_prestador_servico')
+    else:
+        return server_errror(request, 'ops_500.html')

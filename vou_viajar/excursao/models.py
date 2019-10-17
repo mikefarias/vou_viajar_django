@@ -65,8 +65,17 @@ class Excursao(models.Model):
         return '%s %s' % (self.titulo, self.nome_turistico)
 
 
+class TipoPrestadorServico(models.Model):
+    descricao = models.CharField(max_length=20)
+
+    def __str__(self):
+        return '%s' % (self.descricao)
+
+
 class PrestadorServico(models.Model):
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)    
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    categoria = models.ForeignKey(TipoPrestadorServico, on_delete=models.PROTECT)
+    nome = models.CharField(max_length=50)
     cnpj_cpf = models.CharField(max_length=50)
     pessoa_juridica = models.BooleanField(null=True, blank=False)
     cadastur = models.CharField(max_length=50)
