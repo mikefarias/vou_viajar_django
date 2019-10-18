@@ -20,6 +20,10 @@ urlpatterns = [
     path('prestadorservico/listar', views.listar_prestador_servico, name='listar_prestador_servico'),
     path('prestadorservico/atualizar/<pk>', views.atualizar_prestador_servico, name='atualizar_prestador_servico'),
     path('prestadorservico/deletar/<pk>', views.deletar_prestador_servico, name='deletar_prestador_servico'),
+    path('transporte/adicionar', views.adicionar_transporte, name='adicionar_transporte'),
+    path('transporte/listar', views.listar_transporte, name='listar_transporte'),
+    path('transporte/atualizar/<pk>', views.atualizar_transporte, name='atualizar_transporte'),
+    path('transporte/deletar/<pk>', views.deletar_transporte, name='deletar_transporte'),
 
 ]
 

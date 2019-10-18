@@ -76,3 +76,35 @@ class PrestadorForm(forms.ModelForm):
             'horario_funcionamento',
         ]
 
+class TransporteForm(forms.ModelForm):
+
+    prestador_servico = forms.ModelMultipleChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
+    modelo = forms.CharField(label='Modelo do Transporte')
+    marca = forms.CharField(label='Marca')
+    ano = forms.IntegerField(label='Ano')
+    poltronas = forms.IntegerField(label='Quantidade de Poltronas')
+    banheiro = forms.BooleanField(label='Tem banheiro?')
+    frigobar = forms.BooleanField(label='Tem frigobar?')
+    ar_condicionado = forms.BooleanField(label='Tem ar-condicionado?')
+    som = forms.BooleanField(label='Tem som?')
+    tv = forms.BooleanField(label='Tem TV?')
+    observacao = forms.CharField(label='Observações sobre o veículo')
+
+    class Meta:
+        model = PrestadorServico
+        fields = [
+            'prestador_servico',
+            'modelo',
+            'marca',
+            'ano',
+            'poltronas',
+            'banheiro',
+            'frigobar',
+            'ar_condicionado',
+            'som',
+            'tv',
+            'observacao',
+        ]
+
+
+

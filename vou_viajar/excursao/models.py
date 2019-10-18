@@ -84,6 +84,15 @@ class PrestadorServico(models.Model):
     endereco = models.CharField(max_length=50)
     horario_funcionamento = models.CharField(max_length=50)
 
+    def __str__(self):
+        return '%s' % (self.nome)
+
+class TipoServico(models.Model):
+    descricao = models.CharField(max_length=20)
+
+    def __str__(self):
+        return '%s' % (self.descricao)
+
 
 class Transporte(models.Model):
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
@@ -97,6 +106,11 @@ class Transporte(models.Model):
     ar_condicionado = models.BooleanField(null=True, blank=False)
     som = models.BooleanField(null=True, blank=False)
     tv = models.BooleanField(null=True, blank=False)
+    observacao = models.CharField(max_length=200)
+
+    def __str__(self):
+        return '%s' % (self.modelo)
+
 
 class Orcamento(models.Model):
     pass

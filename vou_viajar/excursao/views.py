@@ -14,7 +14,9 @@ from .forms import ExcursaoForm
 from .models import Destino
 from .forms import DestinoForm
 from .models import PrestadorServico
+from .models import TipoPrestadorServico
 from .forms import PrestadorForm
+from .forms import TransporteForm
 from vou_viajar.conta.models import Pessoa
 from vou_viajar.conta.models import Agencia
 
@@ -160,8 +162,7 @@ def get_agencia_usuario(usuario):
 
 
 @login_required
-def adicionar_orcamento(request): 
-    
+def adicionar_orcamento(request):
     form = None
     if request.method == 'POST':
         form = PrestadorForm(request.POST)
@@ -174,6 +175,7 @@ def adicionar_orcamento(request):
     else:
         form = PrestadorForm()
     return render(request, 'excursao/adicionar_orcamento.html', {'form': form})
+
 
 @login_required
 def atualizar_orcamento(request, pk):
@@ -188,6 +190,41 @@ def listar_orcamento(request):
 
 @login_required
 def deletar_orcamento(request, pk):
+    pass
+
+
+@login_required
+def adicionar_transporte(request):
+    form = None
+    if request.method == 'POST':
+        form = TransporteForm(request.POST)
+        if form.is_valid():
+            transporte = form.save(commit=False)
+            transporte.agencia = get_agencia_usuario(request.user)
+            transporte.save()
+            form.save_m2m()
+            messages.success(request, 'Transporte cadastrado com sucesso!')
+            return redirect('gfg')
+        else:
+            messages.success(request, 'Formulário contém erros!!!')    
+    else:
+        form = TransporteForm()
+    return render(request, 'excursao/adicionar_transporte.html', {'form': form})
+
+
+@login_required
+def atualizar_transporte(request, pk):
+    pass
+
+
+@login_required
+def listar_transporte(request):
+    orcamentos = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    return render(request, 'excursao/listar_orcamento.html', {'orcamentos': orcamentos})
+
+
+@login_required
+def deletar_transporte(request, pk):
     pass
 
 

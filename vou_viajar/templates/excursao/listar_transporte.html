@@ -1,0 +1,58 @@
+{% extends 'public/base_interno.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <br>
+        <div class="col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Lista de Destinos</h5>
+                            {% if destinos|length > 0 %}
+                                <p class="card-text"> Lista de<code> Destinos </code> mapeados. </p>
+                                <table class="table">
+                                    <thead class="thead thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Destino</th>
+                                            <th>Cidade</th>
+                                            <th>Estado</th>
+                                            <th>Pais</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for destino in destinos %}
+                                            <tr>
+                                                <td>{{ destino.id }}</td>
+                                                <td>{{ destino.nome_turistico }}</td>
+                                                <td>{{ destino.cidade }}</td>
+                                                <td>{{ destino.estado }}</td>
+                                                <td>{{ destino.pais }}</td>
+                                                <td>
+                                                    <a href="{% url 'atualizar_destino' pk=destino.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_destino' pk=destino.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="text-center mt-5 mb-5 jumbotron">
+                                    <h5>Nenhum <code>Destino</code> cadastradao.</h5>
+                                </div>
+                            {% endif %}
+                            <hr/>
+                            <div class="text-right">
+                                <a href="{% url 'adicionar_destino' %}" class="btn btn-primary"> Mapear Destino </a>
+                                <a href="{% url 'menu' %}" class="btn btn-primary"> Menu </a>
+                            </div>
+                        </div> <!--/card-body -->
+                    </div> <!--/card -->
+                </div> <!--/col -->
+            </div> <!--/row -->
+        </div>
+    </div>
+{% endblock %}
