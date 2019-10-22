@@ -69,3 +69,6 @@ docs/_build/
 
 # PyCharm
 .idea/
+
+# VisualCode
+.vscode/
