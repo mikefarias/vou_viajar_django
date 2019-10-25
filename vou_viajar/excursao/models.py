@@ -101,11 +101,11 @@ class Transporte(models.Model):
     marca = models.CharField(max_length=50)    
     ano = models.IntegerField(null=True, blank=False)
     poltronas = models.IntegerField(null=True, blank=False)
-    banheiro = models.BooleanField(null=True, blank=False)
-    frigobar = models.BooleanField(null=True, blank=False)
-    ar_condicionado = models.BooleanField(null=True, blank=False)
-    som = models.BooleanField(null=True, blank=False)
-    tv = models.BooleanField(null=True, blank=False)
+    banheiro = models.BooleanField(default=False, null=True, blank=True)
+    frigobar = models.BooleanField(default=False, null=True, blank=True)
+    ar_condicionado = models.BooleanField(default=False, null=True, blank=True)
+    som = models.BooleanField(default=False, null=True, blank=True)
+    tv = models.BooleanField(default=False, null=True, blank=True)
     observacao = models.CharField(max_length=200)
 
     def __str__(self):

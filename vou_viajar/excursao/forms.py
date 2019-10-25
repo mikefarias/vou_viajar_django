@@ -83,11 +83,11 @@ class TransporteForm(forms.ModelForm):
     marca = forms.CharField(label='Marca')
     ano = forms.IntegerField(label='Ano')
     poltronas = forms.IntegerField(label='Quantidade de Poltronas')
-    banheiro = forms.BooleanField(label='Tem banheiro?')
-    frigobar = forms.BooleanField(label='Tem frigobar?')
-    ar_condicionado = forms.BooleanField(label='Tem ar-condicionado?')
-    som = forms.BooleanField(label='Tem som?')
-    tv = forms.BooleanField(label='Tem TV?')
+    banheiro = forms.BooleanField(label='Tem banheiro?', required=False)
+    frigobar = forms.BooleanField(label='Tem frigobar?', required=False)
+    ar_condicionado = forms.BooleanField(label='Tem ar-condicionado?', required=False)
+    som = forms.BooleanField(label='Tem som?', required=False)
+    tv = forms.BooleanField(label='Tem TV?', required=False)
     observacao = forms.CharField(label='Observações sobre o veículo')
 
     class Meta:
