@@ -9,7 +9,7 @@
                 {% block contentbody %}
                     {% load crispy_forms_tags %}
                         <form method="post" novalidate >
-                            <h2>Atualizar Destino</h2><br>
+                            <h2>Atualizar Transporte</h2><br>
                             {% csrf_token %}
                             {{form|crispy}}
                             <button type="submit" class="btn btn-primary">Atualizar</button>

@@ -9,30 +9,74 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Lista de Destinos</h5>
-                            {% if destinos|length > 0 %}
-                                <p class="card-text"> Lista de<code> Destinos </code> mapeados. </p>
+                            {% if transportes|length > 0 %}
+                                <p class="card-text"> Lista de<code> Transportes </code> por Prestador de Serviço </p>
                                 <table class="table">
                                     <thead class="thead thead-dark">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Destino</th>
-                                            <th>Cidade</th>
-                                            <th>Estado</th>
-                                            <th>Pais</th>
-                                            <th>Ações</th>
+                                            <th>Prestador de Serviço</th>
+                                            <th>Modelo</th>
+                                            <th>Marca</th>
+                                            <th>Ano</th>
+                                            <th>Nº de Poltronas</th>
+                                            <th>Banheiro</th>
+                                            <th>Frigobar</th>
+                                            <th>Ar-condicionado</th>
+                                            <th>Som</th>
+                                            <th>TV</th>
+                                            <th>Observação</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for destino in destinos %}
+                                        {% for transporte in transportes %}
                                             <tr>
-                                                <td>{{ destino.id }}</td>
-                                                <td>{{ destino.nome_turistico }}</td>
-                                                <td>{{ destino.cidade }}</td>
-                                                <td>{{ destino.estado }}</td>
-                                                <td>{{ destino.pais }}</td>
+                                                <td>{{ transporte.id }}</td>
+                                                <td>{{ transporte.prestador_servico }}</td>
+                                                <td>{{ transporte.modelo }}</td>
+                                                <td>{{ transporte.marca }}</td>
+                                                <td>{{ transporte.ano }}</td>
+                                                <td>{{ transporte.poltronas }}</td>
                                                 <td>
-                                                    <a href="{% url 'atualizar_destino' pk=destino.id %}" class="btn btn-info"> Atualizar </a>
-                                                    <a href="{% url 'deletar_destino' pk=destino.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                    {% if transporte.banheiro %}
+                                                        Sim
+                                                    {% else %}
+                                                        Não
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if transporte.frigobar %}
+                                                        Sim
+                                                    {% else %}
+                                                        Não
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if transporte.ar_condicionado %}
+                                                        Sim
+                                                    {% else %}
+                                                        Não
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if transporte.som %}
+                                                        Sim
+                                                    {% else %}
+                                                        Não
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if transporte.tv %}
+                                                        Sim
+                                                    {% else %}
+                                                        Não
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ transporte.observacao }}</td>
+                                                <td>
+                                                    <a href="{% url 'atualizar_transporte' pk=transporte.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_transporte' pk=transporte.id %}" class="btn btn-outline-danger"> Deletar </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -41,12 +85,12 @@
                                 </table>
                             {% else %}
                                 <div class="text-center mt-5 mb-5 jumbotron">
-                                    <h5>Nenhum <code>Destino</code> cadastradao.</h5>
+                                    <h5>Nenhum <code>Transporte</code> cadastradao.</h5>
                                 </div>
                             {% endif %}
                             <hr/>
                             <div class="text-right">
-                                <a href="{% url 'adicionar_destino' %}" class="btn btn-primary"> Mapear Destino </a>
+                                <a href="{% url 'adicionar_transporte' %}" class="btn btn-primary"> Cadastrar Transporte </a>
                                 <a href="{% url 'menu' %}" class="btn btn-primary"> Menu </a>
                             </div>
                         </div> <!--/card-body -->

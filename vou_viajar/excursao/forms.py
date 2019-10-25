@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Excursao
+from .models import Excursao, Transporte
 from .models import Destino
 from .models import PrestadorServico
 from .models import TipoPrestadorServico
@@ -78,7 +78,7 @@ class PrestadorForm(forms.ModelForm):
 
 class TransporteForm(forms.ModelForm):
 
-    prestador_servico = forms.ModelMultipleChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
+    prestador_servico = forms.ModelChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
     modelo = forms.CharField(label='Modelo do Transporte')
     marca = forms.CharField(label='Marca')
     ano = forms.IntegerField(label='Ano')
@@ -91,7 +91,7 @@ class TransporteForm(forms.ModelForm):
     observacao = forms.CharField(label='Observações sobre o veículo')
 
     class Meta:
-        model = PrestadorServico
+        model = Transporte
         fields = [
             'prestador_servico',
             'modelo',

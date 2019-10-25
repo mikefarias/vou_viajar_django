@@ -9,16 +9,12 @@ from django.shortcuts import get_object_or_404
 from django.views.defaults import bad_request, server_error
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import Excursao
-from .forms import ExcursaoForm
-from .models import Destino
-from .forms import DestinoForm
-from .models import PrestadorServico
-from .models import TipoPrestadorServico
-from .forms import PrestadorForm
-from .forms import TransporteForm
-from vou_viajar.conta.models import Pessoa
-from vou_viajar.conta.models import Agencia
+
+from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, Transporte
+
+from .forms import PrestadorForm, TransporteForm, DestinoForm, ExcursaoForm
+
+from vou_viajar.conta.models import Pessoa, Agencia
 
 
 @login_required
@@ -195,37 +191,65 @@ def deletar_orcamento(request, pk):
 
 @login_required
 def adicionar_transporte(request):
-    form = None
+    form = TransporteForm()
+
     if request.method == 'POST':
         form = TransporteForm(request.POST)
         if form.is_valid():
             transporte = form.save(commit=False)
             transporte.agencia = get_agencia_usuario(request.user)
             transporte.save()
-            form.save_m2m()
             messages.success(request, 'Transporte cadastrado com sucesso!')
-            return redirect('gfg')
+            return redirect('adicionar_orcamento')
         else:
-            messages.success(request, 'Formulário contém erros!!!')    
-    else:
-        form = TransporteForm()
+            messages.error(request, 'Formulário contém erros!!!')    
+    
     return render(request, 'excursao/adicionar_transporte.html', {'form': form})
 
 
 @login_required
 def atualizar_transporte(request, pk):
-    pass
+    transporte = get_object_or_404(Transporte, pk=pk)
+    form = TransporteForm(instance=transporte)
+    if request.method == 'POST':
+        form = TransporteForm(request.POST, instance=transporte)    
+        if form.is_valid():
+            transporte = form.save(commit=False)
+            transporte.prestador_servico = form.cleaned_data['prestador_servico']
+            transporte.modelo = form.cleaned_data['modelo']
+            transporte.marca = form.cleaned_data['marca']
+            transporte.ano = form.cleaned_data['ano']
+            transporte.poltronas = form.cleaned_data['poltronas']
+            transporte.banheiro = form.cleaned_data['banheiro']
+            transporte.frigobar = form.cleaned_data['frigobar']
+            transporte.ar_condicionado = form.cleaned_data['ar_condicionado']
+            transporte.som = form.cleaned_data['som']
+            transporte.tv = form.cleaned_data['tv']
+            transporte.observacao = form.cleaned_data['observacao']                        
+            transporte.save()
+            messages.success(request, 'Sucesso')
+            return redirect('listar_transporte')
+        else:
+            return render(request, 'excursao/atualizar_transporte.html', {'form': form, 'destino': transporte})
+    
+    elif request.method == 'GET':
+        return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino': transporte})
+
 
 
 @login_required
 def listar_transporte(request):
-    orcamentos = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
-    return render(request, 'excursao/listar_orcamento.html', {'orcamentos': orcamentos})
+    transportes = Transporte.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    return render(request, 'excursao/listar_transporte.html', {'transportes': transportes})
 
 
 @login_required
 def deletar_transporte(request, pk):
-    pass
+    transporte = get_object_or_404(Transporte, pk=pk)
+    if transporte.delete():
+        return redirect('listar_transporte')
+    else:
+        return server_errror(request, 'ops_500.html')
 
 
 @login_required
