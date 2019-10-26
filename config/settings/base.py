@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'vou_viajar.conta',
     'vou_viajar.excursao',
     'vou_viajar.public',
-    'dango_heroku',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -99,6 +98,11 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 ''' DATABASES = {
     'default': {
