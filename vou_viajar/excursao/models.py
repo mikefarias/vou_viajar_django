@@ -62,7 +62,7 @@ class Excursao(models.Model):
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
 
     def __str__(self):
-        return '%s %s' % (self.titulo, self.nome_turistico)
+        return '%s' % (self.titulo)
 
 
 class TipoPrestadorServico(models.Model):
@@ -110,6 +110,18 @@ class Transporte(models.Model):
 
     def __str__(self):
         return '%s' % (self.modelo)
+
+
+class OrcamentoTransporte(models.Model):
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    excursao = models.ForeignKey(Excursao, on_delete=models.PROTECT)
+    transporte = models.ForeignKey(Transporte, on_delete=models.PROTECT)
+    prestador_servico = models.ForeignKey(PrestadorServico, on_delete=models.PROTECT)
+    cotacao = models.IntegerField(null=False)
+    km = models.IntegerField(null=False)
+    horario_partida = models.DateTimeField()
+    horario_chegada = models.DateTimeField()
+    observacao = models.CharField(max_length=100)
 
 
 class Orcamento(models.Model):

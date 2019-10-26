@@ -10,9 +10,9 @@ from django.views.defaults import bad_request, server_error
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
-from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, Transporte
+from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, Transporte, OrcamentoTransporte
 
-from .forms import PrestadorForm, TransporteForm, DestinoForm, ExcursaoForm
+from .forms import PrestadorForm, TransporteForm, DestinoForm, ExcursaoForm, OrcamentoTransporteForm
 
 from vou_viajar.conta.models import Pessoa, Agencia
 
@@ -192,7 +192,6 @@ def deletar_orcamento(request, pk):
 @login_required
 def adicionar_transporte(request):
     form = TransporteForm()
-
     if request.method == 'POST':
         form = TransporteForm(request.POST)
         if form.is_valid():
@@ -305,5 +304,61 @@ def deletar_prestador_servico(request, pk):
     prestador = get_object_or_404(PrestadorServico, pk=pk)
     if prestador.delete():
         return redirect('listar_prestador_servico')
+    else:
+        return server_errror(request, 'ops_500.html')
+
+@login_required
+def adicionar_orcamento_transporte(request):
+    form = OrcamentoTransporteForm()
+    if request.method == 'POST':
+        form = OrcamentoTransporteForm(request.POST)
+        if form.is_valid():
+            orcamento_transporte = form.save(commit=False)
+            orcamento_transporte.agencia = get_agencia_usuario(request.user)
+            orcamento_transporte.save()
+            messages.success(request, 'Orçamento de Transporte cadastrado com sucesso!')
+            return redirect('listar_orcamento_transporte')
+        else:
+            messages.error(request, 'Formulário contém erros!!!')     
+    return render(request, 'excursao/adicionar_orcamento_transporte.html', {'form': form})
+
+
+@login_required
+def atualizar_orcamento_transporte(request, pk):
+    orcamento_transporte = get_object_or_404(OrcamentoTransporte, pk=pk)
+    form = OrcamentoTransporteForm(instance=orcamento_transporte)
+    if request.method == 'POST':
+        form = OrcamentoTransporteForm(request.POST, instance=orcamento_transporte)
+        if form.is_valid():
+            orcamento_transporte = form.save(commit=False)
+            orcamento_transporte.excursao = form.cleaned_data['excursao']
+            orcamento_transporte.prestador_servico = form.cleaned_data['prestador_servico']
+            orcamento_transporte.transporte = form.cleaned_data['transporte']
+            orcamento_transporte.cotacao = form.cleaned_data['cotacao']
+            orcamento_transporte.km = form.cleaned_data['km']
+            orcamento_transporte.horario_partida = form.cleaned_data['horario_partida']
+            orcamento_transporte.horario_chegada = form.cleaned_data['horario_chegada']
+            orcamento_transporte.observacao = form.cleaned_data['observacao']
+            orcamento_transporte.save()
+            messages.success(request, 'Sucesso')
+            return redirect('listar_orcamento_transporte')
+        else:
+            return render(request, 'excursao/atualizar_orcamento_transporte.html', {'form': form, 'orcamento_transporte': orcamento_transporte})
+
+    elif request.method == 'GET':
+        return render(request, 'excursao/atualizar_orcamento_transporte.html', {'form': form, 'orcamento_transporte': orcamento_transporte})
+                                 
+
+@login_required
+def listar_orcamento_transporte(request):
+    orcamentos = OrcamentoTransporte.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    return render(request, 'excursao/listar_orcamento_transporte.html', {'orcamentos': orcamentos})
+
+
+@login_required
+def deletar_orcamento_transporte(request, pk):
+    orcamento_transporte = get_object_or_404(OrcamentoTransporte, pk=pk)
+    if orcamento_transporte.delete():
+        return redirect('listar_orcamento_transporte')
     else:
         return server_errror(request, 'ops_500.html')

@@ -1,9 +1,6 @@
 from django import forms
 
-from .models import Excursao, Transporte
-from .models import Destino
-from .models import PrestadorServico
-from .models import TipoPrestadorServico
+from .models import Excursao, Destino, Transporte, PrestadorServico, TipoPrestadorServico, OrcamentoTransporte
 
 
 class ExcursaoForm(forms.ModelForm):
@@ -107,4 +104,39 @@ class TransporteForm(forms.ModelForm):
         ]
 
 
+class OrcamentoTransporteForm(forms.ModelForm):
+    excursao = forms.ModelChoiceField(queryset=Excursao.objects.all(), label='Excursão')
+    prestador_servico = forms.ModelChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
+    transporte = forms.ModelChoiceField(queryset=Transporte.objects.all(), label='Transporte')
+    cotacao = forms.IntegerField(label='Cotação')
+    km = forms.IntegerField(label='KM')
+    horario_partida = forms.SplitDateTimeField(
+        widget=forms.SplitDateTimeWidget(
+            date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
+        ),
+        label='Horário Partida',
+        help_text='Data e hora que o transporte ficará disponível para agência'
+    )
+    horario_chegada = forms.SplitDateTimeField(
+        widget=forms.SplitDateTimeWidget(
+            date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
+        ),
+        label='Horário Chegada',
+        help_text='Data e hora que o transporte deverá ser devolvido'
+    )
+    observacao = forms.CharField()
 
+    class Meta:
+        model = OrcamentoTransporte
+        fields = [
+            'excursao', 
+            'prestador_servico',
+            'transporte',
+            'cotacao',
+            'km',
+            'horario_partida',
+            'horario_chegada',
+            'observacao'
+        ]

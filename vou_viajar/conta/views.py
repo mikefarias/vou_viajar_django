@@ -26,7 +26,6 @@ def menu(request):
     View para mostrar a tela de login do sistema.
 
     """
-    messages.add_message(request, messages.INFO, 'Menu de Excursões')
     return render(request, 'conta/menu.html')
 
 
@@ -64,5 +63,5 @@ def adicionar_agencia(request):
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('account/login')
     template_name = 'registration/register.html'
