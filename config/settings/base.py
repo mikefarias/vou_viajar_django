@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from decouple import config
-import django_heroku
-django_heroku.settings(locals())
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'vou_viajar.conta',
     'vou_viajar.excursao',
     'vou_viajar.public',
+    'dango_heroku',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
