@@ -72,6 +72,9 @@ TEMPLATES = [
     },
 ]
 
+
+ALLOWED_HOSTS = ['*', 'vouviajar79.herokuapp.com']
+
 SOCIAL_AUTH_GOOGLE_OAUTH2_USE_UNIQUE_USER_ID = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')  # Google App ID
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')  # Google App Secret
@@ -146,3 +149,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'static')
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
