@@ -17,7 +17,3 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
-
-ALLOWED_HOSTS = ['https://day-out.herokuapp.com']
-
-django_heroku.settings(locals())

@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from decouple import config
-import dj_database_url
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(
@@ -99,10 +97,6 @@ DATABASES = {
     }
 }
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-DATABASES['default']['CONN_MAX_AGE'] = 500
-
 ''' DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -152,7 +146,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'static')
-
-# Configure Django App for Heroku.
-import django_heroku
-django_heroku.settings(locals())
