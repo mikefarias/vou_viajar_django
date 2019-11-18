@@ -28,6 +28,10 @@ urlpatterns = [
     path('orcamento/transporte/listar', views.listar_orcamento_transporte, name='listar_orcamento_transporte'),
     path('orcamento/transporte/atualizar/<pk>', views.atualizar_orcamento_transporte, name='atualizar_orcamento_transporte'),
     path('orcamento/transporte/deletar/<pk>', views.deletar_orcamento_transporte, name='deletar_orcamento_transporte'),
+    path('roteiro/adicionar', views.adicionar_roteiro, name='adicionar_roteiro'),
+    path('roteiro/listar', views.listar_roteiro, name='listar_roteiro'),
+    path('roteiro/atualizar/<pk>', views.atualizar_roteiro, name='atualizar_roteiro'),
+    path('roteiro/deletar/<pk>', views.deletar_roteiro, name='deletar_roteiro'),
 
 
 ]

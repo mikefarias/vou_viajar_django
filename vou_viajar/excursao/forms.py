@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Excursao, Destino, Transporte, PrestadorServico, TipoPrestadorServico, OrcamentoTransporte
+from .models import Excursao, Destino, Transporte, PrestadorServico, TipoPrestadorServico, OrcamentoTransporte, Roteiro
 
 
 class ExcursaoForm(forms.ModelForm):
@@ -138,5 +138,40 @@ class OrcamentoTransporteForm(forms.ModelForm):
             'km',
             'horario_partida',
             'horario_chegada',
+            'observacao'
+        ]
+
+class RoteiroForm(forms.ModelForm):
+    excursao = forms.ModelChoiceField(queryset=Excursao.objects.all(), label = 'Excursão')
+    horario_inicio = forms.SplitDateTimeField(
+        widget=forms.SplitDateTimeWidget(
+            date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
+        ),
+        label='Horário Início',
+        help_text='Horário de início da atividade'
+    )
+    horario_fim = forms.SplitDateTimeField(
+        widget=forms.SplitDateTimeWidget(
+            date_attrs={'type': 'date'},
+            time_attrs={'type': 'time'},
+        ),
+        label='Horário Fim',
+        help_text='Horário do fim da atividade'
+    )
+    pago = forms.BooleanField(label='Pago', required=False)
+    incluso = forms.BooleanField(label='Incluso', required=False)
+    custo = forms.IntegerField(label='Custo')
+    observacao = forms.CharField()
+
+    class Meta: 
+        model = Roteiro
+        fields = [
+            'excursao',
+            'horario_inicio',
+            'horario_fim',
+            'pago',
+            'incluso',
+            'custo',
             'observacao'
         ]

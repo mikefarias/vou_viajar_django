@@ -127,5 +127,13 @@ class OrcamentoTransporte(models.Model):
 class Orcamento(models.Model):
     pass
 
+
 class Roteiro(models.Model):
-    pass
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    excursao = models.ForeignKey(Excursao, on_delete=models.PROTECT)
+    horario_inicio = models.DateTimeField()
+    horario_fim = models.DateTimeField()
+    pago = models.BooleanField(default=False, null=True, blank=True)
+    incluso = models.BooleanField(default=False, null=True, blank=True)
+    custo = models.IntegerField(null=False)
+    observacao = models.CharField(max_length=100)

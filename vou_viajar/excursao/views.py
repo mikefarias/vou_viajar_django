@@ -10,9 +10,9 @@ from django.views.defaults import bad_request, server_error
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 
-from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, Transporte, OrcamentoTransporte
+from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, Transporte, OrcamentoTransporte, Roteiro
 
-from .forms import PrestadorForm, TransporteForm, DestinoForm, ExcursaoForm, OrcamentoTransporteForm
+from .forms import PrestadorForm, TransporteForm, DestinoForm, ExcursaoForm, OrcamentoTransporteForm, RoteiroForm
 
 from vou_viajar.conta.models import Pessoa, Agencia
 
@@ -360,5 +360,61 @@ def deletar_orcamento_transporte(request, pk):
     orcamento_transporte = get_object_or_404(OrcamentoTransporte, pk=pk)
     if orcamento_transporte.delete():
         return redirect('listar_orcamento_transporte')
+    else:
+        return server_errror(request, 'ops_500.html')
+
+
+@login_required
+def adicionar_roteiro(request):
+    form = RoteiroForm()
+    if request.method == 'POST':
+        form = RoteiroForm(request.POST)
+        if form.is_valid():
+            roteiro = form.save(commit=False)
+            roteiro.agencia = get_agencia_usuario(request.user)
+            roteiro.save()
+            messages.success(request, 'Roteiro cadastrado com sucesso!')
+            return redirect('listar_roteiro')
+        else:
+            messages.error(request, 'Formulário contém erros!')     
+    return render(request, 'excursao/adicionar_roteiro.html', {'form': form})
+
+
+@login_required
+def atualizar_roteiro(request, pk):
+    roteiro = get_object_or_404(Roteiro, pk=pk)
+    form = RoteiroForm(instance=roteiro)
+    if request.method == 'POST':
+        form = RoteiroForm(request.POST, instance=roteiro)
+        if form.is_valid():
+            roteiro = form.save(commit=False)
+            roteiro.excursao = form.cleaned_data['excursao']
+            roteiro.horario_inicio = form.cleaned_data['horario_inicio']
+            roteiro.horario_fim  = form.cleaned_data['horario_fim']
+            roteiro.pago = form.cleaned_data['pago']
+            roteiro.incluso = form.cleaned_data['incluso']
+            roteiro.custo = form.cleaned_data['custo']
+            roteiro.observacao = form.cleaned_data['observacao']
+            roteiro.save()
+            messages.success(request, 'Sucesso')
+            return redirect('listar_roteiro')
+        else:
+            return render(request, 'excursao/atualizar_roteiro.html', {'form': form, 'roteiro': roteiro})
+
+    elif request.method == 'GET':
+        return render(request, 'excursao/atualizar_roteiro.html', {'form': form, 'roteiro': roteiro})
+                                 
+
+@login_required
+def listar_roteiro(request):
+    roteiros = Roteiro.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    return render(request, 'excursao/listar_roteiro.html', {'roteiros': roteiros})
+
+
+@login_required
+def deletar_roteiro(request, pk):
+    roteiro = get_object_or_404(Roteiro, pk=pk)
+    if roteiro.delete():
+        return redirect('listar_roteiro')
     else:
         return server_errror(request, 'ops_500.html')

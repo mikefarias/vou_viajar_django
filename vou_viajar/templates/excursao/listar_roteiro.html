@@ -1,0 +1,68 @@
+{% extends 'public/base_interno.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <br>
+        <div class="col">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Lista de Roteiros</h5>
+                            {% if excursoes|length > 0 %}
+                                <p class="card-text"> Lista de<code> Roteiros </code> cadastrados. </p>
+                                <table class="table">
+                                    <thead class="thead thead-dark">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Excursão</th>
+                                            <th>Inicio/th>
+                                            <th>Fim</th>
+                                            <th>Pago</th>
+                                            <th>Incluso</th>
+                                            <th>Custo</th>
+                                            <th>Observação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for roteiro in roteiros %}
+                                            <tr>
+                                                <td>{{ roteiro.id }}</td>
+                                                <td>{{ rotiero.origem }}</td>
+                                                <td>
+                                                    {% for excursao in roteiro.excursao.all %}
+                                                        {{ excursao.titulo }}
+                                                    {% endfor %}
+                                                </td>
+                                                <td>{{ roteiro.inicio }}</td>
+                                                <td>{{ roteiro.fim }}</td>
+                                                <td>{{ roteiro.pago }}</td>
+                                                <td>{{ roteiro.inicio }}</td>
+                                                <td>{{ roteiro.incluso }}</td>
+                                                <td>{{ roteiro.custo }}</td>
+                                                <td>{{ roteiro.observacao }}</td>
+                                                <td>
+                                                    <a href="{% url 'atualizar_roteiro' pk=roteiro.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_roteiro' pk=roteiro.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            {% else %}
+                                <div class="text-center mt-5 mb-5 jumbotron">
+                                    <h5>Nenhum <code>Roteiro</code> cadastrado.</h5>
+                                </div>
+                            {% endif %}
+                                <hr />
+                                <div class="text-right">
+                                    <a href="{% url 'adicionar_roteiro' %}" class="btn btn-primary"> Cadastrar Roteiro </a>
+                                    <a href="{% url 'menu' %}" class="btn btn-primary"> Menu </a>
+                                </div>
+                        </div> <!--/card-body -->
+                    </div> <!--/card -->
+                </div> <!--/col -->
+            </div> <!--/row -->
+        </div>
+    </div>
+{% endblock %}
