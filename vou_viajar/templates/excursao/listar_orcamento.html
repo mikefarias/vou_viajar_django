@@ -8,31 +8,37 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Lista de Destinos</h5>
-                            {% if destinos|length > 0 %}
-                                <p class="card-text"> Lista de<code> Destinos </code> mapeados. </p>
+                            <h5 class="card-title">Lista de Orçamentos </h5>
+                            {% if orcamentos|length > 0 %}
+                                <p class="card-text"> Lista de<code> Orçamentos </code> por Prestador de Serviço </p>
                                 <table class="table">
                                     <thead class="thead thead-dark">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Destino</th>
-                                            <th>Cidade</th>
-                                            <th>Estado</th>
-                                            <th>Pais</th>
-                                            <th>Ações</th>
+                                            <th>Excursão</th>
+                                            <th>Prestador de Serviço</th>
+                                            <th>Cotação</th>
+                                            <th>Horário Partida</th>
+                                            <th>Horário Chegada</th>
+                                            <th>Selecionado</th>
+                                            <th>Observação</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for destino in destinos %}
+                                        {% for orcamento in orcamentos %}
                                             <tr>
-                                                <td>{{ destino.id }}</td>
-                                                <td>{{ destino.nome_turistico }}</td>
-                                                <td>{{ destino.cidade }}</td>
-                                                <td>{{ destino.estado }}</td>
-                                                <td>{{ destino.pais }}</td>
+                                                <td>{{ orcamento.id }}</td>
+                                                <td>{{ orcamento.excursao }}</td>
+                                                <td>{{ orcamento.prestador_servico }}</td>
+                                                <td>{{ orcamento.cotacao }}</td>
+                                                <td>{{ orcamento.horario_partida }}</td>
+                                                <td>{{ orcamento.horario_chegada }}</td>
+                                                <td>{{ orcamento.selecionado }}</td>
+                                                <td>{{ orcamento.observacao }}</td>
                                                 <td>
-                                                    <a href="{% url 'atualizar_destino' pk=destino.id %}" class="btn btn-info"> Atualizar </a>
-                                                    <a href="{% url 'deletar_destino' pk=destino.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                    <a href="{% url 'atualizar_orcamento' pk=orcamento.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_orcamento' pk=orcamento.id %}" class="btn btn-outline-danger"> Deletar </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
@@ -41,12 +47,12 @@
                                 </table>
                             {% else %}
                                 <div class="text-center mt-5 mb-5 jumbotron">
-                                    <h5>Nenhum <code>Destino</code> cadastradao.</h5>
+                                    <h5>Nenhum <code>Orçamento</code> cadastradao.</h5>
                                 </div>
                             {% endif %}
                             <hr/>
                             <div class="text-right">
-                                <a href="{% url 'adicionar_destino' %}" class="btn btn-primary"> Mapear Destino </a>
+                                <a href="{% url 'adicionar_orcamento' %}" class="btn btn-primary"> Cadastrar Orçamento </a>
                                 <a href="{% url 'menu' %}" class="btn btn-primary"> Menu </a>
                             </div>
                         </div> <!--/card-body -->

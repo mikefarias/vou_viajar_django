@@ -9,35 +9,34 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Lista de Roteiros</h5>
-                            {% if excursoes|length > 0 %}
+                            {% if roteiros|length > 0 %}
                                 <p class="card-text"> Lista de<code> Roteiros </code> cadastrados. </p>
                                 <table class="table">
                                     <thead class="thead thead-dark">
                                         <tr>
                                             <th>ID</th>
                                             <th>Excursão</th>
-                                            <th>Inicio/th>
+                                            <th>Inicio</th>
                                             <th>Fim</th>
                                             <th>Pago</th>
                                             <th>Incluso</th>
                                             <th>Custo</th>
                                             <th>Observação</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for roteiro in roteiros %}
                                             <tr>
                                                 <td>{{ roteiro.id }}</td>
-                                                <td>{{ rotiero.origem }}</td>
                                                 <td>
                                                     {% for excursao in roteiro.excursao.all %}
                                                         {{ excursao.titulo }}
                                                     {% endfor %}
                                                 </td>
-                                                <td>{{ roteiro.inicio }}</td>
-                                                <td>{{ roteiro.fim }}</td>
+                                                <td>{{ roteiro.horario_inicio }}</td>
+                                                <td>{{ roteiro.horario_fim }}</td>
                                                 <td>{{ roteiro.pago }}</td>
-                                                <td>{{ roteiro.inicio }}</td>
                                                 <td>{{ roteiro.incluso }}</td>
                                                 <td>{{ roteiro.custo }}</td>
                                                 <td>{{ roteiro.observacao }}</td>
