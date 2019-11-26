@@ -112,21 +112,21 @@ class Transporte(models.Model):
         return '%s' % (self.modelo)
 
 
-class OrcamentoServico(models.Model):
-    tipo_servico = models.ForeignKey(TipoServico, on_delete=models.PROTECT)
-    servico = models.IntegerField()
-
-
 class Orcamento(models.Model):
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
     excursao = models.ForeignKey(Excursao, on_delete=models.PROTECT)
+    tipo_prestador_servico = models.ForeignKey(TipoPrestadorServico, on_delete=models.PROTECT)
     prestador_servico = models.ForeignKey(PrestadorServico, on_delete=models.PROTECT)
-    servico = models.ForeignKey(OrcamentoServico, on_delete=models.PROTECT)
     cotacao = models.IntegerField(null=False)
     horario_partida = models.DateTimeField()
     horario_chegada = models.DateTimeField()
     selecionado = models.BooleanField(default=False, null=True, blank=True)
     observacao = models.CharField(max_length=100)
+
+
+class OrcamentoDetalhesTransporte(models.Model):
+    orcamento = models.ForeignKey(Orcamento, on_delete=models.PROTECT)
+    transporte = models.ForeignKey(Transporte, on_delete=models.PROTECT)
 
 
 class Roteiro(models.Model):

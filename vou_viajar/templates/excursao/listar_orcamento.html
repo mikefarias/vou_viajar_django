@@ -16,6 +16,7 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Excursão</th>
+                                            <th>Categoria Prestador Serviço</th>
                                             <th>Prestador de Serviço</th>
                                             <th>Cotação</th>
                                             <th>Horário Partida</th>
@@ -30,11 +31,18 @@
                                             <tr>
                                                 <td>{{ orcamento.id }}</td>
                                                 <td>{{ orcamento.excursao }}</td>
+                                                <td>{{ orcamento.tipo_prestador_servico }}</td>
                                                 <td>{{ orcamento.prestador_servico }}</td>
                                                 <td>{{ orcamento.cotacao }}</td>
                                                 <td>{{ orcamento.horario_partida }}</td>
                                                 <td>{{ orcamento.horario_chegada }}</td>
-                                                <td>{{ orcamento.selecionado }}</td>
+                                                <td>
+                                                    {% if orcamento.selecionado %}
+                                                        Sim
+                                                    {% else %}
+                                                        Não
+                                                    {% endif %}
+                                                </td>                 
                                                 <td>{{ orcamento.observacao }}</td>
                                                 <td>
                                                     <a href="{% url 'atualizar_orcamento' pk=orcamento.id %}" class="btn btn-info"> Atualizar </a>

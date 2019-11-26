@@ -1,8 +1,6 @@
 from django import forms
 
 from .models import Excursao, Destino, Transporte, PrestadorServico, TipoPrestadorServico, Orcamento, Roteiro
-
-
 class ExcursaoForm(forms.ModelForm):
 
     titulo = forms.CharField(label='Título', help_text='Em até 50 caracteres')
@@ -106,6 +104,7 @@ class TransporteForm(forms.ModelForm):
 
 class OrcamentoForm(forms.ModelForm):
     excursao = forms.ModelChoiceField(queryset=Excursao.objects.all(), label='Excursão')
+    tipo_prestador_servico = forms.ModelChoiceField(queryset=TipoPrestadorServico.objects.all(), label='Categoria Prestação de Serviço')
     prestador_servico = forms.ModelChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
     cotacao = forms.IntegerField(label='Cotação')
     horario_partida = forms.SplitDateTimeField(
@@ -130,7 +129,8 @@ class OrcamentoForm(forms.ModelForm):
     class Meta:
         model = Orcamento
         fields = [
-            'excursao', 
+            'excursao',
+            'tipo_prestador_servico', 
             'prestador_servico',
             'cotacao',
             'horario_partida',

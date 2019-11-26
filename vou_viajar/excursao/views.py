@@ -300,8 +300,8 @@ def atualizar_orcamento(request, pk):
         if form.is_valid():
             orcamento = form.save(commit=False)
             orcamento.excursao = form.cleaned_data['excursao']
+            orcamento.tipo_prestador_servico = form.cleaned_data['tipo_prestador_servico']
             orcamento.prestador_servico = form.cleaned_data['prestador_servico']
-            orcamento.servico = form.cleaned_data['servico']
             orcamento.cotacao = form.cleaned_data['cotacao']
             orcamento.horario_partida = form.cleaned_data['horario_partida']
             orcamento.horario_chegada = form.cleaned_data['horario_chegada']
