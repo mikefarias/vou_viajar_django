@@ -54,14 +54,8 @@ class Excursao(models.Model):
         (TIPO_BATEVOLTA, 'Bate volta'),
     )
 
-    tipo = models.IntegerField(
-        default=TIPO_EXCURSAO,
-        choices=TIPOS_CHOICES,
-    )
-    situacao = models.IntegerField(
-        default=SITUACAO_ATIVO,
-        choices=SITUACAO_EXCLUIDO,
-    )
+    tipo = models.IntegerField(default=1)
+    situacao = models.IntegerField(default=1)
     titulo = models.CharField(max_length=50)
     descricao = models.CharField(max_length=100)
     horario_inicio = models.DateTimeField()
