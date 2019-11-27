@@ -20,6 +20,17 @@ class Destino(models.Model):
     def __str__(self):
         return self.nome_turistico
 
+
+class TipoExcusao(models.Model):
+    descricao = models.CharField(max_length=100)
+    codigo = models.PositiveIntegerField()
+    ativo = models.NullBooleanField()
+
+class SituacaoExcusao(models.Model):
+    descricao = models.CharField(max_length=100)
+    codigo = models.PositiveIntegerField()
+    ativo = models.NullBooleanField()
+
 class Excursao(models.Model):
     """
     A class Excursao representa uma excursão turística.
