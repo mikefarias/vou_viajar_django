@@ -266,7 +266,11 @@ def listar_prestador_servico(request):
     prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
     return render(request, 'excursao/listar_prestador_servico.html', {'prestadores': prestadores})
 
-
+@login_required
+def listar_prestador_servico(tipo_prestador_servico):
+    prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk, tipo_prestador_servico=tipo_prestador_servico)
+    return prestadores
+    
 @login_required
 def deletar_prestador_servico(request, pk):
     prestador = get_object_or_404(PrestadorServico, pk=pk)
