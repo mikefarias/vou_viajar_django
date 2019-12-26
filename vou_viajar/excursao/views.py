@@ -8,7 +8,9 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views.defaults import bad_request, server_error
 from django.contrib import messages
+from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+import json
 
 from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, Transporte, Orcamento, Roteiro
 
@@ -265,12 +267,16 @@ def atualizar_prestador_servico(request, pk):
 def listar_prestador_servico(request):
     prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
     return render(request, 'excursao/listar_prestador_servico.html', {'prestadores': prestadores})
+ 
 
-@login_required
-def listar_prestador_servico(tipo_prestador_servico):
-    prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk, tipo_prestador_servico=tipo_prestador_servico)
-    return prestadores
-    
+def get_prestadores_servico_tipo(request, pk):
+    prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk, categoria_id=pk)
+    prestadores_dict = {}
+    for prestador in prestadores:
+        prestadores_dict[prestador.id] = prestador.nome
+    return HttpResponse(json.dumps(prestadores_dict), content_type="application/json")
+
+
 @login_required
 def deletar_prestador_servico(request, pk):
     prestador = get_object_or_404(PrestadorServico, pk=pk)

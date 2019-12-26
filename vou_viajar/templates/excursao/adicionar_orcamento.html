@@ -12,22 +12,39 @@
                         <h2>Cadastrar Orçamento</h2><br>
                         {% csrf_token %}
                         {{form|crispy}}
+                        
                         <div class="col-md-6">
-                                <select class="form-control" name="prestador_servico">
-                                    {% for t in tipo_prestador_servico %}
-                                    <optgroup label="{{ t }}">
-                                        {% list_prestador_servico ps as prestador_servico %}
-                                        {% for prest in prestador_servico %}
-                                            <option value="{{ prest }}">{{ prest }}</option>
-                                        {% endfor %}
-                                    </optgroup>
-                                    {% endfor %}
-                                </select>
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        <a href="{% url 'menu' %}" class="btn btn-primary"> Voltar </a>
+                            <button type="submit" class="btn btn-primary">Cadastrar</button>
+                            <a href="{% url 'menu' %}" class="btn btn-primary"> Voltar </a>
+                        </div>
                     </form>
                 {% endblock %}
             </div> <!--/row -->
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type='text/javascript'>
+        $(function(){
+            var prestador = $('select[name=prestador_servico]');
+            prestador.empty();
+            prestador.prepend('<option value="Not selected" selected disabled>Selecione prestador de serviço...</option>');
+            $('select[name=tipo_prestador_servico]').change(function(){
+                if($("#idTipo option:selected").text() != ("YOU SHOULD INSERT THE INITIAL VALUE OF THE setor FIELD WHEN IT IS NOT SELECTED")) {
+                    var tipo_prestador_id = $('select[name=tipo_prestador_servico]').val();
+                    request_url = '../prestadorservico/listar/' + tipo_prestador_id;
+                    $.ajax({
+                        url: request_url,
+                        type: "GET",
+                        success: function(data){
+                            prestador.empty();
+                            $.each(data, function(key, value){
+                                prestador.append('<option value="' + key + '">' + value + '</option>');
+                            });
+                        }
+                    })
+                }
+            })
+        });
+    </script>
 {% endblock %}
