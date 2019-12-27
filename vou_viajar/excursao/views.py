@@ -292,10 +292,13 @@ def adicionar_orcamento(request):
         form = OrcamentoForm(request.POST)
         if form.is_valid():
             orcamento = form.save(commit=False)
-            orcamento.agencia = get_agencia_usuario(request.user)
-            orcamento.save()
-            messages.success(request, 'Orçamento cadastrado com sucesso!')
-            return redirect('listar_orcamento')
+            if Orcamento.objects.filter(nome=orcamento.nome).exists():
+                messages.error(requests, 'Já existe um orçamento com este nome.')
+            else:
+                orcamento.agencia = get_agencia_usuario(request.user)
+                orcamento.save()
+                messages.success(request, 'Orçamento cadastrado com sucesso!')
+                return redirect('listar_orcamento')
         else:
             messages.error(request, 'Formulário contém erros!!!')     
     return render(request, 'excursao/adicionar_orcamento.html', {'form': form})
