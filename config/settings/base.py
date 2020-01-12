@@ -119,7 +119,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_REDIRECT_URL = '/conta/menu'
+LOGIN_REDIRECT_URL = '/excursao/home'
 LOGOUT_REDIRECT_URL = '/account/login'
 
 # Password validation
@@ -143,12 +143,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
-
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'vou_viajar', 'static')]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')
+
 
 # Configure Django App for Heroku.
 import django_heroku

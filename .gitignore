@@ -65,7 +65,7 @@ docs/_build/
 
 # Django static collect files
 /vou_viajar/static/
-
+/staticfiles/
 # Django upload files
 /vou_viajar/media/
 

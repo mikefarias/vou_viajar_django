@@ -20,6 +20,11 @@ from vou_viajar.conta.models import Pessoa, Agencia
 
 
 @login_required
+def home(request):
+    return render(request, 'excursao/base_home.html')
+
+
+@login_required
 def menu_excursao(request):
     return render(request, 'excursao/menu_excursao.html')
 
