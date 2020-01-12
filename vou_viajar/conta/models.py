@@ -3,12 +3,15 @@ Models da aplicação 'conta'.
 """
 
 from django.contrib.auth.models import User
+
 from django.db import models
 
 from django.utils import timezone
 import datetime
 
+
 # Create your models here.
+
 
 class Agencia(models.Model):
     """
@@ -43,8 +46,6 @@ class Pessoa(models.Model):
     cpf = models.CharField(max_length=14)
     usuario = models.OneToOneField(User, on_delete=models.PROTECT)
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
-
-
 
 class ContatoPessoa(models.Model):
 

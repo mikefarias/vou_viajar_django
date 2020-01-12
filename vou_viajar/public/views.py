@@ -6,7 +6,7 @@ def index(request):
     return render(request, 'public/index.html')
 
 def login(request):
-    return render(request, 'conta/login.html')
+    return render(request, 'src/login.html')
 
 def logout(request):
     return render(request, 'public/index.html')
