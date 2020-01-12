@@ -1,4 +1,6 @@
-{% extends 'public/base_interno.html' %}
+{% extends 'excursao/base_home.html' %}
+
+{% block title %} <title> Destino </title> {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
@@ -8,7 +10,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Lista de Destinos</h5>
+                            <h5 class="card-title">Destinos</h5>
                             {% if destinos|length > 0 %}
                                 <p class="card-text"> Lista de<code> Destinos </code> mapeados. </p>
                                 <table class="table">
@@ -41,18 +43,18 @@
                                 </table>
                             {% else %}
                                 <div class="text-center mt-5 mb-5 jumbotron">
-                                    <h5>Nenhum <code>Destino</code> cadastradao.</h5>
+                                    <h5>Nenhum <code>Destino</code> cadastrado.</h5>
                                 </div>
                             {% endif %}
                             <hr/>
                             <div class="text-right">
                                 <a href="{% url 'adicionar_destino' %}" class="btn btn-primary"> Mapear Destino </a>
-                                <a href="{% url 'menu' %}" class="btn btn-primary"> Menu </a>
+                                <a href="{% url 'home' %}" class="btn btn-primary"> Voltar </a>
                             </div>
-                        </div> <!--/card-body -->
-                    </div> <!--/card -->
-                </div> <!--/col -->
-            </div> <!--/row -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

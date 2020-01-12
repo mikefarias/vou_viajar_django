@@ -1,28 +1,27 @@
-{% extends 'public/base_interno.html' %}
+{% extends 'excursao/base_home.html' %}
+
+{% block title %} <title> Orçamento </title> {% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <br>
         <div class="row">
     	    <div class="col">
-                {% block contentform %}
-                {% load crispy_forms_tags %}
-                {% load excursao_filters %}    
+                {% load crispy_forms_tags %}   
                 <form method="post" >
-                        <h2>Cadastrar Orçamento</h2><br>
-                        {% csrf_token %}
-                        {{form|crispy}}
-                        
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                            <a href="{% url 'menu' %}" class="btn btn-primary"> Voltar </a>
-                        </div>
-                    </form>
-                {% endblock %}
-            </div> <!--/row -->
+                    <h2>Cadastrar Orçamento</h2><br>
+                    {% csrf_token %}
+                    {{form|crispy}}                     
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <a href="{% url 'home' %}" class="btn btn-primary"> Voltar </a>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}
+
 {% block scripts %}
     <script type='text/javascript'>
         $(function(){

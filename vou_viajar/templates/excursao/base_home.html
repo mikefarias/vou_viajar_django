@@ -1,0 +1,237 @@
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.0.0-beta.0
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+<!DOCTYPE html>
+<html lang="en">
+  {% load static%}
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
+  
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/css/perfect-scrollbar.css" integrity="sha256-e2UIyejgTejr/sXeLOHEMDvEagonkoPv9+JIwckAqRs=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/css/perfect-scrollbar.min.css" integrity="sha256-Eff0vTAskMNGMXDva8NMruf8ex6k9EuZ4QXf09lxwaQ=" crossorigin="anonymous" />
+
+    <!-- Icons-->
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/free.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/brand.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/icons/css/flag.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/css/flag-icon.min.css" integrity="sha256-NkXMfPcpoih3/xWDcrJcAX78pHpfwxkhNj0bAf8AMTs=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" integrity="sha256-/sdxenK1NDowSNuphgwjv8wSosSNZB0t5koXqd7XqOI=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" integrity="sha256-q5+FXlQok94jx7fkiX65EGbJ27/qobH6c6gmhngztLE=" crossorigin="anonymous" />    <!-- Main styles for this application-->
+
+    <!-- Main styles for this application-->
+    <link href="{% static "css/style.css"%}" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui@2.0.0/dist/css/coreui.min.css">
+
+    {% block title %}
+    {% endblock  %}
+  </head>
+  
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img class="navbar-brand-full" src="{% static "css/style.css"%}" width="89" height="25" alt="Vou Viajar">
+        <img class="navbar-brand-minimized" src="{% static "img/brand/sygnet.svg"%}" width="30" height="30" alt="Vou Viajar">
+      </a>
+      <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            <img class="img-avatar" src="{% static "img/avatars/1.jpg"%}" alt="admin@bootstrapmaster.com">
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <div class="dropdown-header text-center">
+              <strong>Conta</strong>
+            </div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-tasks"></i> Alterar senha
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-tasks"></i> Dados da Agência
+            </a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-tasks"></i> Dados Pessoais
+            </a>
+            <div class="dropdown-header text-center">
+              <strong>Configurações</strong>
+            </div>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-user"></i> Perfil</a>
+            <a class="dropdown-item" href="#">
+              <i class="fa fa-wrench"></i> Configurações</a>
+            <a class="dropdown-item" href="{% url 'logout_view' %}">
+              <i class="fa fa-lock"></i> Sair</a>
+          </div>
+        </li>
+      </ul>
+      <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-title">Gestão de Viagens</li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon cil-bus-alt"></i> Excursão</a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'listar_destino' %}">
+                    <i class="nav-icon cil-bus-alt"></i> Mapear Destino</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'listar_excursao' %}">
+                    <i class="nav-icon cil-bus-alt"></i> Excursão</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'listar_orcamento' %}">
+                    <i class="nav-icon cil-bus-alt"></i> Orçamento</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'listar_roteiro' %}">
+                    <i class="nav-icon cil-bus-alt"></i> Roteiro</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="nav-icon cil-bus-alt"></i> Grupo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="nav-icon cil-bus-alt"></i> Andamento</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon cil-heart"></i> Receptivo
+              </a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="nav-icon cil-heart"></i> Em construção</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon cil-calendar"></i> Reserva
+              </a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <i class="nav-icon cil-heart"></i> Em construção</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="nav-icon cil-people"></i> Cliente</a>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon cib-addthis "></i> Cadastro
+              </a>
+              <ul class="nav-dropdown-items">
+                <li class="nav-item">
+                  <li class="nav-item nav-dropdown">
+                    <a class="nav-link nav-dropdown-toggle" href="#">  
+                      <i class="nav-icon cib-addthis "></i> Prestador Serviço
+                    </a>
+                    <ul class="nav-dropdown-items">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listar_prestador_servico' %}">
+                          <i class="nav-icon cib-addthis "></i> Empresa/Autonômo
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'listar_transporte' %}">
+                          <i class="nav-icon cib-addthis "></i> Transporte
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">
+                          <i class="nav-icon cib-addthis "></i> Hospedagem
+                        </a>
+                      </li>
+                    </ul>  
+
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="nav-icon icon-star"></i> Funcionário </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="#">
+                <i class="nav-icon cib-google-analytics"></i> Relatório</a>
+              <ul class="nav-dropdown-items">
+              </ul>
+            </li>
+            <li class="nav-item mt-auto">
+              <a class="nav-link nav-link-success" href="https://github.com/mikefarias/vou_viajar" target="__blank">
+                <i class="nav-icon icon-cloud-download"></i> Visualizar no GitHub</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-danger" href="https://vouviajar79.herokuapp.com/" target="_blank">
+                <i class="nav-icon icon-layers"></i> Visualizar no Heroku
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+      </div>
+      <main class="main">
+        {% block content %}
+        {% endblock content %}
+        <br>
+      </main>
+    </div>
+    <footer class="app-footer">
+      <div>
+        <a href="https://vouviajar79.herokuapp.com/" target="_blank" >Vou Viajar</a>
+        <span>&copy; 2020 Mike Farias.</span>
+      </div>
+      <div class="ml-auto">
+        <span>Desenvolvido por </span>
+        <a href="https://www.linkedin.com/in/mike-farias" target="_blank">Mike Farias</a>
+      </div>
+    </footer>
+
+    {% block scripts%}
+    {% endblock scripts%}
+  
+    <!-- Bootstrap and necessary plugins-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- Plugins and scripts required by this view-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js" integrity="sha256-nB5IzxtznpdsVh/iELG3YdRF71rcxuh4tItH2jWfg/w=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js" integrity="sha256-EPrkNjGEmCWyazb3A/Epj+W7Qm2pB9vnfXw+X6LImPM=" crossorigin="anonymous"></script>
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.js" integrity="sha256-fLtCK9qHuQFMusrcUq9iz8AkIhZSUh/l6ucBC74dADY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js" integrity="sha256-pOydVY7re8c1n+fEgg3uoslR/di9NMsOFXJ0Esf2xjQ=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@coreui/coreui@2.0.0/dist/js/coreui.min.js"></script>
+
+  </body>
+</html>
