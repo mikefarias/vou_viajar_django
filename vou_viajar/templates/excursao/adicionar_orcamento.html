@@ -22,28 +22,30 @@
     </div>
 {% endblock %}
 
-{% block scripts %}
-    <script type='text/javascript'>
-        $(function(){
-            var prestador = $('select[name=prestador_servico]');
-            prestador.empty();
-            prestador.prepend('<option value="Not selected" selected disabled>Selecione prestador de serviço...</option>');
-            $('select[name=tipo_prestador_servico]').change(function(){
-                if($("#idTipo option:selected").text() != ("YOU SHOULD INSERT THE INITIAL VALUE OF THE setor FIELD WHEN IT IS NOT SELECTED")) {
-                    var tipo_prestador_id = $('select[name=tipo_prestador_servico]').val();
-                    request_url = '../prestadorservico/listar/' + tipo_prestador_id;
-                    $.ajax({
-                        url: request_url,
-                        type: "GET",
-                        success: function(data){
-                            prestador.empty();
-                            $.each(data, function(key, value){
-                                prestador.append('<option value="' + key + '">' + value + '</option>');
-                            });
-                        }
-                    })
-                }
-            })
-        });
-    </script>
-{% endblock %}
+{% block scripts%}
+
+<script type='text/javascript'>
+    $(function(){
+    var prestador = $('select[name=prestador_servico]');
+    prestador.empty();
+    prestador.prepend('<option value="Not selected" selected disabled>Selecione prestador de serviço...</option>');
+        $('select[name=tipo_prestador_servico]').change(function(){
+            if($("#idTipo option:selected").text() != ("YOU SHOULD INSERT THE INITIAL VALUE OF THE setor FIELD WHEN IT IS NOT SELECTED")) {
+                var tipo_prestador_id = $('select[name=tipo_prestador_servico]').val();
+                request_url = '../prestadorservico/listar/' + tipo_prestador_id;
+                $.ajax({
+                    url: request_url,
+                    type: "GET",
+                    success: function(data){
+                        prestador.empty();
+                        $.each(data, function(key, value){
+                            prestador.append('<option value="' + key + '">' + value + '</option>');
+                        });
+                    }
+                })
+            }
+        })
+    });
+</script>
+
+    {% endblock scripts%}

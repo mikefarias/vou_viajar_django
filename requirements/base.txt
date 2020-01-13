@@ -17,7 +17,6 @@ lazy-object-proxy==1.4.2
 mccabe==0.6.1
 oauthlib==3.0.1
 Pillow==5.0.0
-pkg-resources==0.0.0
 psycopg2==2.7.7
 PyJWT==1.7.1
 pylint==2.4.3
@@ -29,12 +28,7 @@ requests-oauthlib==1.2.0
 six==1.12.0
 social-auth-app-django==2.1.0
 social-auth-core==3.0.0
-<<<<<<< HEAD
 typed-ast==1.4.0
 urllib3==1.24.1
 whitenoise==4.1.4
 wrapt==1.11.2
-=======
-urllib3==1.24.1
-whitenoise==4.1.2
->>>>>>> 416e3674c042ae6b97b15bbf7316e5ddcc489ded
