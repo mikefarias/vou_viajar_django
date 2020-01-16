@@ -31,12 +31,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
-    'crispy_forms',
-    'social_django',
+    
     'vou_viajar.conta',
     'vou_viajar.excursao',
     'vou_viajar.public',
+    
+    'bootstrap4',
+    'crispy_forms',
+    'social_django',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -130,9 +132,9 @@ AUTH_PASSWORD_VALIDATORS = []
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Maceio'
 
 USE_I18N = True
 
@@ -149,6 +151,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'vou_viajar', 'static')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')
 
+AUTH_USER_MODEL = 'conta.User'
 
 # Configure Django App for Heroku.
 import django_heroku

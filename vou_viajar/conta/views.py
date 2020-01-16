@@ -3,7 +3,6 @@ Views da aplicação 'conta'.
 """
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import logout, login, authenticate
 from django.urls import reverse_lazy
 from django.views import generic
@@ -12,22 +11,38 @@ from django.shortcuts import render
 
 from .forms import AgenciaForm
 from .forms import PessoaForm
+from .forms import UserCreationForm, UserLoginForm
 
+def cadastrar_usuario(request):
+    if request.method == "POST":
+        form_usuario = UserCreationForm(request.POST)
+        if form_usuario.is_valid():
+            form_usuario.save()
+            return redirect('login_view')
+    else:
+        form_usuario = UserCreationForm()
+    return render(request, 'registration/register.html', {'form_usuario': form_usuario})
+
+def login_view(request):
+    if request.method == 'POST':
+        form_login = UserLoginForm(request.POST)
+        email = request.POST["email"]
+        password = request.POST["password"]
+        usuario = authenticate(request, email=email, password=password)
+        if usuario is not None:
+            login(request, usuario)
+            return redirect('home')
+        else:
+            messages.success(request, 'Não foi possível realizar a autenticação')
+    else:
+        form_login = UserLoginForm()
+
+    return render(request, 'registration/login.html', {'form_login': form_login})
 
 def logout_view(request):
     logout(request)
     messages.add_message(request, messages.INFO, 'Logout realizado com sucesso!')
     return redirect('/')
-
-
-@login_required
-def menu(request):
-    """
-    View para mostrar a tela de login do sistema.
-
-    """
-    return render(request, 'conta/menu.html')
-
 
 @login_required
 def adicionar_agencia(request):
@@ -59,9 +74,3 @@ def adicionar_agencia(request):
         request,
         'conta/adicionar_agencia.html',
         {'form_agencia': form_agencia,'form_pessoa' : form_pessoa })
-
-
-class SignUp(generic.CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('home')
-    template_name = 'registration/register.html'

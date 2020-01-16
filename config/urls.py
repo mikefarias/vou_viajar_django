@@ -21,7 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('oauth/i', include('social_django.urls', namespace='social')),
     path('conta/', include('vou_viajar.conta.urls')),
-    path('account/', include('django.contrib.auth.urls')),
     path('excursao/', include('vou_viajar.excursao.urls')),
     path('', include('vou_viajar.public.urls')),
 ]

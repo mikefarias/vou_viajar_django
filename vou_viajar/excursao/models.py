@@ -5,7 +5,8 @@ Models da aplicação 'excursao'.
 from django.contrib.auth.models import User
 from django.db import models
 from vou_viajar.conta.models import Agencia
-# Create your models here.
+from django.conf import settings
+
 
 class Destino(models.Model):
     
@@ -62,7 +63,7 @@ class Excursao(models.Model):
     horario_fim = models.DateTimeField()
     origem = models.CharField(max_length=20, null=False)
     destino = models.ManyToManyField(Destino)
-    usuario_cadastro = models.ForeignKey(User, on_delete=models.PROTECT)
+    usuario_cadastro = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     data_cadastro = models.DateTimeField(auto_now_add=True)
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
 
