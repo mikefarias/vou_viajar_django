@@ -42,8 +42,6 @@ class UserLoginForm(AuthenticationForm):
         attrs={ 'class': 'form-control', 'placeholder': '', 'id': 'id_password'}))
 
 
-
-
 class AgenciaForm(forms.ModelForm):
 
     nome_fantasia = forms.CharField(label='Nome da Agência')

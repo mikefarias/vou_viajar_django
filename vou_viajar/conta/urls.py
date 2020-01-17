@@ -6,4 +6,5 @@ urlpatterns = [
     path('cadastrar_usuario', views.cadastrar_usuario, name='cadastrar_usuario'),
     path('login', views.login_view, name='login_view'),
     path('logout', views.logout_view, name='logout_view'),
+    path('activate/<uidb64>/<token>/', views.activate, name='activate'), 
 ]

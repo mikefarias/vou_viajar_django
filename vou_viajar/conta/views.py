@@ -4,16 +4,24 @@ Views da aplicação 'conta'.
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.sites.shortcuts import get_current_site 
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.http import HttpResponse 
+from django.utils.encoding import force_bytes, force_text  
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
 
 from .forms import AgenciaForm
 from .forms import PessoaForm
 from .forms import UserCreationForm, UserLoginForm
+from .models import User
 
-def cadastrar_usuario(request):
+from .tokens import account_activation_token  
+
+def cadastrar_usuario_old(request):
     if request.method == "POST":
         form_usuario = UserCreationForm(request.POST)
         if form_usuario.is_valid():
@@ -22,6 +30,47 @@ def cadastrar_usuario(request):
     else:
         form_usuario = UserCreationForm()
     return render(request, 'registration/register.html', {'form_usuario': form_usuario})
+
+
+def cadastrar_usuario(request):  
+    if request.method == 'POST':  
+        form_usuario = UserCreationForm(request.POST)
+        print(form_usuario.errors.as_data())  
+        if form_usuario.is_valid():  
+            user = form_usuario.save(commit=False)  
+            user.is_active = False  
+            user.save()  
+            current_site = get_current_site(request)  
+            mail_subject = 'Activate your account.'  
+            message = render_to_string('registration/ativar_conta_email.html', {  
+                'user': user,  
+                'domain': current_site.domain,  
+                'uid': urlsafe_base64_encode(force_bytes(user.id)).decode(),  
+                'token': account_activation_token.make_token(user),  
+            })  
+            to_email = form_usuario.cleaned_data.get('email')  
+            email = EmailMessage(  
+            mail_subject, message, to=[to_email]  
+            )  
+            email.send()  
+            return HttpResponse('Please confirm your email address to complete the registration')  
+    else:  
+        form_usuario = UserCreationForm()
+        return render(request, 'registration/register.html', {'form_usuario': form_usuario})
+
+        
+def activate(request, uidb64, token):  
+    
+    uid = force_text(urlsafe_base64_decode(uidb64))  
+    user = User.objects.get(id=uid)  
+      
+    if user is not None and account_activation_token.check_token(user, token):  
+        user.is_active = True  
+        user.save()  
+        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
+    else:  
+        return HttpResponse('Activation link is invalid!')
+
 
 def login_view(request):
     if request.method == 'POST':

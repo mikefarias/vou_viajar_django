@@ -124,6 +124,15 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/excursao/home'
 LOGOUT_REDIRECT_URL = '/account/login'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
+MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_PASSWORD = 'secret1@'  
+EMAIL_HOST_USER = 'vouviajar79@gmail.com'  
+EMAIL_PORT = 465  
+EMAIL_USE_SSL = True  
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 
