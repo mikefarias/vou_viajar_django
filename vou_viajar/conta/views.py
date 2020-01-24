@@ -21,21 +21,10 @@ from .models import User
 
 from .tokens import account_activation_token  
 
-def cadastrar_usuario_old(request):
-    if request.method == "POST":
-        form_usuario = UserCreationForm(request.POST)
-        if form_usuario.is_valid():
-            form_usuario.save()
-            return redirect('login_view')
-    else:
-        form_usuario = UserCreationForm()
-    return render(request, 'registration/register.html', {'form_usuario': form_usuario})
-
 
 def cadastrar_usuario(request):  
     if request.method == 'POST':  
-        form_usuario = UserCreationForm(request.POST)
-        print(form_usuario.errors.as_data())  
+        form_usuario = UserCreationForm(request.POST) 
         if form_usuario.is_valid():  
             user = form_usuario.save(commit=False)  
             user.is_active = False  
@@ -53,10 +42,12 @@ def cadastrar_usuario(request):
             mail_subject, message, to=[to_email]  
             )  
             email.send()  
-            return HttpResponse('Please confirm your email address to complete the registration')  
+            return HttpResponse('Please confirm your email address to complete the registration')
+        else:
+            messages.error(request, 'Dados incorretos')  
     else:  
         form_usuario = UserCreationForm()
-        return render(request, 'registration/register.html', {'form_usuario': form_usuario})
+    return render(request, 'registration/register.html', {'form_usuario': form_usuario})
 
         
 def activate(request, uidb64, token):  

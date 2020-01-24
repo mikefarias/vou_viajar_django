@@ -55,14 +55,4 @@
         </div>
       </div>
     </div> 
-
-
 {% endblock %}
-
-{% block scripts%}
-    {% if messages %}
-        {% for message in messages %}
-          <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
-        {% endfor %}
-    {% endif %}
-{% endblock %} 
