@@ -82,7 +82,7 @@ def login_view(request):
             login(request, usuario)
             return redirect('home')
         else:
-            messages.success(request, 'Não foi possível realizar a autenticação')
+            messages.error(request, 'Email e/ou senha incorreto(s)!')
     else:
         form_login = UserLoginForm()
 
@@ -90,7 +90,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    messages.add_message(request, messages.INFO, 'Logout realizado com sucesso!')
+    messages.info(request, 'Logout realizado com sucesso!')
     return redirect('/')
 
 @login_required
