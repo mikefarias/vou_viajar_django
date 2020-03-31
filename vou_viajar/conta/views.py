@@ -44,7 +44,7 @@ def cadastrar_usuario(request):
             email.send()  
             return HttpResponse('Please confirm your email address to complete the registration')
         else:
-            messages.error(request, 'Dados incorretos')  
+            messages.error(request, form_usuario.errors)  
     else:  
         form_usuario = UserCreationForm()
     return render(request, 'registration/register.html', {'form_usuario': form_usuario})

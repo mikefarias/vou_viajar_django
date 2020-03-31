@@ -52,7 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         _('invalid'))])
     first_name = models.CharField(_('first name'), max_length=30)
     last_name = models.CharField(_('last name'), max_length=30)
-    email = models.EmailField(_('email x address'), max_length=255, unique=True)
+    email = models.EmailField(_('email'), max_length=255, unique=True)
     is_staff = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin site.'))
     is_active = models.BooleanField(_('active'), default=True,
