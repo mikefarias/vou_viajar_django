@@ -103,6 +103,8 @@ class ContatoAgencia(models.Model):
     fan_page_oficial = models.URLField(null=True, blank=True)
     instagram_oficial = models.URLField(null=True, blank=True)
     site_oficial = models.URLField(null=True, blank=True)
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+
 
 class Pessoa(models.Model):
 
@@ -119,3 +121,4 @@ class ContatoPessoa(models.Model):
     email = models.EmailField(null=False, blank=False)
     contato = models.CharField(max_length=11)
     whatsapp = models.CharField(max_length=11)
+    pessoa = models.ForeignKey(Pessoa, on_delete=models.PROTECT)

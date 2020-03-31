@@ -3,9 +3,7 @@ Views da aplicação 'excursao'.
 """
 
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views.defaults import bad_request, server_error
 from django.contrib import messages
 from django.http import HttpResponse
@@ -140,7 +138,7 @@ def atualizar_destino(request, pk):
             destino.cidade_fim = form.cleaned_data['cidade']
             destino.cep = form.cleaned_data['cep']
             destino.save()
-            messages.success(request, 'Sucesso')
+            messages.success(request, 'Destino atualizado!')
             return redirect('listar_destino')
         else:
             return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destino': destino})

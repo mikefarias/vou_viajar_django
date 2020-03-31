@@ -7,18 +7,15 @@ from django.contrib.auth import logout, login, authenticate
 from django.contrib.sites.shortcuts import get_current_site 
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpResponse 
 from django.utils.encoding import force_bytes, force_text  
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
-from .forms import AgenciaForm
-from .forms import PessoaForm
-from .forms import UserCreationForm, UserLoginForm
-from .models import User
-
+from .forms import AgenciaForm, PessoaForm, UserCreationForm, UserLoginForm
+from .models import User, Agencia, Pessoa
 from .tokens import account_activation_token  
 
 
@@ -106,7 +103,7 @@ def adicionar_agencia(request):
             pessoa.agencia = agencia
             form_pessoa.save()
             messages.success(request, 'Agência cadastrada com sucesso!')
-            return redirect('conta_menu')
+            return redirect('home')
     else:
         form_agencia = AgenciaForm()
         form_pessoa = PessoaForm()
@@ -114,3 +111,27 @@ def adicionar_agencia(request):
         request,
         'conta/adicionar_agencia.html',
         {'form_agencia': form_agencia,'form_pessoa' : form_pessoa })
+
+
+def atualizar_agencia(request, pk):
+    agencia = get_object_or_404(Agencia, pk=pk)
+    form_agencia = AgenciaForm(instance=agencia)
+
+    if request.method == 'POST':
+        form = AgenciaForm(request.POST, instance=agencia)    
+        if form.is_valid():
+            agencia = form.save(commit=False)
+            agencia.nome_fantasia = form.cleaned_data['nome_fantasia']
+            agencia.nome_juridico = form.cleaned_data['nome_juridico']
+            agencia.cod_cadastur = form.cleaned_data['cod_cadastur']
+            agencia.cnpj = form.cleaned_data['cnpj']
+            agencia.agencia_fisica = form.cleaned_data['agencia_fisica']
+            agencia.foto_perfil = form.cleaned_data['foto_perfil']
+            agencia.save()
+            messages.success(request, 'Agência atualizado!')
+            return redirect('home')
+        else:
+            return render(request, 'conta/atualizar_agencia.html', {'form_agencia': form_agencia, 'agencia': agencia})
+    
+    elif request.method == 'GET':
+        return render(request, 'conta/atualizar_agencia.html', {'form_agencia': form_agencia, 'agencia': agencia})

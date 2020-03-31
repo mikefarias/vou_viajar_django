@@ -57,6 +57,7 @@ class AgenciaForm(forms.ModelForm):
             'cnpj',
             'agencia_fisica',
             'foto_perfil',
+            'endereco'
         ]
 
 class PessoaForm(forms.ModelForm):
