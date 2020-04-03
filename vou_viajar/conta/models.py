@@ -81,19 +81,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email])
 
 
-class Profile(models.Model):
-    
-    cpf_cnpj            = models.CharField(max_length=14)
-    profile_photo       = models.ImageField(null=True, blank=True)
-    phone_number        = models.CharField(max_length=11)
-    whatsapp            = models.CharField(max_length=11)
-    user_id             = models.ForeignKey(User, on_delete=models.PROTECT)
-    #agency_travel_id   = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
-    created_on          = models.DateTimeField(auto_now_add=True)
-    modified_on         = models.DateTimeField(auto_now_add=True)
-    active              = models.BooleanField()
-
-
 class ContactTravelAgency(models.Model):
     
     email               = models.EmailField(null=False, blank=False)
@@ -104,7 +91,7 @@ class ContactTravelAgency(models.Model):
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)
     active              = models.BooleanField()
-    
+
 
 class TravelAgency(models.Model):
     """
@@ -118,6 +105,19 @@ class TravelAgency(models.Model):
     logo                = models.ImageField();
     owner_id            = models.ForeignKey(User, on_delete=models.PROTECT)
     contact_id          = models.OneToOneField(ContactTravelAgency, on_delete=models.SET_NULL, null=True)
+    created_on          = models.DateTimeField(auto_now_add=True)
+    modified_on         = models.DateTimeField(auto_now_add=True)
+    active              = models.BooleanField()
+
+
+class Profile(models.Model):
+    
+    cpf_cnpj            = models.CharField(max_length=14)
+    profile_photo       = models.ImageField(null=True, blank=True)
+    phone_number        = models.CharField(max_length=11)
+    whatsapp            = models.CharField(max_length=11)
+    user_id             = models.ForeignKey(User, on_delete=models.PROTECT)
+    agency_travel_id    = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)
     active              = models.BooleanField()
