@@ -14,12 +14,12 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
-from .forms import AgenciaForm, PessoaForm, UserCreationForm, UserLoginForm
-from .models import User, Agencia, Pessoa
+from .forms import TravelAgencyForm, ProfileForm, UserCreationForm, UserLoginForm
+from .models import User, TravelAgency
 from .tokens import account_activation_token  
 
 
-def cadastrar_usuario(request):  
+def add_user(request):  
     if request.method == 'POST':  
         form_usuario = UserCreationForm(request.POST) 
         if form_usuario.is_valid():  
@@ -82,56 +82,57 @@ def logout_view(request):
     return redirect('/')
 
 @login_required
-def adicionar_agencia(request):
+def add_agency(request):
     """
     View para mostrar a tela de cadastro de uma agência e receber a requisição
     de cadastro.
     """
     
-    form_agencia = None
-    form_pessoa = None
+    form_agency = None
+    form_profile = None
+    
     if request.method == 'POST':
-        form_agencia= AgenciaForm(request.POST)
-        form_pessoa = PessoaForm(request.POST)
-        if form_agencia.is_valid() and form_pessoa.is_valid():
-            agencia = form_agencia.save(commit=False)
-            agencia.usuario_cadastro = request.user
-            agencia.save()
+        form_agency   = TravelAgencyForm(request.POST)
+        form_profile  = ProfileForm(request.POST)
+        if form_agency.is_valid() and form_profile.is_valid():
+            agency = form_agency.save(commit=False)
+            agency.user_registration = request.user
+            agency.save()
 
-            pessoa = form_pessoa.save(commit=False)
-            pessoa.usuario = request.user
-            pessoa.agencia = agencia
-            form_pessoa.save()
+            profile = form_profile.save(commit=False)
+            profile.user = request.user
+            profile.agency = agency
+            form_profile.save()
             messages.success(request, 'Agência cadastrada com sucesso!')
             return redirect('home')
     else:
-        form_agencia = AgenciaForm()
-        form_pessoa = PessoaForm()
+        form_agency  = TravelAgencyForm()
+        form_profile = ProfileForm()
     return render(
         request,
         'conta/adicionar_agencia.html',
-        {'form_agencia': form_agencia,'form_pessoa' : form_pessoa })
+        {'form_agency': form_agency,'form_profile' : form_profile })
 
 
-def atualizar_agencia(request, pk):
-    agencia = get_object_or_404(Agencia, pk=pk)
-    form_agencia = AgenciaForm(instance=agencia)
+def update_agency(request, pk):
+    agency = get_object_or_404(TravelAgency, pk=pk)
+    form_agency = TravelAgencyForm(instance=agency)
 
     if request.method == 'POST':
-        form = AgenciaForm(request.POST, instance=agencia)    
+        form = TravelAgencyForm(request.POST, instance=agency)    
         if form.is_valid():
-            agencia = form.save(commit=False)
-            agencia.nome_fantasia = form.cleaned_data['nome_fantasia']
-            agencia.nome_juridico = form.cleaned_data['nome_juridico']
-            agencia.cod_cadastur = form.cleaned_data['cod_cadastur']
-            agencia.cnpj = form.cleaned_data['cnpj']
-            agencia.agencia_fisica = form.cleaned_data['agencia_fisica']
-            agencia.foto_perfil = form.cleaned_data['foto_perfil']
-            agencia.save()
+            agency = form.save(commit=False)
+            agency.code_cadastur = form.cleaned_data['code_cadastur']
+            agency.cnpj = form.cleaned_data['cnpj']
+            agency.physical_agency = form.cleaned_data['physical_agency']
+            agency.address = form.cleaned_data['address']
+            agency.logo = form.cleaned_data['logo']
+            agency.owner_id = form.cleaned_data['owner_id']
+            agency.save()
             messages.success(request, 'Agência atualizado!')
             return redirect('home')
         else:
-            return render(request, 'conta/atualizar_agencia.html', {'form_agencia': form_agencia, 'agencia': agencia})
+            return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
     
     elif request.method == 'GET':
-        return render(request, 'conta/atualizar_agencia.html', {'form_agencia': form_agencia, 'agencia': agencia})
+        return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})

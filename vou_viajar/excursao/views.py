@@ -14,7 +14,7 @@ from .models import Excursao, Destino, PrestadorServico, TipoPrestadorServico, T
 
 from .forms import PrestadorForm, TransporteForm, DestinoForm, ExcursaoForm, OrcamentoForm, RoteiroForm
 
-from vou_viajar.conta.models import Pessoa, Agencia
+from vou_viajar.conta.models import Profile, TravelAgency
 
 
 @login_required
@@ -156,10 +156,10 @@ def deletar_destino(request, pk):
         return server_errror(request, 'ops_500.html')
 
 
-def get_agencia_usuario(usuario):
-    pessoa = Pessoa.objects.get(usuario=usuario)
-    agencia = Agencia.objects.get(pessoa=pessoa)
-    return agencia
+def get_agency_user(user):
+    profile = Profile.objects.get(user_id=user)
+    agency = TravelAgency.objects.get(profile=profile)
+    return agency
 
 
 @login_required
@@ -169,7 +169,7 @@ def adicionar_transporte(request):
         form = TransporteForm(request.POST)
         if form.is_valid():
             transporte = form.save(commit=False)
-            transporte.agencia = get_agencia_usuario(request.user)
+            transporte.agencia = get_agency_user(request.user)
             transporte.save()
             messages.success(request, 'Transporte cadastrado com sucesso!')
             return redirect('adicionar_orcamento')
@@ -231,7 +231,7 @@ def adicionar_prestador_servico(request):
         form = PrestadorForm(request.POST)
         if form.is_valid():
             prestador = form.save(commit=False)
-            prestador.agencia = get_agencia_usuario(request.user)
+            prestador.agencia = get_agency_user(request.user)
             prestador.save()
             messages.success(request, 'Prestador de Serviço cadastrado com sucesso!')
             return redirect('listar_prestador_servico')
@@ -268,12 +268,12 @@ def atualizar_prestador_servico(request, pk):
 
 @login_required
 def listar_prestador_servico(request):
-    prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    prestadores = PrestadorServico.objects.filter(agencia=get_agency_user(request.user).pk)
     return render(request, 'excursao/listar_prestador_servico.html', {'prestadores': prestadores})
  
 
 def get_prestadores_servico_tipo(request, pk):
-    prestadores = PrestadorServico.objects.filter(agencia=get_agencia_usuario(request.user).pk, categoria_id=pk)
+    prestadores = PrestadorServico.objects.filter(agencia=get_agency_user(request.user).pk, categoria_id=pk)
     prestadores_dict = {}
     for prestador in prestadores:
         prestadores_dict[prestador.id] = prestador.nome
@@ -296,9 +296,9 @@ def adicionar_orcamento(request):
         if form.is_valid():
             orcamento = form.save(commit=False)
             if Orcamento.objects.filter(nome=orcamento.nome).exists():
-                messages.error(requests, 'Já existe um orçamento com este nome.')
+                messages.error(request, 'Já existe um orçamento com este nome.')
             else:
-                orcamento.agencia = get_agencia_usuario(request.user)
+                orcamento.agencia = get_agency_user(request.user)
                 orcamento.save()
                 messages.success(request, 'Orçamento cadastrado com sucesso!')
                 return redirect('listar_orcamento')
@@ -335,7 +335,7 @@ def atualizar_orcamento(request, pk):
 
 @login_required
 def listar_orcamento(request):
-    orcamentos = Orcamento.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    orcamentos = Orcamento.objects.filter(agencia=get_agency_user(request.user).pk)
     return render(request, 'excursao/listar_orcamento.html', {'orcamentos': orcamentos})
 
 
@@ -355,7 +355,7 @@ def adicionar_roteiro(request):
         form = RoteiroForm(request.POST)
         if form.is_valid():
             roteiro = form.save(commit=False)
-            roteiro.agencia = get_agencia_usuario(request.user)
+            roteiro.agencia = get_agency_user(request.user)
             roteiro.save()
             messages.success(request, 'Roteiro cadastrado com sucesso!')
             return redirect('listar_roteiro')
@@ -391,7 +391,7 @@ def atualizar_roteiro(request, pk):
 
 @login_required
 def listar_roteiro(request):
-    roteiros = Roteiro.objects.filter(agencia=get_agencia_usuario(request.user).pk)
+    roteiros = Roteiro.objects.filter(agencia=get_agency_user(request.user).pk)
     return render(request, 'excursao/listar_roteiro.html', {'roteiros': roteiros})
 
 

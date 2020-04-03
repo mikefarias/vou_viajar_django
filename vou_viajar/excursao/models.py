@@ -4,7 +4,7 @@ Models da aplicação 'excursao'.
 
 from django.contrib.auth.models import User
 from django.db import models
-from vou_viajar.conta.models import Agencia
+from vou_viajar.conta.models import TravelAgency
 from django.conf import settings
 
 
@@ -16,7 +16,7 @@ class Destino(models.Model):
     cidade = models.CharField(max_length=100)
     bairro = models.CharField(max_length=100)
     cep = models.CharField(max_length=100)
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    agencia = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     
     def __str__(self):
         return self.nome_turistico
@@ -65,7 +65,7 @@ class Excursao(models.Model):
     destino = models.ManyToManyField(Destino)
     usuario_cadastro = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     data_cadastro = models.DateTimeField(auto_now_add=True)
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    agencia = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
 
     def __str__(self):
         return '%s' % (self.titulo)
@@ -79,7 +79,7 @@ class TipoPrestadorServico(models.Model):
 
 
 class PrestadorServico(models.Model):
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    agencia = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     categoria = models.ForeignKey(TipoPrestadorServico, on_delete=models.PROTECT)
     nome = models.CharField(max_length=50)
     cnpj_cpf = models.CharField(max_length=50)
@@ -101,7 +101,7 @@ class TipoServico(models.Model):
 
 
 class Transporte(models.Model):
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    agencia = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     prestador_servico = models.ForeignKey(PrestadorServico, on_delete=models.PROTECT)
     modelo = models.CharField(max_length=50)
     marca = models.CharField(max_length=50)    
@@ -119,7 +119,7 @@ class Transporte(models.Model):
 
 
 class Orcamento(models.Model):
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    agencia = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     excursao = models.ForeignKey(Excursao, on_delete=models.PROTECT)
     tipo_prestador_servico = models.ForeignKey(TipoPrestadorServico, on_delete=models.PROTECT)
     prestador_servico = models.ForeignKey(PrestadorServico, on_delete=models.PROTECT)
@@ -136,7 +136,7 @@ class OrcamentoDetalhesTransporte(models.Model):
 
 
 class Roteiro(models.Model):
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
+    agencia = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     excursao = models.ForeignKey(Excursao, on_delete=models.PROTECT)
     horario_inicio = models.DateTimeField()
     horario_fim = models.DateTimeField()

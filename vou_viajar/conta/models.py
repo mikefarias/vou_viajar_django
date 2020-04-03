@@ -14,6 +14,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.conf import settings
 
+
 class UserManager(BaseUserManager):
     
     def _create_user(self, username, email, password, is_staff, is_superuser, **extra_fields):
@@ -42,7 +43,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     
-    username = models.CharField(_('username'), max_length=15, unique=False,
+    username    = models.CharField(_('username'), max_length=15, unique=False,
         help_text=_('Required. 15 characters or fewer. Letters, \
         numbers and @/./+/-/_ characters'),
     validators=[
@@ -50,16 +51,16 @@ class User(AbstractBaseUser, PermissionsMixin):
         re.compile('^[\w.@+-]+$'),
         _('Enter a valid username.'),
         _('invalid'))])
-    first_name = models.CharField(_('first name'), max_length=30)
-    last_name = models.CharField(_('last name'), max_length=30)
-    email = models.EmailField(_('email'), max_length=255, unique=True)
-    is_staff = models.BooleanField(_('staff status'), default=False,
+    first_name  = models.CharField(_('first name'), max_length=30)
+    last_name   = models.CharField(_('last name'), max_length=30)
+    email       = models.EmailField(_('email'), max_length=255, unique=True)
+    is_staff    = models.BooleanField(_('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin site.'))
-    is_active = models.BooleanField(_('active'), default=True,
+    is_active   = models.BooleanField(_('active'), default=True,
         help_text=_('Designates whether this user should be treated as active. \
     Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
-    is_trusty = models.BooleanField(_('trusty'), default=False,
+    is_trusty   = models.BooleanField(_('trusty'), default=False,
         help_text=_('Designates whether this user has confirmed his account.'))
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -80,45 +81,43 @@ class User(AbstractBaseUser, PermissionsMixin):
         send_mail(subject, message, from_email, [self.email])
 
 
-class Agencia(models.Model):
+class Profile(models.Model):
+    
+    cpf_cnpj            = models.CharField(max_length=14)
+    profile_photo       = models.ImageField(null=True, blank=True)
+    phone_number        = models.CharField(max_length=11)
+    whatsapp            = models.CharField(max_length=11)
+    user_id             = models.ForeignKey(User, on_delete=models.PROTECT)
+    #agency_travel_id   = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
+    created_on          = models.DateTimeField(auto_now_add=True)
+    modified_on         = models.DateTimeField(auto_now_add=True)
+    active              = models.BooleanField()
+
+
+class ContactTravelAgency(models.Model):
+    
+    email               = models.EmailField(null=False, blank=False)
+    phone_number        = models.CharField(max_length=11)
+    fan_page            = models.URLField(null=True, blank=True)
+    instagram           = models.URLField(null=True, blank=True)
+    website             = models.URLField(null=True, blank=True)
+    created_on          = models.DateTimeField(auto_now_add=True)
+    modified_on         = models.DateTimeField(auto_now_add=True)
+    active              = models.BooleanField()
+    
+
+class TravelAgency(models.Model):
     """
     A class Agencia representa uma agência turística.
     """
 
-    nome_juridico = models.CharField(max_length=100, null=False, blank=False)
-    nome_fantasia = models.CharField(max_length=100, null=False, blank=False)
-    cod_cadastur = models.CharField(max_length=10, null=False, blank=False)
-    cnpj = models.CharField(max_length=14, null=False, blank=False)
-    agencia_fisica = models.BooleanField(null=False, blank=False)
-    foto_perfil = models.ImageField(null=True, blank=True)
-    endereco = models.CharField(max_length=200)
-    usuario_cadastro = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    data_cadastro = models.DateTimeField(auto_now_add=True)
-
-
-class ContatoAgencia(models.Model):
-
-    email = models.EmailField(null=False, blank=False)
-    contato = models.CharField(max_length=11)
-    fan_page_oficial = models.URLField(null=True, blank=True)
-    instagram_oficial = models.URLField(null=True, blank=True)
-    site_oficial = models.URLField(null=True, blank=True)
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
-
-
-class Pessoa(models.Model):
-
-    nome = models.CharField(
-        max_length=100,
-        null=False,
-        blank=False, )
-    cpf = models.CharField(max_length=14)
-    usuario = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
-    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT)
-
-class ContatoPessoa(models.Model):
-
-    email = models.EmailField(null=False, blank=False)
-    contato = models.CharField(max_length=11)
-    whatsapp = models.CharField(max_length=11)
-    pessoa = models.ForeignKey(Pessoa, on_delete=models.PROTECT)
+    code_cadastur       = models.CharField(max_length=10, null=False, blank=False)
+    cnpj                = models.CharField(max_length=14)
+    physical_agency     = models.BooleanField(null=False, blank=False)
+    address             = models.CharField(max_length=200)
+    logo                = models.ImageField();
+    owner_id            = models.ForeignKey(User, on_delete=models.PROTECT)
+    contact_id          = models.OneToOneField(ContactTravelAgency, on_delete=models.SET_NULL, null=True)
+    created_on          = models.DateTimeField(auto_now_add=True)
+    modified_on         = models.DateTimeField(auto_now_add=True)
+    active              = models.BooleanField()

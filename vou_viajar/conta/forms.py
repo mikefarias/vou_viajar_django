@@ -1,9 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm
 
 from django import forms
-from .models import Agencia
-from .models import Pessoa
-from .models import User
+from .models import TravelAgency, User
+
 
 
 class UserCreationForm(forms.ModelForm):
@@ -42,31 +41,38 @@ class UserLoginForm(AuthenticationForm):
         attrs={ 'class': 'form-control', 'placeholder': '', 'id': 'id_password'}))
 
 
-class AgenciaForm(forms.ModelForm):
+class ContactTravelAgencyForm(forms.ModelForm):
+    
+    email           = forms.EmailField(label='Email')
+    phone_number    = forms.CharField(label='Contato telefônico')
+    whatsapp        = forms.CharField(label='Contato Whatsapp')
+    fan_pag         = forms.URLField(label='Perfil Facebook')
+    instagram       = forms.URLField(label='Perfil Instagram')
+    website         = forms.URLField(label='Site Institucional')
 
-    nome_fantasia = forms.CharField(label='Nome da Agência')
-    nome_juridico = forms.CharField(label='Razão Social', help_text='Informe o nome associado ao CNPJ')
-    cnpj = forms.CharField(label='CNPJ')
-    cod_cadastur = forms.CharField(label='Nº Cadastur')
+
+class TravelAgencyForm(forms.ModelForm):
+
+    code_cadastur   = forms.CharField(label='Nº Cadastur')
+    cnpj            = forms.IntegerField(label='CNPJ da Agência')    
+    physical_agency = forms.BooleanField(label='Agência Física?')
+    address         = forms.CharField(label='Endereço')
+    logo            = forms.ImageField(label='Logo da Agência')
+
     class Meta:
-        model = Agencia
+        model = TravelAgency
         fields = [
-            'nome_juridico',
-            'nome_fantasia',
-            'cod_cadastur',
+            'code_cadastur',
             'cnpj',
-            'agencia_fisica',
-            'foto_perfil',
-            'endereco'
-        ]
+            'physical_agency',
+            'address',
+            'logo'
+        ]    
 
-class PessoaForm(forms.ModelForm):
 
-    nome = forms.CharField(label='Nome', help_text='Informe seu nome completo')
-    cpf = forms.CharField(label='CPF')
-    class Meta:
-        model = Pessoa
-        fields = [
-            'nome',
-            'cpf',
-        ]
+class ProfileForm(forms.ModelForm):
+
+    cpf_cnpj        = forms.CharField(label='CNPJ ou CPF')
+    profile_photo   = forms.ImageField(label='Foto de Perfil')
+    phone_number    = forms.CharField(label='Nº contato')
+    whatsapp        = forms.CharField(label='Whatsapp')

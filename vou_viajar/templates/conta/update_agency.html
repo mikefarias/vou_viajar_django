@@ -10,11 +10,11 @@
                     <form method="post" novalidate >
                         <h2>Dados da Agência</h2><br>
                         {% csrf_token %}
-                        {{form_agencia|crispy}}
+                        {{form_agency|crispy}}
                         <br>
                         <h2>Dados do Responsável</h2><br>
-                        {{form_pessoa|crispy}}
-                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        {{form_profile|crispy}}
+                        <button type="submit" class="btn btn-primary">Atualizar</button>
                         <a href="{% url 'home' %}" class="btn btn-primary"> Voltar </a>
                     </form>
                 {% endblock %}
