@@ -90,7 +90,7 @@ class ContactTravelAgency(models.Model):
     website             = models.URLField(null=True, blank=True)
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)
-    active              = models.BooleanField()
+    active              = models.BooleanField(default=True)
 
 
 class TravelAgency(models.Model):
@@ -102,12 +102,11 @@ class TravelAgency(models.Model):
     cnpj                = models.CharField(max_length=14)
     physical_agency     = models.BooleanField(null=False, blank=False)
     address             = models.CharField(max_length=200)
-    logo                = models.ImageField();
-    owner_id            = models.ForeignKey(User, on_delete=models.PROTECT)
-    contact_id          = models.OneToOneField(ContactTravelAgency, on_delete=models.SET_NULL, null=True)
+    owner               = models.ForeignKey(User, on_delete=models.PROTECT)
+    contact             = models.OneToOneField(ContactTravelAgency, on_delete=models.SET_NULL, null=True)
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)
-    active              = models.BooleanField()
+    active              = models.BooleanField(default=True)
 
 
 class Profile(models.Model):
@@ -116,7 +115,7 @@ class Profile(models.Model):
     profile_photo       = models.ImageField(null=True, blank=True)
     phone_number        = models.CharField(max_length=11)
     whatsapp            = models.CharField(max_length=11)
-    user_id             = models.ForeignKey(User, on_delete=models.PROTECT)
+    user                = models.ForeignKey(User, on_delete=models.PROTECT)
     agency_travel_id    = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)

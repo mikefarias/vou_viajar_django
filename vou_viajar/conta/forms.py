@@ -1,8 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 
 from django import forms
-from .models import TravelAgency, User
-
+from .models import TravelAgency, ContactTravelAgency, User, Profile
 
 
 class UserCreationForm(forms.ModelForm):
@@ -46,18 +45,27 @@ class ContactTravelAgencyForm(forms.ModelForm):
     email           = forms.EmailField(label='Email')
     phone_number    = forms.CharField(label='Contato telefônico')
     whatsapp        = forms.CharField(label='Contato Whatsapp')
-    fan_pag         = forms.URLField(label='Perfil Facebook')
+    fan_page        = forms.URLField(label='Perfil Facebook')
     instagram       = forms.URLField(label='Perfil Instagram')
     website         = forms.URLField(label='Site Institucional')
 
+    class Meta:
+        model = ContactTravelAgency
+        fields = [
+            'email',
+            'phone_number',
+            'whatsapp',
+            'fan_page',
+            'instagram',
+            'website'
+        ]
 
 class TravelAgencyForm(forms.ModelForm):
 
     code_cadastur   = forms.CharField(label='Nº Cadastur')
-    cnpj            = forms.IntegerField(label='CNPJ da Agência')    
+    cnpj            = forms.CharField(label='CNPJ da Agência')    
     physical_agency = forms.BooleanField(label='Agência Física?')
     address         = forms.CharField(label='Endereço')
-    logo            = forms.ImageField(label='Logo da Agência')
 
     class Meta:
         model = TravelAgency
@@ -65,8 +73,7 @@ class TravelAgencyForm(forms.ModelForm):
             'code_cadastur',
             'cnpj',
             'physical_agency',
-            'address',
-            'logo'
+            'address'
         ]    
 
 
@@ -76,3 +83,12 @@ class ProfileForm(forms.ModelForm):
     profile_photo   = forms.ImageField(label='Foto de Perfil')
     phone_number    = forms.CharField(label='Nº contato')
     whatsapp        = forms.CharField(label='Whatsapp')
+
+    class Meta:
+        model = Profile
+        fields= [
+            'cpf_cnpj',
+            'profile_photo',
+            'phone_number',
+            'whatsapp'
+        ]

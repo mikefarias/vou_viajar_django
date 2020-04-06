@@ -14,7 +14,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
-from .forms import TravelAgencyForm, ProfileForm, UserCreationForm, UserLoginForm
+from .forms import TravelAgencyForm, ContactTravelAgencyForm, ProfileForm, UserCreationForm, UserLoginForm
 from .models import User, TravelAgency
 from .tokens import account_activation_token  
 
@@ -89,29 +89,35 @@ def add_agency(request):
     """
     
     form_agency = None
-    form_profile = None
+    form_contact_agency = None
     
     if request.method == 'POST':
-        form_agency   = TravelAgencyForm(request.POST)
-        form_profile  = ProfileForm(request.POST)
-        if form_agency.is_valid() and form_profile.is_valid():
+        form_agency = TravelAgencyForm(request.POST)
+        form_contact_agency  = ContactTravelAgencyForm(request.POST)
+        if form_agency.is_valid() and form_contact_agency.is_valid():
+            
+            contact_agency = form_contact_agency.save(commit=False)
+            contact_agency.active = True
+            contact_agency.save()
+            
             agency = form_agency.save(commit=False)
-            agency.user_registration = request.user
+            agency.owner = request.user
+            agency.contact = contact_agency
+            agency.active = True
             agency.save()
-
-            profile = form_profile.save(commit=False)
-            profile.user = request.user
-            profile.agency = agency
-            form_profile.save()
             messages.success(request, 'Agência cadastrada com sucesso!')
             return redirect('home')
+        else:
+            messages.error(request, form_agency.errors)
+            print(form_agency.errors)
+            return redirect('add_agency')
     else:
         form_agency  = TravelAgencyForm()
-        form_profile = ProfileForm()
+        form_contact_agency = ContactTravelAgencyForm()
     return render(
         request,
-        'conta/adicionar_agencia.html',
-        {'form_agency': form_agency,'form_profile' : form_profile })
+        'conta/add_agency.html',
+        {'form_agency': form_agency,'form_contact_agency' : form_contact_agency })
 
 
 def update_agency(request, pk):
