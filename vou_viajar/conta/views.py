@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
 from .forms import TravelAgencyForm, ContactTravelAgencyForm, ProfileForm, UserCreationForm, UserLoginForm
-from .models import User, TravelAgency, Profile
+from .models import User, TravelAgency, ContactTravelAgency, Profile
 from .tokens import account_activation_token  
 
 
@@ -92,14 +92,12 @@ def add_agency(request):
     form_contact_agency = None
     
     if request.method == 'POST':
-        form_agency = TravelAgencyForm(request.POST)
+        form_agency = TravelAgencyForm(request.POST, request.FILES)
         form_contact_agency  = ContactTravelAgencyForm(request.POST)
         if form_agency.is_valid() and form_contact_agency.is_valid():
-            
             contact_agency = form_contact_agency.save(commit=False)
             contact_agency.active = True
             contact_agency.save()
-            
             agency = form_agency.save(commit=False)
             agency.owner = request.user
             agency.contact = contact_agency
@@ -124,23 +122,40 @@ def update_agency(request, pk):
     agency = TravelAgency.objects.get(owner_id=pk)
     form_agency = TravelAgencyForm(instance=agency)
 
+    contact_agency = agency.contact
+    form_contact_agency = ContactTravelAgencyForm(instance=contact_agency)
+
     if request.method == 'POST':
-        form = TravelAgencyForm(request.POST, instance=agency)    
-        if form.is_valid():
-            agency = form.save(commit=False)
-            agency.code_cadastur = form.cleaned_data['code_cadastur']
-            agency.cnpj = form.cleaned_data['cnpj']
-            agency.physical_agency = form.cleaned_data['physical_agency']
-            agency.address = form.cleaned_data['address']
-            #agency.logo = form.cleaned_data['logo']
+        form_agency = TravelAgencyForm(request.POST, request.FILES, instance=agency)
+        form_contact_agency = ContactTravelAgencyForm(request.POST, instance=contact_agency)       
+        if form_contact_agency.is_valid():
+
+            contact_agency              = form_contact_agency.save(commit=False)
+            contact_agency.email        = form_contact_agency.cleaned_data['email']
+            contact_agency.phone_number = form_contact_agency.cleaned_data['phone_number']
+            contact_agency.whatsapp     = form_contact_agency.cleaned_data['whatsapp']
+            contact_agency.fan_page     = form_contact_agency.cleaned_data['fan_page']
+            contact_agency.instagram    = form_contact_agency.cleaned_data['instagram']
+            contact_agency.website      = form_contact_agency.cleaned_data['website']
+            contact_agency.save() 
+
+            agency                  = form_agency.save(commit=False)
+            agency.code_cadastur    = form_agency.cleaned_data['code_cadastur']
+            agency.cnpj             = form_agency.cleaned_data['cnpj']
+            agency.physical_agency  = form_agency.cleaned_data['physical_agency']
+            agency.address          = form_agency.cleaned_data['address']
+            agency.logo             = form_agency.cleaned_data['logo']
             agency.save()
-            messages.success(request, 'Agência atualizado!')
+
+            messages.success(request, 'Agência atualizada!')
             return redirect('home')
         else:
-            return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+            print("Erros agencia", form_agency.errors)
+            print("Erros contato", form_contact_agency.errors)
+            return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'form_contact_agency': form_contact_agency})
     
     elif request.method == 'GET':
-        return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+        return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'form_contact_agency': form_contact_agency})
 
 
 @login_required
@@ -174,7 +189,7 @@ def update_profile(request, pk):
     form_profile = ProfileForm(instance=profile)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)    
+        form = ProfileForm(request.POST, request.FILES, instance=profile)    
         if form.is_valid():
             profile = form.save(commit=False)
             profile.cpf_cnpj      = form.cleaned_data['cpf_cnpj']
@@ -192,7 +207,5 @@ def update_profile(request, pk):
 
 
 def get_agency_travel(user):
-    agency = TravelAgency.objects.get(owner=user    )
-    print("ID da Agência", agency.id)
-    print("CNPJ da Agência", agency.cnpj)
+    agency = TravelAgency.objects.get(owner=user)
     return agency

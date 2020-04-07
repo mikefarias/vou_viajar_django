@@ -62,6 +62,7 @@ class ContactTravelAgencyForm(forms.ModelForm):
 
 class TravelAgencyForm(forms.ModelForm):
 
+    name            = forms.CharField(label='Nome da Agência')
     code_cadastur   = forms.CharField(label='Nº Cadastur')
     cnpj            = forms.CharField(label='CNPJ da Agência')    
     physical_agency = forms.BooleanField(label='Agência Física?')
@@ -70,10 +71,13 @@ class TravelAgencyForm(forms.ModelForm):
     class Meta:
         model = TravelAgency
         fields = [
+            'name',
             'code_cadastur',
             'cnpj',
             'physical_agency',
-            'address'
+            'address',
+            'logo'
+
         ]    
 
 

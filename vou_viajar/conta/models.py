@@ -85,6 +85,7 @@ class ContactTravelAgency(models.Model):
     
     email               = models.EmailField(null=False, blank=False)
     phone_number        = models.CharField(max_length=11)
+    whatsapp            = models.CharField(max_length=11)
     fan_page            = models.URLField(null=True, blank=True)
     instagram           = models.URLField(null=True, blank=True)
     website             = models.URLField(null=True, blank=True)
@@ -97,9 +98,10 @@ class TravelAgency(models.Model):
     """
     A class Agencia representa uma agência turística.
     """
-
+    name                = models.CharField(max_length=50, null=False, blank=False)
     code_cadastur       = models.CharField(max_length=10, null=False, blank=False)
     cnpj                = models.CharField(max_length=14)
+    logo                = models.ImageField(upload_to='img/logo_agency', null=True, blank=True)
     physical_agency     = models.BooleanField(null=False, blank=False)
     address             = models.CharField(max_length=200)
     owner               = models.ForeignKey(User, on_delete=models.PROTECT)
@@ -112,7 +114,7 @@ class TravelAgency(models.Model):
 class Profile(models.Model):
     
     cpf_cnpj            = models.CharField(max_length=14)
-    profile_photo       = models.ImageField(upload_to='img/logo_agency', null=True, blank=True)
+    profile_photo       = models.ImageField(upload_to='img/profile', null=True, blank=True)
     phone_number        = models.CharField(max_length=11)
     whatsapp            = models.CharField(max_length=11)
     user                = models.ForeignKey(User, on_delete=models.PROTECT)
