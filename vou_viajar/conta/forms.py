@@ -80,7 +80,6 @@ class TravelAgencyForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
 
     cpf_cnpj        = forms.CharField(label='CNPJ ou CPF')
-    profile_photo   = forms.ImageField(label='Foto de Perfil')
     phone_number    = forms.CharField(label='Nº contato')
     whatsapp        = forms.CharField(label='Whatsapp')
 

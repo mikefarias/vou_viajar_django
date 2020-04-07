@@ -112,7 +112,7 @@ class TravelAgency(models.Model):
 class Profile(models.Model):
     
     cpf_cnpj            = models.CharField(max_length=14)
-    profile_photo       = models.ImageField(null=True, blank=True)
+    profile_photo       = models.ImageField(upload_to='img/logo_agency', null=True, blank=True)
     phone_number        = models.CharField(max_length=11)
     whatsapp            = models.CharField(max_length=11)
     user                = models.ForeignKey(User, on_delete=models.PROTECT)

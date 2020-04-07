@@ -149,11 +149,12 @@ def add_profile(request):
     
     form_profile = None    
     if request.method == 'POST':
-        form_profile = ProfileForm(request.POST)
+        form_profile = ProfileForm(request.POST, request.FILES)
         if form_profile.is_valid():    
             profile = form_profile.save(commit=False)
             profile.active = True
             profile.user = request.user
+            profile.agency_travel = get_agency_travel(request.user)
             profile.save()
             messages.success(request, 'Perfil cadastrado com sucesso!')
             return redirect('home')
@@ -171,23 +172,25 @@ def add_profile(request):
 @login_required
 def update_profile(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
-    form_agency = TravelAgencyForm(instance=agency)
+    form_profile = ProfileForm(instance=profile)
 
     if request.method == 'POST':
-        form = TravelAgencyForm(request.POST, instance=agency)    
+        form = ProfileForm(request.POST, instance=profile)    
         if form.is_valid():
-            agency = form.save(commit=False)
-            agency.code_cadastur = form.cleaned_data['code_cadastur']
-            agency.cnpj = form.cleaned_data['cnpj']
-            agency.physical_agency = form.cleaned_data['physical_agency']
-            agency.address = form.cleaned_data['address']
-            agency.logo = form.cleaned_data['logo']
-            agency.owner_id = form.cleaned_data['owner_id']
-            agency.save()
-            messages.success(request, 'Agência atualizado!')
+            profile = form.save(commit=False)
+            profile.code_cadastur = form.cleaned_data['code_cadastur']
+            profile.save()
+            messages.success(request, 'Perfil atualizado!')
             return redirect('home')
         else:
-            return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+            return render(request, 'conta/update_agency.html', {'form_profile': form_profile, 'agency': agency})
     
     elif request.method == 'GET':
         return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+
+
+def get_agency_travel(user):
+    agency = TravelAgency.objects.get(owner=user    )
+    print("ID da Agência", agency.id)
+    print("CNPJ da Agência", agency.cnpj)
+    return agency
