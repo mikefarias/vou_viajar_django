@@ -1,0 +1,23 @@
+{% extends 'excursao/base_home.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <br>
+        <div class="row">
+    	    <div class="col-sm-9">
+                {% block contentbody %}
+                    {% load crispy_forms_tags %}
+                    <form method="post" novalidate >
+                        <h2>Dados do Perfil</h2><br>
+                        {% csrf_token %}
+                        {{form_profile | crispy}}
+                        <br>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                        <a href="{% url 'home' %}" class="btn btn-primary"> Voltar </a>
+                    </form>
+                {% endblock %}
+            </div> <!--end col -->
+        </div> <!--end row -->
+    </div> <!--end container -->
+{% endblock %}
+

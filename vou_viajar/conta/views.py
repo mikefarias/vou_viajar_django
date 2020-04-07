@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
 from .forms import TravelAgencyForm, ContactTravelAgencyForm, ProfileForm, UserCreationForm, UserLoginForm
-from .models import User, TravelAgency
+from .models import User, TravelAgency, Profile
 from .tokens import account_activation_token  
 
 
@@ -119,9 +119,58 @@ def add_agency(request):
         'conta/add_agency.html',
         {'form_agency': form_agency,'form_contact_agency' : form_contact_agency })
 
-
+@login_required
 def update_agency(request, pk):
     agency = get_object_or_404(TravelAgency, pk=pk)
+    form_agency = TravelAgencyForm(instance=agency)
+
+    if request.method == 'POST':
+        form = TravelAgencyForm(request.POST, instance=agency)    
+        if form.is_valid():
+            agency = form.save(commit=False)
+            agency.code_cadastur = form.cleaned_data['code_cadastur']
+            agency.cnpj = form.cleaned_data['cnpj']
+            agency.physical_agency = form.cleaned_data['physical_agency']
+            agency.address = form.cleaned_data['address']
+            agency.logo = form.cleaned_data['logo']
+            agency.owner_id = form.cleaned_data['owner_id']
+            agency.save()
+            messages.success(request, 'Agência atualizado!')
+            return redirect('home')
+        else:
+            return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+    
+    elif request.method == 'GET':
+        return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+
+
+@login_required
+def add_profile(request):
+    
+    form_profile = None    
+    if request.method == 'POST':
+        form_profile = ProfileForm(request.POST)
+        if form_profile.is_valid():    
+            profile = form_profile.save(commit=False)
+            profile.active = True
+            profile.user = request.user
+            profile.save()
+            messages.success(request, 'Perfil cadastrado com sucesso!')
+            return redirect('home')
+        else:
+            messages.error(request, form_profile.errors)
+            return redirect('add_profile')
+    else:
+        form_profile  = ProfileForm()
+    return render(
+        request,
+        'conta/add_profile.html',
+        {'form_profile': form_profile })
+
+
+@login_required
+def update_profile(request, pk):
+    profile = get_object_or_404(Profile, pk=pk)
     form_agency = TravelAgencyForm(instance=agency)
 
     if request.method == 'POST':

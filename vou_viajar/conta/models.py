@@ -116,7 +116,7 @@ class Profile(models.Model):
     phone_number        = models.CharField(max_length=11)
     whatsapp            = models.CharField(max_length=11)
     user                = models.ForeignKey(User, on_delete=models.PROTECT)
-    agency_travel_id    = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
+    agency_travel       = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)
     active              = models.BooleanField()

@@ -72,7 +72,7 @@
             <div class="dropdown-header text-center">
               <strong>Configurações</strong>
             </div>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="{% url 'add_profile' %}">
               <i class="fa fa-user"></i> Perfil</a>
             <a class="dropdown-item" href="#">
               <i class="fa fa-wrench"></i> Configurações</a>
@@ -231,7 +231,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.js" integrity="sha256-fLtCK9qHuQFMusrcUq9iz8AkIhZSUh/l6ucBC74dADY=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.4.0/perfect-scrollbar.min.js" integrity="sha256-pOydVY7re8c1n+fEgg3uoslR/di9NMsOFXJ0Esf2xjQ=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/@coreui/coreui@2.0.0/dist/js/coreui.min.js"></script>
-
+    
+    {% block scripts%}
     {% endblock scripts%}
+  
   </body>
 </html>
