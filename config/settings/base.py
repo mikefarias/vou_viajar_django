@@ -162,6 +162,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'vou_viajar', 'staticfiles')
 
 AUTH_USER_MODEL = 'conta.User'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Configure Django App for Heroku.
 import django_heroku
 django_heroku.settings(locals())
