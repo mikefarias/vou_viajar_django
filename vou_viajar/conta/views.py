@@ -121,7 +121,7 @@ def add_agency(request):
 
 @login_required
 def update_agency(request, pk):
-    agency = get_object_or_404(TravelAgency, pk=pk)
+    agency = TravelAgency.objects.get(owner_id=pk)
     form_agency = TravelAgencyForm(instance=agency)
 
     if request.method == 'POST':
@@ -132,8 +132,7 @@ def update_agency(request, pk):
             agency.cnpj = form.cleaned_data['cnpj']
             agency.physical_agency = form.cleaned_data['physical_agency']
             agency.address = form.cleaned_data['address']
-            agency.logo = form.cleaned_data['logo']
-            agency.owner_id = form.cleaned_data['owner_id']
+            #agency.logo = form.cleaned_data['logo']
             agency.save()
             messages.success(request, 'Agência atualizado!')
             return redirect('home')
@@ -171,22 +170,25 @@ def add_profile(request):
 
 @login_required
 def update_profile(request, pk):
-    profile = get_object_or_404(Profile, pk=pk)
+    profile = Profile.objects.get(user_id = pk)
     form_profile = ProfileForm(instance=profile)
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=profile)    
         if form.is_valid():
             profile = form.save(commit=False)
-            profile.code_cadastur = form.cleaned_data['code_cadastur']
+            profile.cpf_cnpj      = form.cleaned_data['cpf_cnpj']
+            profile.profile_photo = form.cleaned_data['profile_photo']
+            profile.phone_number  = form.cleaned_data['phone_number']
+            profile.whatsapp      = form.cleaned_data['whatsapp']
             profile.save()
             messages.success(request, 'Perfil atualizado!')
             return redirect('home')
         else:
-            return render(request, 'conta/update_agency.html', {'form_profile': form_profile, 'agency': agency})
+            return render(request, 'conta/update_profile.html', {'form_profile': form_profile} )
     
     elif request.method == 'GET':
-        return render(request, 'conta/update_agency.html', {'form_agency': form_agency, 'agency': agency})
+        return render(request, 'conta/update_profile.html', {'form_profile': form_profile} )
 
 
 def get_agency_travel(user):

@@ -66,6 +66,9 @@
             <a class="dropdown-item" href="{% url 'add_agency' %}">
               <i class="fa fa-tasks"></i> Dados da Agência
             </a>
+            <a class="dropdown-item" href="{% url 'update_agency' pk=user.id %}">
+              <i class="fa fa-tasks"></i> Dados da Agência - Update
+            </a>
             <a class="dropdown-item" href="#">
               <i class="fa fa-tasks"></i> Dados Pessoais
             </a>
@@ -73,11 +76,17 @@
               <strong>Configurações</strong>
             </div>
             <a class="dropdown-item" href="{% url 'add_profile' %}">
-              <i class="fa fa-user"></i> Perfil</a>
+              <i class="fa fa-user"></i> Perfil
+            </a>
+            <a class="dropdown-item" href="{% url 'update_profile' pk=user.id %}">
+              <i class="fa fa-user"></i> Perfil - Update
+            </a>
             <a class="dropdown-item" href="#">
-              <i class="fa fa-wrench"></i> Configurações</a>
+              <i class="fa fa-wrench"></i> Configurações
+            </a>
             <a class="dropdown-item" href="{% url 'logout_view' %}">
-              <i class="fa fa-lock"></i> Sair</a>
+              <i class="fa fa-lock"></i> Sair
+              </a>
           </div>
         </li>
       </ul>
