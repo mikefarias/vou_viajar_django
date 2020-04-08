@@ -67,6 +67,7 @@ class TravelAgencyForm(forms.ModelForm):
     cnpj            = forms.CharField(label='CNPJ da Agência')    
     physical_agency = forms.BooleanField(label='Agência Física?')
     address         = forms.CharField(label='Endereço')
+    logo            = forms.ImageField(label='Logo')
 
     class Meta:
         model = TravelAgency
@@ -86,6 +87,7 @@ class ProfileForm(forms.ModelForm):
     cpf_cnpj        = forms.CharField(label='CNPJ ou CPF')
     phone_number    = forms.CharField(label='Nº contato')
     whatsapp        = forms.CharField(label='Whatsapp')
+    profile_photo   = forms.ImageField(label='Foto de Perfil')
 
     class Meta:
         model = Profile
