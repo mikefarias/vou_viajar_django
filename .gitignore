@@ -60,11 +60,10 @@ docs/_build/
 
 # SQLite database
 *.sqlite3
-/vou_viajar/excursao/migrations
-/vou_viajar/conta/migrations
+#/vou_viajar/excursao/migrations
+#/vou_viajar/conta/migrations
 
 # Django static collect files
-/vou_viajar/static/
 /staticfiles/
 # Django upload files
 /vou_viajar/media/

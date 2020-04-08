@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('conta', '0008_auto_20200407_0944'),
+        ('conta', '0007_remove_travelagency_logo'),
     ]
 
     operations = [
