@@ -126,7 +126,7 @@ LOGOUT_REDIRECT_URL = '/account/login'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_PASSWORD = 'secret1@'  
 EMAIL_HOST_USER = 'vouviajar79@gmail.com'  
 EMAIL_PORT = 465  
