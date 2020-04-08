@@ -8,7 +8,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse_lazy
 from django.views import generic
 from django.shortcuts import redirect, render, get_object_or_404
-from django.http import HttpResponse 
+from django.http import HttpResponse, HttpResponseRedirect 
 from django.utils.encoding import force_bytes, force_text  
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from django.template.loader import render_to_string
@@ -49,16 +49,17 @@ def add_user(request):
         
 def activate(request, uidb64, token):  
     
-    uid = force_text(urlsafe_base64_decode(uidb64))  
-    user = User.objects.get(id=uid)  
+    uid     = force_text(urlsafe_base64_decode(uidb64))  
+    user    = User.objects.get(id=uid)  
       
     if user is not None and account_activation_token.check_token(user, token):  
         user.is_active = True  
-        user.save()  
-        return HttpResponse('Thank you for your email confirmation. Now you can login your account.')  
+        user.save()
+        messages.success(request, 'Agradecemos sua confirmação por e-mail. Agora você pode acessar sua conta')    
+        return redirect('login_view')
     else:  
-        return HttpResponse('Activation link is invalid!')
-
+        messages.error(request, 'O link está inválido!')
+        return redirect('add_user')
 
 def login_view(request):
     if request.method == 'POST':
