@@ -38,10 +38,12 @@ def add_user(request):
             email = EmailMessage(  
             mail_subject, message, to=[to_email]  
             )  
-            email.send()  
-            return HttpResponse('Please confirm your email address to complete the registration')
+            email.send()
+            messages.info(request, 'Confirme em seu e-mail para concluir o registro')
+            return redirect('login_view')  
         else:
-            messages.error(request, form_usuario.errors)  
+            messages.error(request, form_usuario.errors) 
+            return redirect('add_user') 
     else:  
         form_usuario = UserCreationForm()
     return render(request, 'registration/register.html', {'form_usuario': form_usuario})
