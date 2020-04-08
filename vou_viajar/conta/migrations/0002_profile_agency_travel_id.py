@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='profile',
-            name='agency_travel_id',
+            name='agency_travel',
             field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.PROTECT, to='conta.TravelAgency'),
             preserve_default=False,
         ),
