@@ -124,14 +124,15 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = '/excursao/home'
 LOGOUT_REDIRECT_URL = '/account/login'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
-MAILER_EMAIL_BACKEND = EMAIL_BACKEND  
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_PASSWORD = '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'  
-EMAIL_HOST_USER = 'apikey'  
-EMAIL_PORT = 465  
-EMAIL_USE_SSL = True  
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

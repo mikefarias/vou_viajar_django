@@ -12,7 +12,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.encoding import force_bytes, force_text  
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  
 from django.template.loader import render_to_string
-from django.core.mail import EmailMessage
+
+from decouple import config
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 from .forms import TravelAgencyForm, ContactTravelAgencyForm, ProfileForm, UserCreationForm, UserLoginForm
 from .models import User, TravelAgency, ContactTravelAgency, Profile
@@ -27,7 +30,7 @@ def add_user(request):
             user.is_active = False  
             user.save()  
             current_site = get_current_site(request)  
-            mail_subject = 'Activate your account.'  
+            mail_subject = 'Ative sua conta!.'  
             message = render_to_string('registration/ativar_conta_email.html', {  
                 'user': user,  
                 'domain': current_site.domain,  
@@ -35,10 +38,17 @@ def add_user(request):
                 'token': account_activation_token.make_token(user),  
             })  
             to_email = form_usuario.cleaned_data.get('email')  
-            email = EmailMessage(  
-            mail_subject, message, to=[to_email]  
-            )  
-            email.send()
+            try:
+                message = Mail(
+                    from_email= config('DEFAULT_FROM_EMAIL'),
+                    to_emails=to_email,
+                    subject=mail_subject,
+                    html_content=message)
+                sg = SendGridAPIClient(config('SENDGRID_API_KEY'))
+                response = sg.send(message)
+            except Exception as e:
+                print(e)    
+
             messages.info(request, 'Confirme em seu e-mail para concluir o registro')
             return redirect('login_view')  
         else:
