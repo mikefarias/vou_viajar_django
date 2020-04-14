@@ -4,7 +4,6 @@ from . import views
 
 urlpatterns = [
     path('home', views.home, name='home'),
-    path('menu', views.menu_excursao, name='menu'),
     path('adicionar', views.adicionar_excursao, name='adicionar_excursao'),
     path('listar', views.listar_excursao, name='listar_excursao'),
     path('atualizar/<pk>', views.atualizar_excursao, name='atualizar_excursao'),
@@ -19,7 +18,7 @@ urlpatterns = [
     path('orcamento/deletar/<pk>', views.deletar_orcamento, name='deletar_orcamento'),
     path('prestadorservico/adicionar', views.adicionar_prestador_servico, name='adicionar_prestador_servico'),
     path('prestadorservico/listar', views.listar_prestador_servico, name='listar_prestador_servico'),
-    path('prestadorservico/listar/<pk>', views.get_prestadores_servico_tipo, name='listar_prestador_servico_tipo'),
+    path('prestadorservico/listar/<pk>', views.get_service_provider_type, name='listar_prestador_servico_tipo'),
     path('prestadorservico/atualizar/<pk>', views.atualizar_prestador_servico, name='atualizar_prestador_servico'),
     path('prestadorservico/deletar/<pk>', views.deletar_prestador_servico, name='deletar_prestador_servico'),
     path('transporte/adicionar', views.adicionar_transporte, name='adicionar_transporte'),

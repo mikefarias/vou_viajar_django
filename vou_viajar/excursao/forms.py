@@ -1,155 +1,150 @@
 from django import forms
 
-from .models import Excursao, Destino, Transporte, PrestadorServico, TipoPrestadorServico, Orcamento, Roteiro
-class ExcursaoForm(forms.ModelForm):
+from .models import Excursion, Destiny, Transport, ServiceProvider, ServiceProviderType, Estimate, TravelItinerary
 
-    titulo = forms.CharField(label='Título', help_text='Em até 50 caracteres')
-    descricao = forms.CharField(label='Descrição',  help_text='Em até 100 caracteres')
-    destino = forms.ModelMultipleChoiceField(
-        queryset=Destino.objects.all()),
-    horario_inicio = forms.SplitDateTimeField(
-        widget=forms.SplitDateTimeWidget(
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
-        )
-    )
-    horario_fim = forms.SplitDateTimeField(
-        widget=forms.SplitDateTimeWidget(
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
-        )
-    )
+
+class ExcursionForm(forms.ModelForm):
+
+    name        = forms.CharField(label='Nome da Excursão', help_text='Em até 50 caracteres')
+    details     = forms.CharField(label='Detalhes da Excursão',  help_text='Em até 100 caracteres')
+    origin      = forms.CharField(label='Partida')
+    destiny     = forms.ModelMultipleChoiceField(queryset=Destiny.objects.all())
+    start_time  = forms.SplitDateTimeField( widget=forms.SplitDateTimeWidget(
+                                                date_attrs={'type': 'date'},
+                                                time_attrs={'type': 'time'},)
+                                        )
+    end_time    = forms.SplitDateTimeField( widget=forms.SplitDateTimeWidget(
+                                                date_attrs={'type': 'date'},
+                                                time_attrs={'type': 'time'},)
+                                        )
 
     class Meta:
-        model = Excursao
+        model = Excursion
         fields = [
-            'titulo',
-            'descricao',
-            'origem',
-            'destino',
-            'horario_inicio',
-            'horario_fim',
+            'name',
+            'details',
+            'origin',
+            'destiny',
+            'start_time',
+            'end_time',
         ]
 
 
-class DestinoForm(forms.ModelForm):
+class DestinyForm(forms.ModelForm):
     
     class Meta:
-        model = Destino
+        model = Destiny
         fields = [
-            'nome_turistico',
-            'pais',
-            'estado',
-            'cidade',
-            'bairro',
-            'cep',
+            'name',
+            'country',
+            'state',
+            'city',
+            'neighborhood',
+            'zip_code',
         ]
 
-class PrestadorForm(forms.ModelForm):
+class ServiceProviderForm(forms.ModelForm):
 
-    categoria = forms.ModelMultipleChoiceField(queryset=TipoPrestadorServico.objects.all()),
-    nome = forms.CharField(label='Nome do Prestador de Serviço')
-    cnpj_cpf = forms.CharField(label='CPNJ/CPF')
-    pessoa_juridica = forms.BooleanField(label='Pessoa Jurídica')
-    cadastur = forms.CharField(label='Cadastur')
-    email = forms.EmailField(label='E-mail')
-    telefone = forms.CharField(label='Telefone')
-    endereco = forms.CharField(label='Endereço')
-    horario_funcionamento = forms.CharField(label='Horário de Funcionamento')
+    service_provider_type   = forms.ModelMultipleChoiceField(queryset=ServiceProviderType.objects.all()),
+    name                    = forms.CharField(label='Nome do Prestador de Serviço')
+    cnpj_cpf                = forms.CharField(label='CPNJ/CPF')
+    legal_person            = forms.BooleanField(label='Pessoa Jurídica')
+    cadastur                = forms.CharField(label='Cadastur')
+    email                   = forms.EmailField(label='E-mail')
+    cell_phone              = forms.CharField(label='Telefone')
+    adress                  = forms.CharField(label='Endereço')
+    business_hours          = forms.CharField(label='Horário de Funcionamento')
 
     class Meta: 
-        model = PrestadorServico
+        model = ServiceProvider
         fields = [
-            'categoria',
-            'nome',
+            'service_provider_type',
+            'name',
             'cnpj_cpf',
-            'pessoa_juridica',
+            'legal_person',
             'cadastur',
             'email',
-            'telefone',
-            'endereco',
-            'horario_funcionamento',
+            'cell_phone',
+            'adress',
+            'business_hours',
         ]
 
-class TransporteForm(forms.ModelForm):
+class TransportForm(forms.ModelForm):
 
-    prestador_servico = forms.ModelChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
-    modelo = forms.CharField(label='Modelo do Transporte')
-    marca = forms.CharField(label='Marca')
-    ano = forms.IntegerField(label='Ano')
-    poltronas = forms.IntegerField(label='Quantidade de Poltronas')
-    banheiro = forms.BooleanField(label='Tem banheiro?', required=False)
-    frigobar = forms.BooleanField(label='Tem frigobar?', required=False)
-    ar_condicionado = forms.BooleanField(label='Tem ar-condicionado?', required=False)
-    som = forms.BooleanField(label='Tem som?', required=False)
-    tv = forms.BooleanField(label='Tem TV?', required=False)
-    observacao = forms.CharField(label='Observações sobre o veículo')
+    service_provider    = forms.ModelChoiceField(queryset=ServiceProvider.objects.all(), label='Prestador de Serviço')
+    model               = forms.CharField(label='Modelo do Transporte')
+    brand               = forms.CharField(label='Marca')
+    years               = forms.IntegerField(label='Ano')
+    seats               = forms.IntegerField(label='Quantidade de Poltronas')
+    bathroom            = forms.BooleanField(label='Tem banheiro?', required=False)
+    minibar             = forms.BooleanField(label='Tem frigobar?', required=False)
+    air_conditioning    = forms.BooleanField(label='Tem ar-condicionado?', required=False)
+    sound               = forms.BooleanField(label='Tem som?', required=False)
+    tv                  = forms.BooleanField(label='Tem TV?', required=False)
+    details             = forms.CharField(label='Observações sobre o veículo')
 
     class Meta:
-        model = Transporte
+        model = Transport
         fields = [
-            'prestador_servico',
-            'modelo',
-            'marca',
-            'ano',
-            'poltronas',
-            'banheiro',
-            'frigobar',
-            'ar_condicionado',
-            'som',
+            'service_provider',
+            'model',
+            'brand',
+            'year',
+            'seats',
+            'bathroom',
+            'minibar',
+            'air_conditioning',
+            'sound',
             'tv',
-            'observacao',
+            'details',
         ]
 
 
-class OrcamentoForm(forms.ModelForm):
-    excursao = forms.ModelChoiceField(queryset=Excursao.objects.all(), label='Excursão')
-    tipo_prestador_servico = forms.ModelChoiceField(queryset=TipoPrestadorServico.objects.all(), label='Categoria Prestação de Serviço')
-    prestador_servico = forms.ModelChoiceField(queryset=PrestadorServico.objects.all(), label='Prestador de Serviço')
-    cotacao = forms.IntegerField(label='Cotação')
-    horario_partida = forms.SplitDateTimeField(
-        widget=forms.SplitDateTimeWidget(
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
-        ),
-        label='Horário Partida',
-        help_text='Data e hora que o transporte ficará disponível para agência'
+class EstimateForm(forms.ModelForm):
+    excursion               = forms.ModelChoiceField(queryset=Excursion.objects.all(), label='Excursão')
+    service_provider_type   = forms.ModelChoiceField(queryset=ServiceProviderType.objects.all(), label='Categoria Prestação de Serviço')
+    service_provider        = forms.ModelChoiceField(queryset=ServiceProvider.objects.all(), label='Prestador de Serviço')
+    cost                    = forms.IntegerField(label='Custo')
+    start_time              = forms.SplitDateTimeField( widget=forms.SplitDateTimeWidget(
+                                                                date_attrs={'type': 'date'},
+                                                                time_attrs={'type': 'time'},
+                                                            ),
+                                                            label='Horário Partida',
+                                                            help_text='Data e hora que o transporte ficará disponível para agência'
+                                                        )
+    end_time                = forms.SplitDateTimeField( widget=forms.SplitDateTimeWidget(
+                                            date_attrs={'type': 'date'},
+                                            time_attrs={'type': 'time'},
+                                        ),
+                                        label='Horário Chegada',
+                                        help_text='Data e hora que o transporte deverá ser devolvido'
     )
-    horario_chegada = forms.SplitDateTimeField(
-        widget=forms.SplitDateTimeWidget(
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
-        ),
-        label='Horário Chegada',
-        help_text='Data e hora que o transporte deverá ser devolvido'
-    )
-    selecionado = forms.BooleanField(label='Selecionado', required=False)
-    observacao = forms.CharField()
+    selected                = forms.BooleanField(label='Selecionado', required=False)
+    details                 = forms.CharField()
 
     class Meta:
-        model = Orcamento
+        model = Estimate
         fields = [
-            'excursao',
-            'tipo_prestador_servico', 
-            'prestador_servico',
-            'cotacao',
-            'horario_partida',
-            'horario_chegada',
-            'selecionado',
-            'observacao'
+            'excursion',
+            'service_provider_type', 
+            'service_provider',
+            'cost',
+            'start_time',
+            'end_time',
+            'selected',
+            'details'
         ]
 
-class RoteiroForm(forms.ModelForm):
-    excursao = forms.ModelChoiceField(queryset=Excursao.objects.all(), label = 'Excursão')
-    horario_inicio = forms.SplitDateTimeField(
-        widget=forms.SplitDateTimeWidget(
-            date_attrs={'type': 'date'},
-            time_attrs={'type': 'time'},
-        ),
-        label='Horário Início',
-        help_text='Horário de início da atividade'
-    )
-    horario_fim = forms.SplitDateTimeField(
+class TravelItineraryForm(forms.ModelForm):
+    excursion   = forms.ModelChoiceField(queryset=Excursion.objects.all(), label = 'Excursão')
+    start_time  = forms.SplitDateTimeField( widget=forms.SplitDateTimeWidget(
+                                            date_attrs={'type': 'date'},
+                                            time_attrs={'type': 'time'},
+                                        ),
+                                        label='Horário Início',
+                                        help_text='Horário de início da atividade'
+                                    )
+    end_time    = forms.SplitDateTimeField(
         widget=forms.SplitDateTimeWidget(
             date_attrs={'type': 'date'},
             time_attrs={'type': 'time'},
@@ -157,19 +152,19 @@ class RoteiroForm(forms.ModelForm):
         label='Horário Fim',
         help_text='Horário do fim da atividade'
     )
-    pago = forms.BooleanField(label='Pago', required=False)
-    incluso = forms.BooleanField(label='Incluso', required=False)
-    custo = forms.IntegerField(label='Custo')
-    observacao = forms.CharField()
+    paid        = forms.BooleanField(label='Pago', required=False)
+    inclusive   = forms.BooleanField(label='Incluso', required=False)
+    cost        = forms.IntegerField(label='Custo')
+    details     = forms.CharField(label='Detalhes')
 
     class Meta: 
-        model = Roteiro
+        model  = TravelItinerary
         fields = [
-            'excursao',
-            'horario_inicio',
-            'horario_fim',
-            'pago',
-            'incluso',
-            'custo',
-            'observacao'
+            'excursion',
+            'start_time',
+            'end_time',
+            'paid',
+            'inclusive',
+            'cost',
+            'details'
         ]

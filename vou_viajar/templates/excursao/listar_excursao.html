@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Excursões</h5>
-                            {% if excursoes|length > 0 %}
+                            {% if excursions|length > 0 %}
                                 <p class="card-text"> Lista de<code> Excursões </code> cadastradas. </p>
                                 <table class="table">
                                     <thead class="thead thead-dark">
@@ -24,19 +24,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for excursao in excursoes %}
+                                        {% for excursion in excursions %}
                                             <tr>
-                                                <td>{{ excursao.id }}</td>
-                                                <td>{{ excursao.titulo }}</td>
-                                                <td>{{ excursao.origem }}</td>
+                                                <td>{{ excursion.id }}</td>
+                                                <td>{{ excursion.name }}</td>
+                                                <td>{{ excursion.origin }}</td>
                                                 <td>
-                                                    {% for destino in excursao.destino.all %}
-                                                        {{ destino.nome_turistico }}
+                                                    {% for destiny in excursion.destiny.all %}
+                                                        {{ destiny.name }}
                                                     {% endfor %}
                                                 </td>
                                                 <td>
-                                                    <a href="{% url 'atualizar_excursao' pk=excursao.id %}" class="btn btn-info"> Atualizar </a>
-                                                    <a href="{% url 'deletar_excursao' pk=excursao.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                    <a href="{% url 'atualizar_excursao' pk=excursion.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_excursao' pk=excursion.id %}" class="btn btn-outline-danger"> Deletar </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

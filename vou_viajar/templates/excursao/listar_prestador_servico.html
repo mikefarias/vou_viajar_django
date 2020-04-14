@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Prestadores de Serviços</h5>
-                            {% if prestadores|length > 0 %}
+                            {% if service_providers|length > 0 %}
                                 <p class="card-text"> Lista de<code> Prestadores de Serviços </code> cadatrados. </p>
                                 <table class="table">
                                     <thead class="thead thead-dark">
@@ -29,26 +29,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for prestador in prestadores %}
+                                        {% for service_provider in service_providers %}
                                             <tr>
-                                                <td>{{ prestador.id }}</td>
-                                                <td>{{ prestador.categoria }}</td>
-                                                <td>{{ prestador.nome }}</td>
-                                                <td>{{ prestador.cnpj_cpf }}</td>
+                                                <td>{{ service_provider.id }}</td>
+                                                <td>{{ service_provider.service_provider_type }}</td>
+                                                <td>{{ service_provider.name }}</td>
+                                                <td>{{ service_provider.cnpj_cpf }}</td>
                                                 <td>
-                                                    {% if prestador.pessoa_juridica %}
+                                                    {% if service_provider.legal_person %}
                                                         Sim
                                                     {% else %}
                                                         Não
                                                     {% endif %}
                                                 </td>
-                                                <td>{{ prestador.email }}</td>
-                                                <td>{{ prestador.telefone }}</td>
-                                                <td>{{ prestador.endereco}}</td>
-                                                <td>{{ prestador.horario_funcionamento}}</td>
+                                                <td>{{ service_provider.email }}</td>
+                                                <td>{{ service_provider.cell_phone }}</td>
+                                                <td>{{ service_provider.adress}}</td>
+                                                <td>{{ service_provider.business_hours}}</td>
                                                 <td>
-                                                    <a href="{% url 'atualizar_prestador_servico' pk=prestador.id %}" class="btn btn-info"> Atualizar </a>
-                                                    <a href="{% url 'deletar_prestador_servico' pk=prestador.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                    <a href="{% url 'atualizar_prestador_servico' pk=service_provider.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_prestador_servico' pk=service_provider.id %}" class="btn btn-outline-danger"> Deletar </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}

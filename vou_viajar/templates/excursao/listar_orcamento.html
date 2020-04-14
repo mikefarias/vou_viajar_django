@@ -11,7 +11,7 @@
                     <div class="card">
                         <divd-body class="card-body">
                             <h5 class="card-title">Orçamentos</h5>
-                            {% if orcamentos|length > 0 %}
+                            {% if estimates|length > 0 %}
                                 <p class="card-text"> Lista de<code> Orçamentos </code> por Prestador de Serviço </p>
                                 <table class="table">
                                     <thead class="thead thead-dark">
@@ -29,26 +29,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for orcamento in orcamentos %}
+                                        {% for estimate in estimates %}
                                             <tr>
-                                                <td>{{ orcamento.id }}</td>
-                                                <td>{{ orcamento.excursao }}</td>
-                                                <td>{{ orcamento.tipo_prestador_servico }}</td>
-                                                <td>{{ orcamento.prestador_servico }}</td>
-                                                <td>{{ orcamento.cotacao }}</td>
-                                                <td>{{ orcamento.horario_partida }}</td>
-                                                <td>{{ orcamento.horario_chegada }}</td>
+                                                <td>{{ estimate.id }}</td>
+                                                <td>{{ estimate.excursion }}</td>
+                                                <td>{{ estimate.service_provider_type }}</td>
+                                                <td>{{ estimate.service_provider }}</td>
+                                                <td>{{ estimate.cost }}</td>
+                                                <td>{{ estimate.start_time }}</td>
+                                                <td>{{ estimate.end_time }}</td>
                                                 <td>
-                                                    {% if orcamento.selecionado %}
+                                                    {% if estimate.selected %}
                                                         Sim
                                                     {% else %}
                                                         Não
                                                     {% endif %}
                                                 </td>                 
-                                                <td>{{ orcamento.observacao }}</td>
+                                                <td>{{ estimate.details }}</td>
                                                 <td>
-                                                    <a href="{% url 'atualizar_orcamento' pk=orcamento.id %}" class="btn btn-info"> Atualizar </a>
-                                                    <a href="{% url 'deletar_orcamento' pk=orcamento.id %}" class="btn btn-outline-danger"> Deletar </a>
+                                                    <a href="{% url 'atualizar_orcamento' pk=estimate.id %}" class="btn btn-info"> Atualizar </a>
+                                                    <a href="{% url 'deletar_orcamento' pk=estimate.id %}" class="btn btn-outline-danger"> Deletar </a>
                                                 </td>
                                             </tr>
                                         {% endfor %}
