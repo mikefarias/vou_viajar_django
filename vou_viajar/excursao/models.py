@@ -118,6 +118,7 @@ class Transport(models.Model):
 
 
 class Estimate(models.Model):
+    name                    = models.CharField(max_length=50)
     excursion               = models.ForeignKey(Excursion, on_delete=models.PROTECT)
     service_provider_type   = models.ForeignKey(ServiceProviderType, on_delete=models.PROTECT)
     service_provider        = models.ForeignKey(ServiceProvider, on_delete=models.PROTECT)

@@ -103,6 +103,7 @@ class TransportForm(forms.ModelForm):
 
 
 class EstimateForm(forms.ModelForm):
+    name                    = forms.CharField(label='Nome do orçamento')
     excursion               = forms.ModelChoiceField(queryset=Excursion.objects.all(), label='Excursão')
     service_provider_type   = forms.ModelChoiceField(queryset=ServiceProviderType.objects.all(), label='Categoria Prestação de Serviço')
     service_provider        = forms.ModelChoiceField(queryset=ServiceProvider.objects.all(), label='Prestador de Serviço')
@@ -127,6 +128,7 @@ class EstimateForm(forms.ModelForm):
     class Meta:
         model = Estimate
         fields = [
+            'name',
             'excursion',
             'service_provider_type', 
             'service_provider',

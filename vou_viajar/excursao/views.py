@@ -217,9 +217,10 @@ def adicionar_prestador_servico(request):
     if request.method == 'POST':
         form = ServiceProviderForm(request.POST)
         if form.is_valid():
-            service_provider                = form.save(commit=False)
-            service_provider.acitvate       = True
-            service_provider.travel_agency  = get_agency_user(request.user)
+            service_provider                    = form.save(commit=False)
+            service_provider.acitvate           = True
+            service_provider.travel_agency      = get_agency_user(request.user)
+            service_provider.registration_user  = request.user
             service_provider.save()
             messages.success(request, 'Prestador de Serviço cadastrado com sucesso!')
             return redirect('listar_prestador_servico')
@@ -283,11 +284,12 @@ def adicionar_orcamento(request):
         form = EstimateForm(request.POST)
         if form.is_valid():
             estimate = form.save(commit=False)
-            if Estimate.objects.filter(nome=estimate.name).exists():
+            if Estimate.objects.filter(name=estimate.name).exists():
                 messages.error(request, 'Já existe um orçamento com este nome.')
             else:
-                estiamte.travel_agency  = get_agency_user(request.user)
-                estimate.activate       = True
+                estimate.activate           = True
+                estimate.registration_user  = request.user
+                estimate.travel_agency      = get_agency_user(request.user)
                 estimate.save()
                 messages.success(request, 'Orçamento cadastrado com sucesso!')
                 return redirect('listar_orcamento')
@@ -325,7 +327,7 @@ def atualizar_orcamento(request, pk):
 @login_required
 def listar_orcamento(request):
     estimates = Estimate.objects.filter(travel_agency=get_agency_user(request.user).pk)
-    return render(request, 'excursao/listar_orcamento.html', {'estiamtes': estimates})
+    return render(request, 'excursao/listar_orcamento.html', {'estimates': estimates})
 
 
 @login_required
