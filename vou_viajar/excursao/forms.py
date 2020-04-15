@@ -23,6 +23,8 @@ class ExcursionForm(forms.ModelForm):
         fields = [
             'name',
             'details',
+            'excursion_situation',
+            'excursion_type',
             'origin',
             'destiny',
             'start_time',

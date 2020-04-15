@@ -46,6 +46,7 @@ def atualizar_excursao(request, pk):
             form.save_m2m()
             return redirect('../listar')
         else:
+
             return render(request, 'excursao/atualizar_excursao.html', {'form': form, 'excursion' : excursion})
     
     elif request.method == 'GET':
@@ -64,7 +65,7 @@ def deletar_excursao(request, pk):
 
 @login_required
 def adicionar_excursao(request):
-    form = None
+    form = ExcursionForm()
     if request.method == 'POST':
         form = ExcursionForm(request.POST)
         if form.is_valid():
@@ -76,13 +77,9 @@ def adicionar_excursao(request):
             form.save_m2m()
             messages.success(request, 'Excursão cadastrada com sucesso!')
             return redirect('listar_excursao')
-    else:
-        form = ExcursionForm()
-    return render(
-        request,
-        'excursao/adicionar_excursao.html',
-        {'form': form},
-    )
+        else:
+             messages.error(request, form.erros)   
+    return render(request,'excursao/adicionar_excursao.html',{'form': form})
 
 
 @login_required
@@ -91,19 +88,19 @@ def adicionar_destino(request):
     if request.method == 'POST':
         form = DestinyForm(request.POST)
         if form.is_valid():
-            destiny                 = form.save(commit=False)
-            destiny.travel_agency   = get_agency_user(request.user)
-            destiny.activate        = True
+            destiny                     = form.save(commit=False)
+            destiny.registration_user   = request.user
+            destiny.travel_agency       = get_agency_user(request.user)
+            destiny.activate            = True
             destiny.save()
             messages.success(request, 'Destino mapeado com sucesso!')
             return redirect('listar_destino')
-    else:
-        form = DestinyForm()
-    return render(
-        request,
-        'excursao/adicionar_destino.html',
-        {'form': form},
-    )
+        else:
+            messages.error(request, form.erros)
+            return render(request, 'excursao/adicionar_destino.html',{'form': form})
+    
+    form = DestinyForm()
+    return render(request, 'excursao/adicionar_destino.html',{'form': form})
 
 
 @login_required
@@ -130,8 +127,8 @@ def atualizar_destino(request, pk):
             messages.success(request, 'Destino atualizado!')
             return redirect('listar_destino')
         else:
+            messages.error(request, form.errors)
             return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destiny': destiny})
-    
     elif request.method == 'GET':
         return render(request, 'excursao/atualizar_destino.html', {'form': form, 'destiny': destiny})
 
@@ -157,13 +154,14 @@ def adicionar_transporte(request):
     if request.method == 'POST':
         form = TransportForm(request.POST)
         if form.is_valid():
-            transport               = form.save(commit=False)
-            transport.activate      = True
-            transport.travel_agency = get_agency_user(request.user)
-            messages.success(request, 'Transporte cadastrado com sucesso!')
+            transport                   = form.save(commit=False)
+            transport.activate          = True
+            transport.travel_agency     = get_agency_user(request.user)
+            transport.registration_user = request.user
+            messages.success(request, 'Transporte cadastrado!')
             return redirect('adicionar_orcamento')
         else:
-            messages.error(request, 'Formulário contém erros!!!')    
+            messages.error(request, form.errors)    
     
     return render(request, 'excursao/adicionar_transporte.html', {'form': form})
 

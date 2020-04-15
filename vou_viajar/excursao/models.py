@@ -30,31 +30,19 @@ class ExcursionType(models.Model):
     code    = models.PositiveIntegerField()
     active  = models.NullBooleanField()
 
+    def __str__(self):
+        return self.name
 
 class ExcursionSituation(models.Model):
     name    = models.CharField(max_length=100)
     code    = models.PositiveIntegerField()
     active  = models.NullBooleanField()
 
+    def __str__(self):
+        return self.name
+
 
 class Excursion(models.Model):
-    SITUACAO_ATIVO = 1
-    SITUACAO_REALIZADA = 2
-    SITUACAO_CANCELADO = 3
-    SITUACAO_EXCLUIDO = 0
-    SITUACOES_CHOICES = (
-        (SITUACAO_EXCLUIDO, 'Excluído'),
-        (SITUACAO_ATIVO, 'Ativo'),
-        (SITUACAO_REALIZADA, 'Realizada'),
-        (SITUACAO_CANCELADO, 'Cancelado'),
-    )
-
-    TIPO_EXCURSAO = 1
-    TIPO_BATEVOLTA = 2
-    TIPOS_CHOICES = (
-        (TIPO_EXCURSAO, 'Excursão'),
-        (TIPO_BATEVOLTA, 'Bate volta'),
-    )
 
     excursion_type      = models.OneToOneField(ExcursionType, on_delete=models.CASCADE)
     excursion_situation = models.OneToOneField(ExcursionSituation, on_delete=models.CASCADE)
