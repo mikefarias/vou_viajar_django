@@ -27,7 +27,6 @@ def add_user(request):
         form_usuario = UserCreationForm(request.POST) 
         if form_usuario.is_valid():  
             user = form_usuario.save(commit=False)  
-            user.is_active = False  
             user.save()  
             current_site = get_current_site(request)  
             mail_subject = 'Ative sua conta!.'  
@@ -65,7 +64,7 @@ def activate(request, uidb64, token):
     user    = User.objects.get(id=uid)  
       
     if user is not None and account_activation_token.check_token(user, token):  
-        user.is_active = True  
+        user.is_trusty = True  
         user.save()
         messages.success(request, 'Agradecemos sua confirmação por e-mail. Agora você pode acessar sua conta')    
         return redirect('login_view')
@@ -80,8 +79,11 @@ def login_view(request):
         password = request.POST["password"]
         usuario = authenticate(request, email=email, password=password)
         if usuario is not None:
-            login(request, usuario)
-            return redirect('home')
+            if usuario.is_trusty:
+                login(request, usuario)
+                return redirect('home')
+            else:
+                messages.error(request, 'Necessário confirmar o cadastro através do link enviado por e-mail para acesso')
         else:
             messages.error(request, 'Email e/ou senha incorreto(s)!')
     else:
@@ -89,6 +91,7 @@ def login_view(request):
 
     return render(request, 'registration/login.html', {'form_login': form_login})
 
+@login_required
 def logout_view(request):
     logout(request)
     messages.info(request, 'Logout realizado com sucesso!')
@@ -230,7 +233,7 @@ def add_user_staff(request):
             
             user_staff              = form_user_staff.save(commit=False)  
             user_staff.is_staff     = True
-            user_staff.is_active    = False  
+            user_staff.is_trusty    = False  
             user_staff.save()  
             
             profile                 = form_profile.save(commit=False)
