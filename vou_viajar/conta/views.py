@@ -229,6 +229,7 @@ def add_user_staff(request):
         if form_user_staff.is_valid() and form_profile.is_valid():  
             
             user_staff              = form_user_staff.save(commit=False)  
+            user_staff.is_staff     = True
             user_staff.is_active    = False  
             user_staff.save()  
             
