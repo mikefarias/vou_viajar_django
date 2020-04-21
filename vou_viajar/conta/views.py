@@ -181,7 +181,7 @@ def add_profile(request):
             profile = form_profile.save(commit=False)
             profile.active = True
             profile.user = request.user
-            profile.agency_travel = get_agency_travel(request.user)
+            profile.travel_agency = get_travel_agency(request.user)
             profile.save()
             messages.success(request, 'Perfil cadastrado com sucesso!')
             return redirect('home')
@@ -219,6 +219,57 @@ def update_profile(request, pk):
         return render(request, 'conta/update_profile.html', {'form_profile': form_profile} )
 
 
-def get_agency_travel(user):
+@login_required
+def add_user_staff(request):  
+    
+    if request.method == 'POST':  
+        form_user_staff = UserCreationForm(request.POST) 
+        form_profile    = ProfileForm(request.POST, request.FILES)
+        
+        if form_user_staff.is_valid() and form_profile.is_valid():  
+            
+            user_staff              = form_user_staff.save(commit=False)  
+            user_staff.is_active    = False  
+            user_staff.save()  
+            
+            profile                 = form_profile.save(commit=False)
+            profile.travel_agency   = get_travel_agency(request.user)
+            profile.user            = user_staff
+            profile.active          = True
+            profile.save()
+            
+            current_site = get_current_site(request)  
+            mail_subject = 'Ative sua conta!.'  
+            message = render_to_string('registration/ativar_conta_email.html', {  
+                'user': user_staff,  
+                'domain': current_site.domain,  
+                'uid': urlsafe_base64_encode(force_bytes(user_staff.id)).decode(),  
+                'token': account_activation_token.make_token(user_staff),  
+            })  
+            to_email = form_user_staff.cleaned_data.get('email')  
+            try:
+                message = Mail(
+                    from_email= config('DEFAULT_FROM_EMAIL'),
+                    to_emails=to_email,
+                    subject=mail_subject,
+                    html_content=message)
+                sg = SendGridAPIClient(config('SENDGRID_API_KEY'))
+                response = sg.send(message)
+            except Exception as e:
+                print(e)    
+
+            messages.info(request, 'Funcionário cadastrado. O mesmo precisa ativar registro através do e-mail.')
+            return redirect('add_user_staff')  
+        else:
+            messages.error(request, form_user_staff.errors) 
+            messages.error(request, form_profile.errors)
+            return redirect('add_user_staff') 
+    else:  
+        form_user_staff = UserCreationForm()
+        form_profile = ProfileForm()
+    return render(request, 'conta/add_user_staff.html', {'form_user_staff': form_user_staff, 'form_profile': form_profile})
+
+
+def get_travel_agency(user):
     agency = TravelAgency.objects.get(owner=user)
     return agency

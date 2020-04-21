@@ -51,17 +51,17 @@ class User(AbstractBaseUser, PermissionsMixin):
         re.compile('^[\w.@+-]+$'),
         _('Enter a valid username.'),
         _('invalid'))])
-    first_name  = models.CharField(_('first name'), max_length=30)
-    last_name   = models.CharField(_('last name'), max_length=30)
+    first_name  = models.CharField(_('Nome'), max_length=30)
+    last_name   = models.CharField(_('Sobrenome'), max_length=30)
     email       = models.EmailField(_('email'), max_length=255, unique=True)
     is_staff    = models.BooleanField(_('staff status'), default=False,
-        help_text=_('Designates whether the user can log into this admin site.'))
+        help_text=_('Determina se o usuário é funcionário da agência associada no perfil'))
     is_active   = models.BooleanField(_('active'), default=True,
-        help_text=_('Designates whether this user should be treated as active. \
-    Unselect this instead of deleting accounts.'))
+        help_text=_('Determina se este usuário deve ser tratado como ativo. \
+     Marque como inativo em vez de excluir contas.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_trusty   = models.BooleanField(_('trusty'), default=False,
-        help_text=_('Designates whether this user has confirmed his account.'))
+        help_text=_('Determina se este usuário confirmou sua conta.'))
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     objects = UserManager()
@@ -118,7 +118,7 @@ class Profile(models.Model):
     phone_number        = models.CharField(max_length=11)
     whatsapp            = models.CharField(max_length=11)
     user                = models.ForeignKey(User, on_delete=models.PROTECT)
-    agency_travel       = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
+    travel_agency       = models.ForeignKey(TravelAgency, on_delete=models.PROTECT)
     created_on          = models.DateTimeField(auto_now_add=True)
     modified_on         = models.DateTimeField(auto_now_add=True)
     active              = models.BooleanField()
